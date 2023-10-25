@@ -1,0 +1,15 @@
+out
+build
+target
+.gradle
+*.idea
+*.iml
+*.ipr
+*.iws
+src/main/resources/.reloadtrigger
+.kpt-pipeline
+extras/postgres/.kpt-pipeline
+extras/mysql/.kpt-pipeline
+extras/http-client/http-client.private.env.json
+src/main/resources/truststore.p12
+src/main/resources/keystore.p12
