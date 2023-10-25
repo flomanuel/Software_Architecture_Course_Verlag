@@ -1,0 +1,88 @@
+{
+	"info": {
+		"_postman_id": "899637a1-6f39-4db1-9e29-8ca80550da74",
+		"name": "REST",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30196505"
+	},
+	"item": [
+		{
+			"name": "Suche mit ID",
+			"item": [
+				{
+					"name": "Suche vorhandener ID 00000000-0000-0000-0000-000000000004",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest_url}}/:id",
+							"host": [
+								"{{rest_url}}"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "00000000-0000-0000-0000-000000000004"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Suche nicht-vorhandener ID 00000000-0000-0000-0000-999999999999",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest_url}}/:id",
+							"host": [
+								"{{rest_url}}"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "99999999-9999-9999-9999-999999999999"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "rest_url",
+			"value": "{{base_url}}/rest",
+			"type": "string"
+		}
+	]
+}
