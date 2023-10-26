@@ -73,7 +73,7 @@ public class Buch {
      */
     @ToString.Exclude
     @NotNull
-    private com.acme.verlag.entity.Preis preis;
+    private Preis preis;
 
     /**
      * Die thematische Kategorie des Buches.
