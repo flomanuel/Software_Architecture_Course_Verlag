@@ -33,6 +33,7 @@ import java.util.Currency;
 @Getter
 @Setter
 @ToString
+@SuppressWarnings({"RequireEmptyLineBeforeBlockTagGroup"})
 public class Preis {
 
     /**

@@ -36,6 +36,7 @@ import java.time.Year;
 @Setter
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
+@SuppressWarnings({"RequireEmptyLineBeforeBlockTagGroup"})
 public class Buch {
 
     /**

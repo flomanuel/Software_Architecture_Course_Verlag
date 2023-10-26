@@ -21,9 +21,12 @@ import com.acme.verlag.entity.Verlag;
 import com.acme.verlag.repository.VerlagRepository;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -31,17 +34,9 @@ import java.util.UUID;
  */
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class VerlagReadService {
     private final VerlagRepository repo;
-
-    /**
-     * Alle Verlage suchen.
-     *
-     * @return Eine Liste aller gefundenen Verlage.
-     */
-    public Collection<Verlag> findAll() {
-        return repo.findAll();
-    }
 
     /**
      * Einen Verlag anhand seiner ID suchen.
@@ -52,5 +47,25 @@ public class VerlagReadService {
      */
     public @NonNull Verlag findById(final UUID id) {
         return repo.findById(id).orElseThrow(() -> new NotFoundException(id));
+    }
+
+    /**
+     * @param suchkriterien Die Suchkriterien
+     * @return Die gefundenen Verlage oder eine leere Liste.
+     */
+    @SuppressWarnings({"ReturnCount", "NestedIfDepth"})
+    public @NonNull Collection<Verlag> find(@NonNull final Map<String, List<String>> suchkriterien) {
+        log.debug("find: suchkriterien={}", suchkriterien);
+
+        if (suchkriterien.isEmpty()) {
+            return repo.findAll();
+        }
+
+        final var verlage = repo.find(suchkriterien);
+        if (verlage.isEmpty()) {
+            throw new NotFoundException(suchkriterien);
+        }
+        log.debug("find: {}", verlage);
+        return verlage;
     }
 }
