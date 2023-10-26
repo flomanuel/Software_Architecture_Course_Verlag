@@ -21,13 +21,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportRuntimeHints;
-import org.springframework.hateoas.config.EnableHypermediaSupport;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
 import static com.acme.verlag.Banner.TEXT;
-import static org.springframework.hateoas.config.EnableHypermediaSupport.HypermediaType.HAL;
-import static org.springframework.hateoas.support.WebStack.WEBMVC;
 
 /**
  * Klasse mit der main-Methode für die Anwendung auf Basis von Spring Boot.
@@ -39,7 +36,7 @@ import static org.springframework.hateoas.support.WebStack.WEBMVC;
 @ImportRuntimeHints(com.acme.verlag.ApplicationConfig.CertificateResourcesRegistrar.class)
 //@EnableHypermediaSupport(type = HAL, stacks = WEBMVC)
 @EnableWebSecurity
-@EnableMethodSecurity
+@EnableMethodSecurity //nur aufruf als admin
 @SuppressWarnings({"ImplicitSubclassInspection", "ClassUnconnectedToPackage"})
 public final class Application {
     private Application() {

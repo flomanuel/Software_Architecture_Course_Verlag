@@ -36,6 +36,7 @@ import static java.util.Locale.GERMANY;
 /**
  * Emulation der Datenbasis für persistente Verlage.
  */
+@SuppressWarnings({"UtilityClassCanBeEnum", "UtilityClass", "MagicNumber", "RedundantSuppression", "java:S1192"})
 final class DB {
 
     /**
@@ -47,6 +48,7 @@ final class DB {
     static {
         final var currencyGermany = Currency.getInstance(GERMANY);
         VERLAGE = Stream.of(
+            // HTTP Put
             Verlag.builder()
                 .id(UUID.fromString("00000000-0000-0000-0000-000000000001"))
                 .name("Carl Hanser Verlag")
@@ -72,6 +74,7 @@ final class DB {
                                 .build()
                             ).build())
                     .collect(Collectors.toList())).build(),
+            // HTTP DELETE
             Verlag.builder()
                 .id(UUID.fromString("00000000-0000-0000-0000-000000000002"))
                 .name("Verlagsgruppe Droemer Knaur")
@@ -96,6 +99,7 @@ final class DB {
                             ).build()
                         ).build()
                 ).collect(Collectors.toList())).build(),
+            // zur freien Verfügung
             Verlag.builder()
                 .id(UUID.fromString("00000000-0000-0000-0000-000000000003"))
                 .name("Rheinwerk Verlag GmbH")
@@ -120,6 +124,7 @@ final class DB {
                             .build()
                         ).build()
                 ).collect(Collectors.toList())).build(),
+            // HTTP Get
             Verlag.builder()
                 .id(UUID.fromString("00000000-0000-0000-0000-000000000004"))
                 .name("dtv Verlagsgesellschaft")

@@ -19,6 +19,8 @@ package com.acme.verlag.service;
 
 import lombok.Getter;
 
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -32,8 +34,20 @@ public final class NotFoundException extends RuntimeException {
      */
     private final UUID id;
 
+    /**
+     * Die übergebenen Suchkriterien.
+     */
+    private final Map<String, List<String>> suchkriterien;
+
     NotFoundException(final UUID id) {
         super(STR."Kein Verlag mit der ID \{id} gefunden.");
         this.id = id;
+        this.suchkriterien = null;
+    }
+
+    NotFoundException(final Map<String, List<String>> suchkriterien) {
+        super("Keine Verlage gefunden.");
+        this.suchkriterien = suchkriterien;
+        this.id = null;
     }
 }

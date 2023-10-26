@@ -37,6 +37,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @ToString
+@SuppressWarnings({"ClassFanOutComplexity", "RequireEmptyLineBeforeBlockTagGroup"})
 public class Verlag {
 
     /**

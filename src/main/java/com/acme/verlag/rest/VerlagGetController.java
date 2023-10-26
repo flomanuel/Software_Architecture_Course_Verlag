@@ -17,11 +17,16 @@
 
 package com.acme.verlag.rest;
 
+import com.acme.verlag.entity.Verlag;
 import com.acme.verlag.service.VerlagReadService;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -35,8 +40,9 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping("/rest")
 @RequiredArgsConstructor
-public class VerlagController {
-
+@Slf4j
+@SuppressWarnings("java:S1075")
+public class VerlagGetController {
     /**
      * Muster für eine UUID.
      */
@@ -56,17 +62,26 @@ public class VerlagController {
      * @return Gefundener Verlag.
      */
     @GetMapping(path = "{id:" + ID_PATTERN + "}", produces = APPLICATION_JSON_VALUE)
-    VerlagModel getById(@PathVariable final UUID id) {
-        return new VerlagModel(service.findById(id));
+    Verlag getById(@PathVariable final UUID id) {
+        log.debug("getById: id={}, Thread={}", id, Thread.currentThread().getName());
+        Verlag verlag = service.findById(id);
+        log.debug("getById: {}", verlag);
+        return verlag;
     }
 
     /**
      * Abfrage aller Verlage.
      *
-     * @return Alle gespeicherten Verlage als Liste.
+     * @param suchkriterien Query-Parameter als Map.
+     * @return Alle gefundenen Verlage als Liste.
      */
     @GetMapping(produces = APPLICATION_JSON_VALUE)
-    List<VerlagModel> get() {
-        return service.findAll().stream().map(VerlagModel::new).toList();
+    List<Verlag> get(
+        @RequestParam @NonNull final MultiValueMap<String, String> suchkriterien
+    ) {
+        log.debug("get: suchkriterien={}", suchkriterien);
+        final var verlage = service.find(suchkriterien).stream().toList();
+        log.debug("get: {}", verlage);
+        return verlage;
     }
 }

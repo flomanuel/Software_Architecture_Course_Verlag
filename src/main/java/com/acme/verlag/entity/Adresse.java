@@ -31,6 +31,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@SuppressWarnings({"RequireEmptyLineBeforeBlockTagGroup"})
 public class Adresse {
     /**
      * Muster für eine fünfstellige Postleitzahl mit führender Null.

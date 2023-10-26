@@ -181,7 +181,7 @@ sweeney {
     enforce(mapOf("type" to "gradle", "expect" to "[8.4,8.4]"))
     // https://www.java.com/releases
     // https://devcenter.heroku.com/articles/java-support#specifying-a-java-version
-    enforce(mapOf("type" to "jdk", "expect" to "[21,21]"))
+    enforce(mapOf("type" to "jdk", "expect" to "[21,21.0.1]"))
     validate()
 }
 
@@ -192,7 +192,7 @@ java {
     // GraalVM unterstuetzt nicht toolchain: deshalb auskommentieren sowie Kommentare bei sourceCompatibility und targetCompatibility entfernen
     toolchain {
         // einschl. sourceCompatibility und targetCompatibility
-        languageVersion = JavaLanguageVersion.of(javaVersion)
+        languageVersion = JavaLanguageVersion.of(libs.versions.javaLanguageVersion.get())
     }
     // sourceCompatibility = JavaVersion.toVersion(javaVersion)
     // targetCompatibility = sourceCompatibility
@@ -381,7 +381,7 @@ dependencies {
         //implementation("jakarta.persistence:jakarta.persistence-api:${libs.versions.jakartaPersistence.get()}")
         //implementation("org.hibernate.orm:hibernate-core:${libs.versions.hibernate.get()}")
         //runtimeOnly("org.postgresql:postgresql:${libs.versions.postgres.get()}")
-        //runtimeOnly("com.mysql:mysql-connector-j:${libs.versions.mysql.get()}")
+        runtimeOnly("com.mysql:mysql-connector-j:${libs.versions.mysql.get()}")
         runtimeOnly("com.oracle.database.jdbc:ojdbc11:${libs.versions.oracle.get()}")
         //runtimeOnly("com.h2database:h2:${libs.versions.h2.get()}")
         //if (useFlyway) {
@@ -394,7 +394,7 @@ dependencies {
         //implementation("org.apache.tomcat.embed:tomcat-embed-core:${libs.versions.tomcat.get()}")
         //implementation("org.apache.tomcat.embed:tomcat-embed-el:${libs.versions.tomcat.get()}")
         //implementation("com.graphql-java:java-dataloader:${libs.versions.graphqlJavaDataloader.get()}")
-        //implementation("com.graphql-java:graphql-java:${libs.versions.graphqlJava.get()}")
+        implementation("com.graphql-java:graphql-java:${libs.versions.graphqlJava.get()}")
         //implementation("org.eclipse.angus:jakarta.mail:${libs.versions.angusMail.get()}")
         //implementation("org.yaml:snakeyaml:${libs.versions.snakeyaml.get()}")
         //implementation("org.slf4j:slf4j-api:${libs.versions.slf4j.get()}")
@@ -519,7 +519,7 @@ tasks.named("bootBuildImage", org.springframework.boot.gradle.tasks.bundling.Boo
         // https://github.com/paketo-buildpacks/bellsoft-liberica/blob/main/buildpack.toml: Umgebungsvariable und Ubuntu Jammy
         // https://releases.ubuntu.com: Jammy = 22.04
         // https://github.com/paketo-buildpacks/bellsoft-liberica/releases
-        "BP_JVM_VERSION" to javaVersion, // default: 17
+        "BP_JVM_VERSION" to libs.versions.javaVersionBuildpacks.get(), // default: 17
         // BPL = Build Packs Launch
         "BPL_JVM_THREAD_COUNT" to "20", // default: 250 (reactive: 50)
         // https://docs.spring.io/spring-boot/docs/current/gradle-plugin/reference/htmlsingle/#build-image.examples.runtime-jvm-configuration
