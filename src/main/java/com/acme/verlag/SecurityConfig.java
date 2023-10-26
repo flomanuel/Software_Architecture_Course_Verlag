@@ -48,10 +48,14 @@ interface SecurityConfig {
     // https://github.com/spring-projects/spring-security-samples/blob/main/servlet/java-configuration/...
     // ...authentication/preauth/src/main/java/example/SecurityConfiguration.java
     @Bean // factory methoden/pattern
-    default SecurityFilterChain securityFilterChain(final HttpSecurity http) throws Exception { // um mit mehrfachvererbung umgehen zu können.  2 interfaces zwei methoden mit dem selben namen: sagen welche methode ich durchreiche. default = default-implementierung. immer erstmal aus interfaces ableiten. beispiel: klasse DevConfig.java -> auftrennen und wieder zusammensetzen
+    default SecurityFilterChain securityFilterChain(final HttpSecurity http) throws Exception { // um mit
+        // mehrfachvererbung umgehen zu können. 2 interfaces zwei methoden mit demselben namen:
+        // sagen welche methode ich durchreiche. default = default-implementierung. immer erstmal aus interfaces
+        // ableiten. beispiel: klasse DevConfig.java -> auftrennen und wieder zusammensetzen
         return http
             // TODO Regeln fuer Zugriffsschutz definieren: Pfade und Rollen
-            .authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll()) // alle rollen/requests von außen durchlassen
+            .authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll()) // alle rollen/requests von
+            // außen durchlassen
             .httpBasic(withDefaults())
             .formLogin(AbstractHttpConfigurer::disable)
             .csrf(AbstractHttpConfigurer::disable)

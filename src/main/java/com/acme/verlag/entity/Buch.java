@@ -42,7 +42,7 @@ public class Buch {
     /**
      * Muster für eine gültige ISBN-13.
      */
-    public static final String ISBN13_PATTERN = "[0-9]{13}";
+    public static final String ISBN13_PATTERN = "\\d{13}";
 
     /**
      * Der Haupttitel des Buches.
