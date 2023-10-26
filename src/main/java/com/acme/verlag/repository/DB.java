@@ -62,7 +62,7 @@ final class DB {
                 .buecher(Stream.of(
                         Buch.builder()
                             .haupttitel("UML 2 glasklar")
-                            .nebentitel("Praxiswissen für die UML-MOdellierung")
+                            .nebentitel("Praxiswissen für die UML-Modellierung")
                             .isbn13("9783446430570")
                             .erscheinungsjahr(Year.parse("2012"))
                             .auflage(4)
