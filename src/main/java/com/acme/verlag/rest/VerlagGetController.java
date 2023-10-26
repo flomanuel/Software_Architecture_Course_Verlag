@@ -32,17 +32,23 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.UUID;
 
+import static com.acme.verlag.rest.VerlagGetController.REST_PATH;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 /**
  * Controller-Klasse, bildet die REST-Schnittstelle ab.
  */
 @RestController
-@RequestMapping("/rest")
+@RequestMapping(REST_PATH)
 @RequiredArgsConstructor
 @Slf4j
 @SuppressWarnings("java:S1075")
 public class VerlagGetController {
+    /**
+     * Basispfad für die REST-Schnittstelle.
+     */
+    public static final String REST_PATH = "/rest";
+
     /**
      * Muster für eine UUID.
      */
