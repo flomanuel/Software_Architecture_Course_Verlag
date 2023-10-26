@@ -42,7 +42,7 @@ public class Buch {
     /**
      * Muster für eine gültige ISBN-13.
      */
-    public static final String ISBN13_PATTERN = "[0-9]{13}";
+    public static final String ISBN13_PATTERN = "\\d{13}";
 
     /**
      * Der Haupttitel des Buches.
@@ -73,12 +73,12 @@ public class Buch {
      */
     @ToString.Exclude
     @NotNull
-    private com.acme.verlag.entity.Preis preis;
+    private Preis preis;
 
     /**
      * Die thematische Kategorie des Buches.
      */
-    private com.acme.verlag.entity.KategorieType kategorie;
+    private KategorieType kategorie;
 
     /**
      * Die ISBN-13 des Buches.
