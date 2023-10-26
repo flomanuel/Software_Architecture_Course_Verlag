@@ -78,7 +78,7 @@ public class Buch {
     /**
      * Die thematische Kategorie des Buches.
      */
-    private com.acme.verlag.entity.KategorieType kategorie;
+    private KategorieType kategorie;
 
     /**
      * Die ISBN-13 des Buches.
