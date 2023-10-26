@@ -60,7 +60,6 @@ public class VerlagGetController {
      */
     private final VerlagReadService service;
 
-
     /**
      * Suche anhand der Verlags-ID als Pfad-Parameter.
      *
