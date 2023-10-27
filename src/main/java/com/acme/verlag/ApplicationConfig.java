@@ -25,7 +25,7 @@ import org.springframework.aot.hint.RuntimeHintsRegistrar;
  * @author <a href="mailto:Juergen.Zimmermann@h-ka.de">Jürgen Zimmermann</a>
  */
 final class ApplicationConfig implements SecurityConfig {
-    ApplicationConfig() { //package privtate; spring kann objekt erzeugen
+    ApplicationConfig() { //package private; spring kann objekt erzeugen
     }
 
     // https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#native-image.advanced.custom-hints
