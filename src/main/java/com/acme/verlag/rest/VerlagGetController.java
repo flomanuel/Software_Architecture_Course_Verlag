@@ -65,7 +65,7 @@ public class VerlagGetController {
      * Suche anhand der Verlags-ID als Pfad-Parameter.
      *
      * @param id Die ID des zu suchenden Verlags.
-     * @return Der Gefundene Verlag.
+     * @return Der gefundene Verlag.
      */
     @GetMapping(path = "{id:" + ID_PATTERN + "}", produces = APPLICATION_JSON_VALUE)
     Verlag getById(@PathVariable final UUID id) {
