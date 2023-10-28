@@ -47,7 +47,7 @@ public class VerlagReadService {
      */
     public @NonNull Verlag findById(final UUID id) {
         log.debug("findById: id={}", id);
-        Verlag verlag = repo.findById(id).orElseThrow(() -> new NotFoundException(id));
+        final var verlag = repo.findById(id).orElseThrow(() -> new NotFoundException(id));
         log.debug("findById: {}", verlag);
         return verlag;
     }
