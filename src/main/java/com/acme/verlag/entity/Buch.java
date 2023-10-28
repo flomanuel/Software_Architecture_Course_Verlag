@@ -17,7 +17,9 @@
 
 package com.acme.verlag.entity;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Pattern;
 import lombok.Builder;
@@ -36,7 +38,7 @@ import java.time.Year;
 @Setter
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
-@SuppressWarnings({"RequireEmptyLineBeforeBlockTagGroup"})
+@SuppressWarnings({"RequireEmptyLineBeforeBlockTagGroup", "ClassFanOutComplexity"})
 public class Buch {
 
     /**
@@ -44,10 +46,12 @@ public class Buch {
      */
     public static final String ISBN13_PATTERN = "\\d{13}";
 
+    public static final long MIN_SEITENZAHL = 1L;
+
     /**
      * Der Haupttitel des Buches.
      */
-    @NotNull
+    @NotBlank
     private String haupttitel;
 
     /**
@@ -71,7 +75,6 @@ public class Buch {
     /**
      * Der Preis des Buches.
      */
-    @ToString.Exclude
     @NotNull
     private Preis preis;
 
@@ -91,5 +94,6 @@ public class Buch {
     /**
      * Die Seitenzahl des Buches.
      */
+    @Min(MIN_SEITENZAHL)
     private int seitenzahl;
 }

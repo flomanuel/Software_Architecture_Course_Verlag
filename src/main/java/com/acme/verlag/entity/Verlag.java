@@ -19,6 +19,7 @@ package com.acme.verlag.entity;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -36,6 +37,7 @@ import java.util.UUID;
 @Builder
 @Getter
 @Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 @ToString
 @SuppressWarnings({"ClassFanOutComplexity", "RequireEmptyLineBeforeBlockTagGroup"})
 public class Verlag {
@@ -50,7 +52,7 @@ public class Verlag {
     /**
      * Der Name des Verlags.
      */
-    @NotNull
+    @NotBlank
     private String name;
 
     /**

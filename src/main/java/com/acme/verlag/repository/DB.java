@@ -40,7 +40,7 @@ import static java.util.Locale.GERMANY;
 final class DB {
 
     /**
-     * Liste den Verlagen zur Emulation der DB.
+     * Liste der Verlage zur Emulation der DB.
      */
     @SuppressWarnings("StaticCollection")
     static final List<Verlag> VERLAGE;
@@ -150,5 +150,8 @@ final class DB {
                         ).build()
                 ).collect(Collectors.toList())).build()
         ).collect(Collectors.toList());
+    }
+
+    private DB() {
     }
 }
