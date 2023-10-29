@@ -17,10 +17,6 @@
 
 package com.acme.verlag.entity;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.PastOrPresent;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -41,39 +37,31 @@ import java.util.UUID;
 @ToString
 @SuppressWarnings({"ClassFanOutComplexity", "RequireEmptyLineBeforeBlockTagGroup"})
 public class Verlag {
-
     /**
      * Die UUID des Verlags.
      */
-    @NotNull
     @EqualsAndHashCode.Include
     private UUID id;
 
     /**
      * Der Name des Verlags.
      */
-    @NotBlank
     private String name;
 
     /**
      * Das Gründungsjahr des Verlags.
      */
-    @NotNull
-    @PastOrPresent
     private Year gruendungsjahr;
 
     /**
      * Die Adresse des Hauptsitzes des Verlags.
      */
-    @NotNull
     @ToString.Exclude
-    @Valid
     private Adresse hauptsitz;
 
     /**
      * Die in diesem Verlag erschienen Bücher.
      */
-    @NotNull
     @ToString.Exclude
-    private List<@Valid Buch> buecher;
+    private List<Buch> buecher;
 }

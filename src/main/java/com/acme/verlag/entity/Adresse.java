@@ -17,9 +17,6 @@
 
 package com.acme.verlag.entity;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,26 +32,17 @@ import lombok.ToString;
 @SuppressWarnings({"RequireEmptyLineBeforeBlockTagGroup"})
 public class Adresse {
     /**
-     * Konstante für den regulären Ausdruck einer Postleitzahl als 5-stellige Zahl mit führender Null.
-     */
-    public static final String PLZ_PATTERN = "[0-9]{5}";
-
-    /**
      * Postleitzahl der Adresse.
      */
-    @NotNull
-    @Pattern(regexp = PLZ_PATTERN)
     private String plz;
 
     /**
      * Ortsname der Adresse.
      */
-    @NotBlank
     private String ort;
 
     /**
      * Ländername der Adresse.
      */
-    @NotBlank
     private String land;
 }

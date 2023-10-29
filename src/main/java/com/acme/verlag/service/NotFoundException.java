@@ -28,7 +28,6 @@ import java.util.UUID;
  */
 @Getter
 public final class NotFoundException extends RuntimeException {
-
     /**
      * Die fehlende ID.
      */

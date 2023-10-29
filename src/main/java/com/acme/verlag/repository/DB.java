@@ -38,7 +38,6 @@ import static java.util.Locale.GERMANY;
  */
 @SuppressWarnings({"UtilityClassCanBeEnum", "UtilityClass", "MagicNumber", "RedundantSuppression", "java:S1192"})
 final class DB {
-
     /**
      * Liste der Verlage zur Emulation der DB.
      */
