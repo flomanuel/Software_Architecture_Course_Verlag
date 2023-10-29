@@ -17,7 +17,6 @@
 
 package com.acme.verlag.entity;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,16 +34,13 @@ import java.util.Currency;
 @ToString
 @SuppressWarnings({"RequireEmptyLineBeforeBlockTagGroup"})
 public class Preis {
-
     /**
      * Der Bruttobetrag des Preises.
      */
-    @NotNull
     private BigDecimal bruttobetrag;
 
     /**
      * Die Währung des Preises.
      */
-    @NotNull
     private Currency waehrung;
 }

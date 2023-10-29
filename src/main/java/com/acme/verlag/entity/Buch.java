@@ -17,11 +17,6 @@
 
 package com.acme.verlag.entity;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.PastOrPresent;
-import jakarta.validation.constraints.Pattern;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -40,31 +35,19 @@ import java.time.Year;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 @SuppressWarnings({"RequireEmptyLineBeforeBlockTagGroup", "ClassFanOutComplexity"})
 public class Buch {
-
-    /**
-     * Muster für eine gültige ISBN-13.
-     */
-    public static final String ISBN13_PATTERN = "\\d{13}";
-
-    public static final long MIN_SEITENZAHL = 1L;
-
     /**
      * Der Haupttitel des Buches.
      */
-    @NotBlank
     private String haupttitel;
 
     /**
      * Der Nebentitel des Buches.
      */
-    @NotNull
     private String nebentitel;
 
     /**
      * Das Erscheinungsjahr des Buches.
      */
-    @NotNull
-    @PastOrPresent
     private Year erscheinungsjahr;
 
     /**
@@ -75,7 +58,6 @@ public class Buch {
     /**
      * Der Preis des Buches.
      */
-    @NotNull
     private Preis preis;
 
     /**
@@ -86,14 +68,11 @@ public class Buch {
     /**
      * Die ISBN-13 des Buches.
      */
-    @NotNull
     @EqualsAndHashCode.Include
-    @Pattern(regexp = ISBN13_PATTERN)
     private String isbn13;
 
     /**
      * Die Seitenzahl des Buches.
      */
-    @Min(MIN_SEITENZAHL)
     private int seitenzahl;
 }
