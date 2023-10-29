@@ -46,10 +46,16 @@ public class VerlagReadService {
      * @throws NotFoundException Falls kein Verlag gefunden wurde.
      */
     public @NonNull Verlag findById(final UUID id) {
-        return repo.findById(id).orElseThrow(() -> new NotFoundException(id));
+        log.debug("findById: id={}", id);
+        final var verlag = repo.findById(id).orElseThrow(() -> new NotFoundException(id));
+        log.debug("findById: {}", verlag);
+        return verlag;
     }
 
     /**
+     * Verlage anhand von Suchkriterien als Collection suchen.
+     * Gibt es keine Suchkriterien, werden alle Verlage gesucht.
+     *
      * @param suchkriterien Die Suchkriterien
      * @return Die gefundenen Verlage oder eine leere Liste.
      */

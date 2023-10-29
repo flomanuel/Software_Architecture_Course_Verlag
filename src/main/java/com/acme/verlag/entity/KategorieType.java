@@ -34,6 +34,12 @@ public enum KategorieType {
         this.value = value;
     }
 
+    /**
+     * Einen enum-Wert als String mit dem internen Wert ausgeben.
+     * Dieser Wert wird durch Jackson in einem JSON-Datensatz verwendet.
+     *
+     * @return Interner Wert.
+     */
     @JsonValue
     @Override
     public String toString() {

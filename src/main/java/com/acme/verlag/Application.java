@@ -36,7 +36,7 @@ import static com.acme.verlag.Banner.TEXT;
 @ImportRuntimeHints(com.acme.verlag.ApplicationConfig.CertificateResourcesRegistrar.class)
 //@EnableHypermediaSupport(type = HAL, stacks = WEBMVC)
 @EnableWebSecurity
-@EnableMethodSecurity //nur aufruf als admin
+@EnableMethodSecurity //nur Aufruf als admin
 @SuppressWarnings({"ImplicitSubclassInspection", "ClassUnconnectedToPackage"})
 public final class Application {
     private Application() {

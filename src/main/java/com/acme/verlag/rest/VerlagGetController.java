@@ -36,7 +36,8 @@ import static com.acme.verlag.rest.VerlagGetController.REST_PATH;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 /**
- * Controller-Klasse, bildet die REST-Schnittstelle ab.
+ * Controller-Klasse, bildet die REST-Schnittstelle.
+ * Die HTTP-Methoden, Pfade und MIME-Typen werden auf die Methoden der Klasse abgebildet.
  */
 @RestController
 @RequestMapping(REST_PATH)
@@ -56,28 +57,28 @@ public class VerlagGetController {
         "[\\dA-Fa-f]{8}-[\\dA-Fa-f]{4}-[\\dA-Fa-f]{4}-[\\dA-Fa-f]{4}-[\\dA-Fa-f]{12}";
 
     /**
-     * Service für den Verlag.
+     * Service für Verlage.
      */
     private final VerlagReadService service;
 
     /**
      * Suche anhand der Verlags-ID als Pfad-Parameter.
      *
-     * @param id ID des zu suchenden Verlags.
-     * @return Gefundener Verlag.
+     * @param id Die ID des zu suchenden Verlags.
+     * @return Der gefundene Verlag.
      */
     @GetMapping(path = "{id:" + ID_PATTERN + "}", produces = APPLICATION_JSON_VALUE)
     Verlag getById(@PathVariable final UUID id) {
         log.debug("getById: id={}, Thread={}", id, Thread.currentThread().getName());
-        Verlag verlag = service.findById(id);
+        final var verlag = service.findById(id);
         log.debug("getById: {}", verlag);
         return verlag;
     }
 
     /**
-     * Abfrage aller Verlage.
+     * Suche mit diversen Suchkriterien als Query-Parameter.
      *
-     * @param suchkriterien Query-Parameter als Map.
+     * @param suchkriterien Die Query-Parameter als Map.
      * @return Alle gefundenen Verlage als Liste.
      */
     @GetMapping(produces = APPLICATION_JSON_VALUE)

@@ -44,22 +44,24 @@ public class VerlagRepository {
     /**
      * Alle Verlage als Collection ermitteln.
      *
-     * @return Alle Verlage
+     * @return Alle Verlage.
      */
     public @NonNull Collection<Verlag> findAll() {
         return VERLAGE;
     }
 
     /**
+     * Einen Verlag anhand seiner ID suchen.
+     *
      * @param id Die ID des gesuchten Verlages.
      * @return Optional mit dem gefundenen Verlag oder ein leeres Optional.
      */
     public Optional<Verlag> findById(final UUID id) {
         log.debug("findById: id={}", id);
-        Optional<Verlag> result = VERLAGE.stream()
+        final var result = VERLAGE.stream()
             .filter(verlag -> Objects.equals(verlag.getId(), id))
             .findFirst();
-        log.debug("findById: id={}", result);
+        log.debug("findById: {}", result);
         return result;
     }
 

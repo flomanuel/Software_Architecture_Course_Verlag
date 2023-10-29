@@ -13,7 +13,13 @@
 					"name": "Suche vorhandener ID 00000000-0000-0000-0000-000000000004",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{rest_url}}/:id",
 							"host": [
@@ -33,10 +39,16 @@
 					"response": []
 				},
 				{
-					"name": "Suche nicht-vorhandener ID 00000000-0000-0000-0000-999999999999",
+					"name": "Suche nicht-vorhandener ID 99999999-9999-9999-9999-999999999999",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{rest_url}}/:id",
 							"host": [
