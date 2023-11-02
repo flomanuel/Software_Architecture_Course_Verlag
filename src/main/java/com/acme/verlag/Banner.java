@@ -42,13 +42,13 @@ import org.springframework.security.core.SpringSecurityCoreVersion;
 @SuppressFBWarnings("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE")
 final class Banner {
 
-    // http://patorjk.com/software/taag/#p=display&f=Slant&t=verlag2023.0.0
+    // http://patorjk.com/software/taag/#p=display&f=Slant&t=verlag2023.10.0
     private static final String FIGLET = """
-                          __           ___   ____ ___  _____  ____   ____
-         _   _____  _____/ /___ _____ |__ \\ / __ \\__ \\|__  / / __ \\ / __
-        | | / / _ \\/ ___/ / __ `/ __ `/_/ // / / /_/ / /_ < / / / // / / /
-        | |/ /  __/ /  / / /_/ / /_/ / __// /_/ / __/___/ // /_/ // /_/ /
-        |___/\\___/_/  /_/\\__,_/\\__, /____/\\____/____/____(_)____(_)____/
+                          __           ___   ____ ___  _____  _______   ____
+         _   _____  _____/ /___ _____ |__ \\ / __ \\__ \\|__  / <  / __ \\ / __
+        | | / / _ \\/ ___/ / __ `/ __ `/_/ // / / /_/ / /_ <  / / / / // / / /
+        | |/ /  __/ /  / / /_/ / /_/ / __// /_/ / __/___/ / / / /_/ // /_/ /
+        |___/\\___/_/  /_/\\__,_/\\__, /____/\\____/____/____(_)_/\\____(_)____/
                               /____/
         """;
     private static final String JAVA = STR."\{Runtime.version()} - \{System.getProperty("java.vendor")}";

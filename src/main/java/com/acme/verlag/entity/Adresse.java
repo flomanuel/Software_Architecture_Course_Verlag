@@ -31,6 +31,7 @@ import lombok.ToString;
 @ToString
 @SuppressWarnings({"RequireEmptyLineBeforeBlockTagGroup"})
 public class Adresse {
+
     /**
      * Postleitzahl der Adresse.
      */

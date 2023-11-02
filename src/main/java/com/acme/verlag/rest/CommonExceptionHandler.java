@@ -31,6 +31,7 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 @ControllerAdvice
 @Slf4j
 class CommonExceptionHandler {
+
     @ExceptionHandler
     @ResponseStatus(NOT_FOUND)
     void onNotFound(final NotFoundException ex) {

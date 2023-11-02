@@ -42,6 +42,7 @@ import static com.acme.verlag.repository.DB.VERLAGE;
 @Slf4j
 @SuppressWarnings("PublicConstructor")
 public class VerlagRepository {
+
     /**
      * Alle Verlage als Collection ermitteln.
      *
@@ -59,10 +60,13 @@ public class VerlagRepository {
      */
     public Optional<Verlag> findById(final UUID id) {
         log.debug("findById: id={}", id);
+
         final var result = VERLAGE.stream()
             .filter(verlag -> Objects.equals(verlag.getId(), id))
             .findFirst();
+
         log.debug("findById: {}", result);
+
         return result;
     }
 
@@ -75,9 +79,11 @@ public class VerlagRepository {
     @SuppressWarnings({"ReturnCount"})
     public @NonNull Collection<Verlag> find(final Map<String, ? extends List<String>> suchkriterien) {
         log.debug("find: suchkriterien={}", suchkriterien);
+
         if (suchkriterien.isEmpty()) {
             return findAll();
         }
+
         for (final var entry : suchkriterien.entrySet()) {
             switch (entry.getKey()) {
                 case "name" -> {
@@ -92,6 +98,7 @@ public class VerlagRepository {
                 }
             }
         }
+
         return emptyList();
     }
 
@@ -107,6 +114,7 @@ public class VerlagRepository {
             .filter(verlag -> verlag.getName().contains(name))
             .toList();
         log.debug("findByName: verlage={}", verlage);
+
         return verlage;
     }
 
@@ -122,6 +130,7 @@ public class VerlagRepository {
             .filter(verlag -> verlag.getGruendungsjahr().compareTo(Year.parse(gruendungsjahr)) == 0)
             .toList();
         log.debug("findByGruendungsjahr: verlage={}", verlage);
+
         return verlage;
     }
 }

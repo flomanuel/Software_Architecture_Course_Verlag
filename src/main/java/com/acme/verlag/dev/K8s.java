@@ -30,6 +30,7 @@ import static org.springframework.boot.cloud.CloudPlatform.KUBERNETES;
  * @author <a href="mailto:Juergen.Zimmermann@h-ka.de">Jürgen Zimmermann</a>
  */
 interface K8s {
+
     /**
      * Protokoll-Ausgabe, wenn Kubernetes erkannt wird.
      *

@@ -35,6 +35,7 @@ import java.time.Year;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 @SuppressWarnings({"RequireEmptyLineBeforeBlockTagGroup", "ClassFanOutComplexity"})
 public class Buch {
+
     /**
      * Der Haupttitel des Buches.
      */

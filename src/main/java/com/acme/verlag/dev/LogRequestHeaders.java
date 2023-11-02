@@ -25,6 +25,7 @@ import org.springframework.web.filter.CommonsRequestLoggingFilter;
  * @author <a href="mailto:Juergen.Zimmermann@h-ka.de">Jürgen Zimmermann</a>
  */
 interface LogRequestHeaders {
+
     /**
      * WebFilter zur Protokollierung des Request-Headers.
      *
