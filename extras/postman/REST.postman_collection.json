@@ -76,7 +76,13 @@
 					"name": "Vorhandener Name",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{rest_url}}?name=dtv Verlagsgesellschaft",
 							"host": [
@@ -96,7 +102,13 @@
 					"name": "Nicht vorhandener Name",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{rest_url}}?name=XYZABCXYZ",
 							"host": [
@@ -116,7 +128,13 @@
 					"name": "Vorhandenes Gruendungsjahr",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{rest_url}}?gruendungsjahr=1960",
 							"host": [
@@ -136,7 +154,13 @@
 					"name": "Nicht vorhandenes Gruendungsjahr",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{rest_url}}?gruendungsjahr=2500",
 							"host": [
