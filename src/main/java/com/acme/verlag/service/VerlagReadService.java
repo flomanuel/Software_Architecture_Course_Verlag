@@ -49,7 +49,6 @@ public class VerlagReadService {
         log.debug("findById: id={}", id);
         final var verlag = repo.findById(id).orElseThrow(() -> new NotFoundException(id));
         log.debug("findById: {}", verlag);
-
         return verlag;
     }
 
@@ -73,7 +72,6 @@ public class VerlagReadService {
             throw new NotFoundException(suchkriterien);
         }
         log.debug("find: {}", verlage);
-
         return verlage;
     }
 }

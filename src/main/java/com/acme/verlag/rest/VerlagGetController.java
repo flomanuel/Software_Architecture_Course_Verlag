@@ -72,7 +72,6 @@ public class VerlagGetController {
         log.debug("getById: id={}, Thread={}", id, Thread.currentThread().getName());
         final var verlag = service.findById(id);
         log.debug("getById: {}", verlag);
-
         return verlag;
     }
 
@@ -89,7 +88,6 @@ public class VerlagGetController {
         log.debug("get: suchkriterien={}", suchkriterien);
         final var verlage = service.find(suchkriterien).stream().toList();
         log.debug("get: {}", verlage);
-
         return verlage;
     }
 }

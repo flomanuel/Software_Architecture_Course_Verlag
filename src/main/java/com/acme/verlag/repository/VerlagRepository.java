@@ -65,7 +65,6 @@ public class VerlagRepository {
             .findFirst();
 
         log.debug("findById: {}", result);
-
         return result;
     }
 
@@ -97,7 +96,6 @@ public class VerlagRepository {
                 }
             }
         }
-
         return emptyList();
     }
 
@@ -113,7 +111,6 @@ public class VerlagRepository {
             .filter(verlag -> verlag.getName().contains(name))
             .toList();
         log.debug("findByName: verlage={}", verlage);
-
         return verlage;
     }
 
@@ -129,7 +126,6 @@ public class VerlagRepository {
             .filter(verlag -> verlag.getGruendungsjahr().compareTo(Year.parse(gruendungsjahr)) == 0)
             .toList();
         log.debug("findByGruendungsjahr: verlage={}", verlage);
-
         return verlage;
     }
 }
