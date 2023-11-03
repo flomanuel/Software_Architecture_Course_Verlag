@@ -18,7 +18,6 @@
 package com.acme.verlag.repository;
 
 import com.acme.verlag.entity.Verlag;
-import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
@@ -48,7 +47,7 @@ public class VerlagRepository {
      *
      * @return Alle Verlage.
      */
-    public @NonNull Collection<Verlag> findAll() {
+    public Collection<Verlag> findAll() {
         return VERLAGE;
     }
 
@@ -77,7 +76,7 @@ public class VerlagRepository {
      * @return Die gefundenen Verlage oder eine leere Collection.
      */
     @SuppressWarnings({"ReturnCount"})
-    public @NonNull Collection<Verlag> find(final Map<String, ? extends List<String>> suchkriterien) {
+    public Collection<Verlag> find(final Map<String, ? extends List<String>> suchkriterien) {
         log.debug("find: suchkriterien={}", suchkriterien);
 
         if (suchkriterien.isEmpty()) {
@@ -108,7 +107,7 @@ public class VerlagRepository {
      * @param name Der (Teil-) Verlagsname der gesuchten Verlage.
      * @return Die gefundenen Verlage oder eine leere Collection.
      */
-    private @NonNull Collection<Verlag> findByName(final CharSequence name) {
+    private Collection<Verlag> findByName(final CharSequence name) {
         log.debug("findByName: Name={}", name);
         final var verlage = VERLAGE.stream()
             .filter(verlag -> verlag.getName().contains(name))
@@ -124,7 +123,7 @@ public class VerlagRepository {
      * @param gruendungsjahr Das Gründungsjahr der gesuchten Verlage.
      * @return Die gefundenen Verlage oder eine leere Collection.
      */
-    private @NonNull Collection<Verlag> findByGruendungsjahr(final CharSequence gruendungsjahr) {
+    private Collection<Verlag> findByGruendungsjahr(final CharSequence gruendungsjahr) {
         log.debug("findByGruendungsjahr: Gruendungsjahr={}", gruendungsjahr);
         final var verlage = VERLAGE.stream()
             .filter(verlag -> verlag.getGruendungsjahr().compareTo(Year.parse(gruendungsjahr)) == 0)

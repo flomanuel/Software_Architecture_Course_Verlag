@@ -19,7 +19,6 @@ package com.acme.verlag.service;
 
 import com.acme.verlag.entity.Verlag;
 import com.acme.verlag.repository.VerlagRepository;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -46,7 +45,7 @@ public class VerlagReadService {
      * @return Der gefundene Verlag.
      * @throws NotFoundException Falls kein Verlag gefunden wurde.
      */
-    public @NonNull Verlag findById(final UUID id) {
+    public Verlag findById(final UUID id) {
         log.debug("findById: id={}", id);
         final var verlag = repo.findById(id).orElseThrow(() -> new NotFoundException(id));
         log.debug("findById: {}", verlag);
@@ -62,7 +61,7 @@ public class VerlagReadService {
      * @return Die gefundenen Verlage oder eine leere Liste.
      */
     @SuppressWarnings({"ReturnCount", "NestedIfDepth"})
-    public @NonNull Collection<Verlag> find(@NonNull final Map<String, List<String>> suchkriterien) {
+    public Collection<Verlag> find(final Map<String, List<String>> suchkriterien) {
         log.debug("find: suchkriterien={}", suchkriterien);
 
         if (suchkriterien.isEmpty()) {
