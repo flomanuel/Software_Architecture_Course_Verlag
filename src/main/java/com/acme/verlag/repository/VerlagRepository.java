@@ -23,15 +23,13 @@ import org.springframework.stereotype.Repository;
 
 import java.time.Year;
 import java.util.Collection;
-
-import static java.util.Collections.emptyList;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
+import static java.util.Collections.emptyList;
 import static com.acme.verlag.repository.DB.VERLAGE;
 
 /**
