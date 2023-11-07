@@ -47,7 +47,6 @@ public class Verlag {
      * Die UUID des Verlags.
      */
     @EqualsAndHashCode.Include
-    @NotNull
     private UUID id;
 
     /**

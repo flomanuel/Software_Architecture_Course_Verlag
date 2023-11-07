@@ -36,6 +36,19 @@ import lombok.ToString;
 @SuppressWarnings({"RequireEmptyLineBeforeBlockTagGroup"})
 public class Adresse {
 
+    /**
+     * Konstante für die maximale Länge eines Ortsnamen.
+     */
+    public static final int MAX_LENGTH_ORTSNAME = 100;
+
+    /**
+     * Konstante für die maximale Länge eines Ländernamens.
+     */
+    public static final int MAX_LENGTH_LAENDERNAME = 100;
+
+    /**
+     * Konstante für den regulären Ausdruck einer Postleitzahl als 5-stellige Zahl mit führender Null.
+     */
     public static final String PLZ_PATTERN = "^[0-9]{5}$";
 
     /**
@@ -49,13 +62,13 @@ public class Adresse {
      * Ortsname der Adresse.
      */
     @NotBlank
-    @Size(min = 1, max = 100)
+    @Size(min = 1, max = MAX_LENGTH_ORTSNAME)
     private String ort;
 
     /**
      * Ländername der Adresse.
      */
     @NotBlank
-    @Size(min = 1, max = 100)
+    @Size(min = 1, max = MAX_LENGTH_LAENDERNAME)
     private String land;
 }

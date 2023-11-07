@@ -36,7 +36,7 @@ import java.util.UUID;
 @Slf4j
 public class VerlagReadService {
 
-    private final VerlagRepository repo;
+    private final VerlagRepository repository;
 
     /**
      * Einen Verlag anhand seiner ID suchen.
@@ -47,7 +47,7 @@ public class VerlagReadService {
      */
     public Verlag findById(final UUID id) {
         log.debug("findById: id={}", id);
-        final var verlag = repo.findById(id).orElseThrow(() -> new NotFoundException(id));
+        final var verlag = repository.findById(id).orElseThrow(() -> new NotFoundException(id));
         log.debug("findById: {}", verlag);
         return verlag;
     }
@@ -64,10 +64,10 @@ public class VerlagReadService {
         log.debug("find: suchkriterien={}", suchkriterien);
 
         if (suchkriterien.isEmpty()) {
-            return repo.findAll();
+            return repository.findAll();
         }
 
-        final var verlage = repo.find(suchkriterien);
+        final var verlage = repository.find(suchkriterien);
         if (verlage.isEmpty()) {
             throw new NotFoundException(suchkriterien);
         }

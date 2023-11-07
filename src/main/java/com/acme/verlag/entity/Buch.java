@@ -29,7 +29,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.validator.constraints.ISBN;
-
 import java.time.Year;
 
 /**
@@ -44,10 +43,27 @@ import java.time.Year;
 public class Buch {
 
     /**
+     * Konstante für die maximale Länge eines Haupttitels.
+     */
+    public static final int MAX_LENGTH_HAUPTTITEL = 100;
+
+    /**
+     * Konstante für die maximale Länge eines Nebentitels.
+     */
+    public static final int MAX_LENGTH_NEBENTITEL = 100;
+
+    /**
+     * Die ISBN-13 des Buches.
+     */
+    @EqualsAndHashCode.Include
+    @ISBN
+    private String isbn13;
+
+    /**
      * Der Haupttitel des Buches.
      */
     @NotBlank
-    @Size(min = 1, max = 100)
+    @Size(min = 1, max = MAX_LENGTH_HAUPTTITEL)
     private String haupttitel;
 
     /**
@@ -56,7 +72,7 @@ public class Buch {
      * {@code @NotNull} anstelle von {@code @NotBlank}, da es auch Bücher ohne tatsächlichen Nebentitel geben kann.
      */
     @NotNull
-    @Size(max = 100)
+    @Size(max = MAX_LENGTH_NEBENTITEL)
     private String nebentitel;
 
     /**
@@ -84,14 +100,6 @@ public class Buch {
      */
     @NotNull
     private KategorieType kategorie;
-
-    /**
-     * Die ISBN-13 des Buches.
-     */
-    @EqualsAndHashCode.Include
-    @ISBN
-    @NotNull
-    private String isbn13;
 
     /**
      * Die Seitenzahl des Buches.
