@@ -19,13 +19,6 @@ package com.acme.verlag.rest;
 
 import com.acme.verlag.entity.KategorieType;
 import com.acme.verlag.entity.Preis;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
-import lombok.EqualsAndHashCode;
-import org.hibernate.validator.constraints.ISBN;
 
 import java.time.Year;
 
@@ -39,4 +32,5 @@ record BuchDTO(
     String isbn13,
     int seitenzahl
 ) {
+
 }

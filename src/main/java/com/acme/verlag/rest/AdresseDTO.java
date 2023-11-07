@@ -17,9 +17,6 @@
 
 package com.acme.verlag.rest;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-
 record AdresseDTO(
     String plz,
     String ort,

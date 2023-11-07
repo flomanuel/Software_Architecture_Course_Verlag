@@ -22,7 +22,6 @@ import com.acme.verlag.repository.VerlagRepository;
 import jakarta.validation.Validator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.boot.model.source.spi.VersionAttributeSource;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;

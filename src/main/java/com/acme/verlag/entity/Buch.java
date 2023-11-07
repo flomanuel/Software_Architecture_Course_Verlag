@@ -29,6 +29,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.validator.constraints.ISBN;
+
 import java.time.Year;
 
 /**
@@ -68,8 +69,7 @@ public class Buch {
 
     /**
      * Der Nebentitel des Buches.
-     * <p>
-     * {@code @NotNull} anstelle von {@code @NotBlank}, da es auch Bücher ohne tatsächlichen Nebentitel geben kann.
+     * <p>{@code @NotNull} anstelle von {@code @NotBlank}, da es auch Bücher ohne tatsächlichen Nebentitel geben kann.
      */
     @NotNull
     @Size(max = MAX_LENGTH_NEBENTITEL)

@@ -18,14 +18,9 @@
 
 package com.acme.verlag.repository;
 
-import static com.acme.verlag.repository.DB.VERLAGE;
-
 import com.acme.verlag.entity.Verlag;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
-
-import static java.util.Collections.emptyList;
 
 import java.util.Collection;
 import java.util.List;
@@ -37,6 +32,8 @@ import java.util.UUID;
 import java.time.Year;
 import java.util.stream.IntStream;
 
+import static com.acme.verlag.repository.DB.VERLAGE;
+import static java.util.Collections.emptyList;
 
 /**
  * Repository für den Datenbankzugriff bei Verlagen.

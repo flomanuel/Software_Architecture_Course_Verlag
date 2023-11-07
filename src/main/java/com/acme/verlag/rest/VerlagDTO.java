@@ -29,4 +29,5 @@ record VerlagDTO(
     Adresse hauptsitz,
     List<Buch> buecher
 ) {
+
 }
