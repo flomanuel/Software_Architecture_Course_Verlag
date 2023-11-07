@@ -68,6 +68,115 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Suche mit Suchkriterien",
+			"item": [
+				{
+					"name": "Vorhandener Name",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{rest_url}}?name=dtv Verlagsgesellschaft",
+							"host": [
+								"{{rest_url}}"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "dtv Verlagsgesellschaft"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Nicht vorhandener Name",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{rest_url}}?name=XYZABCXYZ",
+							"host": [
+								"{{rest_url}}"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "XYZABCXYZ"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Vorhandenes Gruendungsjahr",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{rest_url}}?gruendungsjahr=1960",
+							"host": [
+								"{{rest_url}}"
+							],
+							"query": [
+								{
+									"key": "gruendungsjahr",
+									"value": "1960"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Nicht vorhandenes Gruendungsjahr",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{rest_url}}?gruendungsjahr=2500",
+							"host": [
+								"{{rest_url}}"
+							],
+							"query": [
+								{
+									"key": "gruendungsjahr",
+									"value": "2500"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [

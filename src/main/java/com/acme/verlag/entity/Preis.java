@@ -34,6 +34,7 @@ import java.util.Currency;
 @ToString
 @SuppressWarnings({"RequireEmptyLineBeforeBlockTagGroup"})
 public class Preis {
+
     /**
      * Der Bruttobetrag des Preises.
      */

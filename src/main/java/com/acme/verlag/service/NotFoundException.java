@@ -28,6 +28,7 @@ import java.util.UUID;
  */
 @Getter
 public final class NotFoundException extends RuntimeException {
+
     /**
      * Die fehlende ID.
      */
@@ -40,12 +41,14 @@ public final class NotFoundException extends RuntimeException {
 
     NotFoundException(final UUID id) {
         super(STR."Kein Verlag mit der ID \{id} gefunden.");
+
         this.id = id;
         this.suchkriterien = null;
     }
 
     NotFoundException(final Map<String, List<String>> suchkriterien) {
         super("Keine Verlage gefunden.");
+
         this.suchkriterien = suchkriterien;
         this.id = null;
     }

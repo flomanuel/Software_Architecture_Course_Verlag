@@ -19,7 +19,6 @@ package com.acme.verlag.rest;
 
 import com.acme.verlag.entity.Verlag;
 import com.acme.verlag.service.VerlagReadService;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.MultiValueMap;
@@ -45,6 +44,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Slf4j
 @SuppressWarnings("java:S1075")
 public class VerlagGetController {
+
     /**
      * Basispfad für die REST-Schnittstelle.
      */
@@ -54,7 +54,7 @@ public class VerlagGetController {
      * Muster für eine UUID.
      */
     public static final String ID_PATTERN =
-        "[\\dA-Fa-f]{8}-[\\dA-Fa-f]{4}-[\\dA-Fa-f]{4}-[\\dA-Fa-f]{4}-[\\dA-Fa-f]{12}";
+        "[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}";
 
     /**
      * Service für Verlage.
@@ -83,7 +83,7 @@ public class VerlagGetController {
      */
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     List<Verlag> get(
-        @RequestParam @NonNull final MultiValueMap<String, String> suchkriterien
+        @RequestParam final MultiValueMap<String, String> suchkriterien
     ) {
         log.debug("get: suchkriterien={}", suchkriterien);
         final var verlage = service.find(suchkriterien).stream().toList();

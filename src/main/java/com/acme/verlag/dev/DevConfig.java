@@ -29,6 +29,7 @@ import static com.acme.verlag.dev.DevConfig.DEV;
 @Profile(DEV)
 @SuppressWarnings({"ClassNamePrefixedWithPackageName", "HideUtilityClassConstructor"})
 public class DevConfig implements LogRequestHeaders, K8s {
+
     /**
      * Konstante für das Spring-Profile "dev".
      */
