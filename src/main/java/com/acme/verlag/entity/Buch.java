@@ -52,8 +52,8 @@ public class Buch {
 
     /**
      * Der Nebentitel des Buches.
-     *
-     * @NotNull anstelle von @NotBlank, da es auch Bücher ohne tatsächlichen Nebentitel geben kann.
+     * <p>
+     * {@code @NotNull} anstelle von {@code @NotBlank}, da es auch Bücher ohne tatsächlichen Nebentitel geben kann.
      */
     @NotNull
     @Size(max = 100)
