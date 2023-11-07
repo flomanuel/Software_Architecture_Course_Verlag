@@ -17,11 +17,18 @@
 
 package com.acme.verlag.entity;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.validator.constraints.ISBN;
 
 import java.time.Year;
 
@@ -39,41 +46,56 @@ public class Buch {
     /**
      * Der Haupttitel des Buches.
      */
+    @NotBlank
+    @Size(min = 1, max = 100)
     private String haupttitel;
 
     /**
      * Der Nebentitel des Buches.
+     *
+     * @NotNull anstelle von @NotBlank, da es auch Bücher ohne tatsächlichen Nebentitel geben kann.
      */
+    @NotNull
+    @Size(max = 100)
     private String nebentitel;
 
     /**
      * Das Erscheinungsjahr des Buches.
      */
+    @PastOrPresent
+    @NotNull
     private Year erscheinungsjahr;
 
     /**
      * Die Auflage des Buches.
      */
+    @Positive
     private int auflage;
 
     /**
      * Der Preis des Buches.
      */
+    @NotNull
+    @Valid
     private Preis preis;
 
     /**
      * Die thematische Kategorie des Buches.
      */
+    @NotNull
     private KategorieType kategorie;
 
     /**
      * Die ISBN-13 des Buches.
      */
     @EqualsAndHashCode.Include
+    @ISBN
+    @NotNull
     private String isbn13;
 
     /**
      * Die Seitenzahl des Buches.
      */
+    @Positive
     private int seitenzahl;
 }

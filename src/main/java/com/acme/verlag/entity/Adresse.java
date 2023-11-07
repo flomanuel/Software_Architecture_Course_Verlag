@@ -17,6 +17,10 @@
 
 package com.acme.verlag.entity;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,18 +36,26 @@ import lombok.ToString;
 @SuppressWarnings({"RequireEmptyLineBeforeBlockTagGroup"})
 public class Adresse {
 
+    public static final String PLZ_PATTERN = "^[0-9]{5}$";
+
     /**
      * Postleitzahl der Adresse.
      */
+    @NotNull
+    @Pattern(regexp = PLZ_PATTERN)
     private String plz;
 
     /**
      * Ortsname der Adresse.
      */
+    @NotBlank
+    @Size(min = 1, max = 100)
     private String ort;
 
     /**
      * Ländername der Adresse.
      */
+    @NotBlank
+    @Size(min = 1, max = 100)
     private String land;
 }
