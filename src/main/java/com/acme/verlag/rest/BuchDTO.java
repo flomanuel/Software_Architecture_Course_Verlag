@@ -18,7 +18,6 @@
 package com.acme.verlag.rest;
 
 import com.acme.verlag.entity.KategorieType;
-import com.acme.verlag.entity.Preis;
 
 import java.time.Year;
 
