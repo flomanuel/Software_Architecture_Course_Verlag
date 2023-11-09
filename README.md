@@ -9,4 +9,5 @@ Project for my software architecture course.
 - TO-DO: bei sowas wie "... eines Ortsnamen*s*" das Genitiv-s herausnehmen!
 - TO-DO: Kommentare und so überall rein.
 - TO-DO: alles sauber machen; Styleguide einhalten.
-- TO-DO: TO-DOS bearbeiten
+- TO-DO: TO-DOS im quellcode bearbeiten
+- TO-DO: uri helper *NICHT* verwenden. 
