@@ -16,6 +16,6 @@
  */
 
 /**
- * Microservice "kunde".
+ * Microservice "verlag".
  */
 package com.acme.verlag;
