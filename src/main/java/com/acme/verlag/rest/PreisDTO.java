@@ -15,29 +15,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.acme.verlag.service;
+package com.acme.verlag.rest;
 
-import com.acme.verlag.entity.Verlag;
-import jakarta.validation.ConstraintViolation;
-import lombok.Getter;
-
-import java.util.Collection;
+import java.math.BigDecimal;
+import java.util.Currency;
 
 /**
- * Exception, falls es mindestens ein verletztes Constraint gibt.
+ * ValueObject für das Neuanlegen und Ändern eines Buches.
+ *
+ * @param bruttobetrag Der Bruttobetrag des Buchpreises.
+ * @param waehrung Die Währung des Buchpreises.
  */
-@Getter
-public class ConstraintViolationsException extends RuntimeException {
+record PreisDTO(
+    BigDecimal bruttobetrag,
+    Currency waehrung
+) {
 
-    /**
-     * Die verletzten Constraints.
-     */
-    private final transient Collection<ConstraintViolation<Verlag>> violations;
-
-    ConstraintViolationsException(
-        final Collection<ConstraintViolation<Verlag>> violations
-    ) {
-        super("Constraints sind verletzt.");
-        this.violations = violations;
-    }
 }

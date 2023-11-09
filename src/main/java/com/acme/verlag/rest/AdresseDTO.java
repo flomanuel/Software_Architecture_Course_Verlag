@@ -17,9 +17,17 @@
 
 package com.acme.verlag.rest;
 
+/**
+ * ValueObject für das Neuanlegen und Ändern eines Verlags.
+ *
+ * @param plz  Postleitzahl
+ * @param ort  Ort
+ * @param land Land
+ */
 record AdresseDTO(
     String plz,
     String ort,
     String land
 ) {
+
 }

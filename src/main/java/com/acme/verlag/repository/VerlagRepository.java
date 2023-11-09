@@ -15,7 +15,6 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 package com.acme.verlag.repository;
 
 import com.acme.verlag.entity.Verlag;
@@ -60,11 +59,9 @@ public class VerlagRepository {
      */
     public Optional<Verlag> findById(final UUID id) {
         log.debug("findById: id={}", id);
-
         final var result = VERLAGE.stream()
             .filter(verlag -> Objects.equals(verlag.getId(), id))
             .findFirst();
-
         log.debug("findById: {}", result);
         return result;
     }
@@ -78,11 +75,9 @@ public class VerlagRepository {
     @SuppressWarnings({"ReturnCount"})
     public Collection<Verlag> find(final Map<String, ? extends List<String>> suchkriterien) {
         log.debug("find: suchkriterien={}", suchkriterien);
-
         if (suchkriterien.isEmpty()) {
             return findAll();
         }
-
         for (final var entry : suchkriterien.entrySet()) {
             switch (entry.getKey()) {
                 case "name" -> {

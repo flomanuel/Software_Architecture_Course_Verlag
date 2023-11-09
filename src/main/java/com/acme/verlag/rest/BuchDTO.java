@@ -22,6 +22,18 @@ import com.acme.verlag.entity.Preis;
 
 import java.time.Year;
 
+/**
+ * ValueObject für das Neuanlegen und Ändern eines Buches.
+ *
+ * @param haupttitel       Der Haupttitel eins Buches.
+ * @param nebentitel       Der Nebentitel eines Buches.
+ * @param erscheinungsjahr Das Erscheinungsjahr eines Buches.
+ * @param auflage          Die Auflage eines Buches.
+ * @param preis            Der Preis eines Buches.
+ * @param kategorie        Die Kategorie eines Buches.
+ * @param isbn13           Die ISBN13 eines Buches.
+ * @param seitenzahl       Die Seitenzahl eines Buches.
+ */
 record BuchDTO(
     String haupttitel,
     String nebentitel,

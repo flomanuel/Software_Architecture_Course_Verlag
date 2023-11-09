@@ -50,24 +50,30 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
 public class VerlagWriteController {
 
     private static final String PROBLEM_PATH = "/problem/";
-    private final AbstractVerlagMapperDecorator mapper;
-    private final UriHelper uriHelper;
+    private final VerlagMapper mapper;
 
     /**
      * Service für Verlage.
      */
     private final VerlagWriteService service;
 
+    /**
+     * Einen neuen Verlag-Datensatz anlegen.
+     *
+     * @param verlagDTO Das Verlagsobjekt aus dem eingegangenen Request-Body.
+     * @param request   Das Request-Objekt, um Location im Response-Header zu erstellen.
+     * @return Response mit Statuscode 201 einschließlich Location-Header oder Statuscode 422, falls mindestens ein
+     * Constraint verletzt ist oder Statuscode 400, falls syntaktische Fehler im Request-Body vorliegen.
+     */
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
     ResponseEntity<Void> post(
         @RequestBody final VerlagDTO verlagDTO,
         final HttpServletRequest request
     ) {
         log.debug("post: {}", verlagDTO);
-
         final var verlagInput = mapper.toVerlag(verlagDTO);
         final var verlag = service.create(verlagInput);
-        final var baseUri = uriHelper.getBaseUri(request).toString();
+        final var baseUri = request.getRequestURL();
         final var location = URI.create(STR."\{baseUri}/\{verlag.getId()}");
         return created(location).build();
     }
@@ -94,34 +100,23 @@ public class VerlagWriteController {
         final HttpServletRequest request
     ) {
         log.debug("onConstraintViolations: {}", ex.getMessage());
-
         final var verlagViolations = ex.getViolations().stream()
             .map(violation -> STR."\{violation.getPropertyPath()}: " +
                 STR."\{violation.getConstraintDescriptor().getAnnotation().annotationType().getSimpleName()} " +
                 violation.getMessage())
             .toList();
-
         log.trace("onConstraintViolations: {}", verlagViolations);
-
         final String detail;
         if (verlagViolations.isEmpty()) {
             detail = "N/A";
         } else {
-            // [und] aus dem String der Liste entfernen
+            // Entferne "[" und "]" aus dem String.
             final var violationsStr = verlagViolations.toString();
-            /*
-             * todo:    das alles für "detail" und darüber wirklich drinnen lassen???
-             *          Ist ja glaube ich bean und hatten wir noch nicht.
-             */
             detail = violationsStr.substring(1, violationsStr.length() - 2);
         }
-
         final var problemDetail = ProblemDetail.forStatusAndDetail(UNPROCESSABLE_ENTITY, detail);
         problemDetail.setType(URI.create(STR."\{PROBLEM_PATH}\{ProblemType.CONSTRAINTS.getValue()}"));
         problemDetail.setInstance(URI.create(request.getRequestURL().toString()));
-
         return problemDetail;
     }
-
-    //todo: gucken dass ich alle exceptions abfange
 }

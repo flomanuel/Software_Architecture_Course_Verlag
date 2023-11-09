@@ -74,7 +74,7 @@ public class Verlag {
      * Die in diesem Verlag erschienen Bücher.
      */
     @ToString.Exclude
-    @UniqueElements
     @Valid
+    @UniqueElements
     private List<Buch> buecher;
 }

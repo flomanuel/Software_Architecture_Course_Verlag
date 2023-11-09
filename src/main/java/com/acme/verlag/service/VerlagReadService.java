@@ -62,11 +62,9 @@ public class VerlagReadService {
     @SuppressWarnings({"ReturnCount", "NestedIfDepth"})
     public Collection<Verlag> find(final Map<String, List<String>> suchkriterien) {
         log.debug("find: suchkriterien={}", suchkriterien);
-
         if (suchkriterien.isEmpty()) {
             return repository.findAll();
         }
-
         final var verlage = repository.find(suchkriterien);
         if (verlage.isEmpty()) {
             throw new NotFoundException(suchkriterien);

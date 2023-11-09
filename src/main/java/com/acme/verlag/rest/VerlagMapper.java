@@ -19,8 +19,8 @@ package com.acme.verlag.rest;
 
 import com.acme.verlag.entity.Adresse;
 import com.acme.verlag.entity.Buch;
+import com.acme.verlag.entity.Preis;
 import com.acme.verlag.entity.Verlag;
-import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.NullValueMappingStrategy;
@@ -30,7 +30,6 @@ import org.mapstruct.NullValueMappingStrategy;
  * Siehe build\generated\sources\annotationProcessor\java\main\...\VerlagMapperImpl.java.
  */
 @Mapper(componentModel = "spring", nullValueIterableMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT)
-@DecoratedWith(AbstractVerlagMapperDecorator.class)
 interface VerlagMapper {
 
     /**
@@ -43,14 +42,6 @@ interface VerlagMapper {
     Verlag toVerlag(VerlagDTO dto);
 
     /**
-     * Ein DTO-Objekt von AdresseDTO in ein Objekt für Adresse konvertieren.
-     *
-     * @param dto DTO-Objekt für AdresseDTO ohne ID.
-     * @return Konvertiertes Adresse-Objekt mit null als ID.
-     */
-    Adresse toAdresse(AdresseDTO dto);
-
-    /**
      * Ein DTO-Objekt von BuchDTO in ein Objekt für Buch konvertieren.
      *
      * @param dto DTO-Objekt für BuchDTO ohne ID.
@@ -58,4 +49,21 @@ interface VerlagMapper {
      */
     @Mapping(target = "isbn13", ignore = true)
     Buch toBuch(BuchDTO dto);
+
+    /**
+     * Ein DTO-Objekt von AdresseDTO in ein Objekt für Adresse konvertieren.
+     *
+     * @param dto DTO-Objekt für AdresseDTO.
+     * @return Konvertiertes Adresse-Objekt.
+     */
+    Adresse toAdresse(AdresseDTO dto);
+
+
+    /**
+     * Ein DTO-Objekt von PreisDTO in ein Objekt für Preis konvertieren.
+     *
+     * @param dto DTO-Objekt für PreisDTO
+     * @return Konvertiertes Preis-Objekt.
+     */
+    Preis toPreis(PreisDTO dto);
 }

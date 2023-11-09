@@ -61,14 +61,14 @@ public class Adresse {
     /**
      * Ortsname der Adresse.
      */
-    @NotBlank
     @Size(min = 1, max = MAX_LENGTH_ORTSNAME)
+    @NotBlank
     private String ort;
 
     /**
      * Ländername der Adresse.
      */
-    @NotBlank
     @Size(min = 1, max = MAX_LENGTH_LAENDERNAME)
+    @NotBlank
     private String land;
 }

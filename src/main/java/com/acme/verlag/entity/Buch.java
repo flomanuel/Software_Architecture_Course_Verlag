@@ -63,16 +63,15 @@ public class Buch {
     /**
      * Der Haupttitel des Buches.
      */
-    @NotBlank
     @Size(min = 1, max = MAX_LENGTH_HAUPTTITEL)
+    @NotBlank
     private String haupttitel;
 
     /**
      * Der Nebentitel des Buches.
-     * <p>{@code @NotNull} anstelle von {@code @NotBlank}, da es auch Bücher ohne tatsächlichen Nebentitel geben kann.
      */
-    @NotNull
     @Size(max = MAX_LENGTH_NEBENTITEL)
+    @NotNull
     private String nebentitel;
 
     /**
@@ -91,8 +90,8 @@ public class Buch {
     /**
      * Der Preis des Buches.
      */
-    @NotNull
     @Valid
+    @NotNull
     private Preis preis;
 
     /**

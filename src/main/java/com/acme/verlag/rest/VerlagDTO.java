@@ -23,6 +23,14 @@ import com.acme.verlag.entity.Buch;
 import java.time.Year;
 import java.util.List;
 
+/**
+ * ValueObject für das Neuanlegen und Ändern eines Verlags.
+ *
+ * @param name           Der Name des Verlags.
+ * @param gruendungsjahr Das Gründungsjahr des Verlags.
+ * @param hauptsitz      Der Hauptsitz des Verlags.
+ * @param buecher        Die Bücher, die in einem Verlag erschienen sind.
+ */
 record VerlagDTO(
     String name,
     Year gruendungsjahr,

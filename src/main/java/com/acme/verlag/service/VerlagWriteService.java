@@ -40,7 +40,7 @@ public class VerlagWriteService {
     /**
      * Einen neuen Verlag anlegen.
      *
-     * @param verlag Das Objekt ver neu anzulegenden Verlags. // todo: mit Genitiv-s?
+     * @param verlag Das Objekt des neu anzulegenden Verlags.
      * @return Der neu angelegte Verlag mit generierter ID.
      * @throws ConstraintViolationsException Falls mindestens ein Constraint verletzt ist.
      */
@@ -72,12 +72,10 @@ public class VerlagWriteService {
             log.debug("update: violations={}", violations);
             throw new ConstraintViolationsException(violations);
         }
-
         final var verlagDBOptional = repository.findById(id);
         if (verlagDBOptional.isEmpty()) {
             throw new NotFoundException(id);
         }
-
         verlag.setId(id);
         repository.update(verlag);
     }
