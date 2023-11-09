@@ -11,3 +11,4 @@ Project for my software architecture course.
 - TO-DO: alles sauber machen; Styleguide einhalten.
 - TO-DO: TO-DOS im quellcode bearbeiten
 - TO-DO: uri helper *NICHT* verwenden. 
+- TO-DO: validator auch im anderen service, nicht dem zum writen, einbauen.
