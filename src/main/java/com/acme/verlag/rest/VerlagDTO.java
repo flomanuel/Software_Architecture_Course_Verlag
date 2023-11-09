@@ -34,8 +34,8 @@ import java.util.List;
 record VerlagDTO(
     String name,
     Year gruendungsjahr,
-    Adresse hauptsitz,
-    List<Buch> buecher
+    AdresseDTO hauptsitz,
+    List<BuchDTO> buecher
 ) {
 
 }

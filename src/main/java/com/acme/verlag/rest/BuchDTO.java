@@ -39,7 +39,7 @@ record BuchDTO(
     String nebentitel,
     Year erscheinungsjahr,
     int auflage,
-    Preis preis,
+    PreisDTO preis,
     KategorieType kategorie,
     String isbn13,
     int seitenzahl
