@@ -17,9 +17,6 @@
 
 package com.acme.verlag.rest;
 
-import com.acme.verlag.entity.Adresse;
-import com.acme.verlag.entity.Buch;
-
 import java.time.Year;
 import java.util.List;
 

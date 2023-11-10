@@ -17,7 +17,6 @@
 
 package com.acme.verlag.rest;
 
-
 import com.acme.verlag.service.ConstraintViolationsException;
 import com.acme.verlag.service.VerlagWriteService;
 import jakarta.servlet.http.HttpServletRequest;

@@ -17,6 +17,7 @@
 package com.acme.verlag;
 
 import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -26,6 +27,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+
 import static com.acme.verlag.security.Rolle.ACTUATOR;
 import static com.acme.verlag.security.Rolle.ADMIN;
 import static com.acme.verlag.security.Rolle.KUNDE;
@@ -38,6 +40,7 @@ import static org.springframework.security.crypto.factory.PasswordEncoderFactori
  * @author <a href="mailto:Juergen.Zimmermann@h-ka.de">Jürgen Zimmermann</a>
  */
 interface SecurityConfig {
+
     /**
      * Bean-Definition, um den Zugriffsschutz an der REST-Schnittstelle zu konfigurieren.
      *
@@ -53,7 +56,6 @@ interface SecurityConfig {
         // sagen welche methode ich durchreiche. default = default-implementierung. immer erstmal aus interfaces
         // ableiten. beispiel: klasse DevConfig.java -> auftrennen und wieder zusammensetzen
         return http
-            // TODO Regeln fuer Zugriffsschutz definieren: Pfade und Rollen
             .authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll()) // alle rollen/requests von
             // außen durchlassen
             .httpBasic(withDefaults())

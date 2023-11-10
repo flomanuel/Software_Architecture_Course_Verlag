@@ -49,7 +49,7 @@ public class Adresse {
     /**
      * Konstante für den regulären Ausdruck einer Postleitzahl als 5-stellige Zahl mit führender Null.
      */
-    public static final String PLZ_PATTERN = "^[0-9]{5}$";
+    public static final String PLZ_PATTERN = "^\\d{5}$";
 
     /**
      * Postleitzahl der Adresse.
