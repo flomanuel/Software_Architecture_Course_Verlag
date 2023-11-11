@@ -46,6 +46,7 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
 @RequiredArgsConstructor
 @RequestMapping(REST_PATH)
 @Slf4j
+@SuppressWarnings({"ClassFanOutComplexity", "java:S1075"})
 public class VerlagWriteController {
 
     private static final String PROBLEM_PATH = "/problem/";
