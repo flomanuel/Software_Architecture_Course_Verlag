@@ -46,12 +46,17 @@ public class Buch {
     /**
      * Konstante für die maximale Länge eines Haupttitels.
      */
-    public static final int MAX_LENGTH_HAUPTTITEL = 100;
+    public static final int SIZE_MAX_HAUPTTITEL = 100;
+
+    /**
+     * Konstante für die minimale Länge eines Haupttitels.
+     */
+    public static final int SIZE_MIN_HAUPTTITEL = 1;
 
     /**
      * Konstante für die maximale Länge eines Nebentitels.
      */
-    public static final int MAX_LENGTH_NEBENTITEL = 100;
+    public static final int SIZE_MAX_NEBENTITEL = 100;
 
     /**
      * Die ISBN-13 des Buches.
@@ -63,14 +68,14 @@ public class Buch {
     /**
      * Der Haupttitel des Buches.
      */
-    @Size(min = 1, max = MAX_LENGTH_HAUPTTITEL)
+    @Size(min = SIZE_MIN_HAUPTTITEL, max = SIZE_MAX_HAUPTTITEL)
     @NotBlank
     private String haupttitel;
 
     /**
      * Der Nebentitel des Buches.
      */
-    @Size(max = MAX_LENGTH_NEBENTITEL)
+    @Size(max = SIZE_MAX_NEBENTITEL)
     @NotNull
     private String nebentitel;
 

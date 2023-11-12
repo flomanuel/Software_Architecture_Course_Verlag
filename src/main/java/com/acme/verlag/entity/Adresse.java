@@ -39,12 +39,22 @@ public class Adresse {
     /**
      * Konstante für die maximale Länge eines Ortsnamen.
      */
-    public static final int MAX_LENGTH_ORTSNAME = 100;
+    public static final int SIZE_MAX_ORTSNAME = 100;
+
+    /**
+     * Konstante für die minimale Länge eines Ortsnamen.
+     */
+    public static final int SIZE_MIN_ORTSNAME = 1;
 
     /**
      * Konstante für die maximale Länge eines Ländernamens.
      */
-    public static final int MAX_LENGTH_LAENDERNAME = 100;
+    public static final int SIZE_MAX_LAENDERNAME = 100;
+
+    /**
+     * Konstante für die minimale Länge eines Ländernamens.
+     */
+    public static final int SIZE_MIN_LAENDERNAME = 1;
 
     /**
      * Konstante für den regulären Ausdruck einer Postleitzahl als 5-stellige Zahl mit führender Null.
@@ -61,14 +71,14 @@ public class Adresse {
     /**
      * Ortsname der Adresse.
      */
-    @Size(min = 1, max = MAX_LENGTH_ORTSNAME)
+    @Size(min = SIZE_MIN_ORTSNAME, max = SIZE_MAX_ORTSNAME)
     @NotBlank
     private String ort;
 
     /**
      * Ländername der Adresse.
      */
-    @Size(min = 1, max = MAX_LENGTH_LAENDERNAME)
+    @Size(min = SIZE_MIN_LAENDERNAME, max = SIZE_MAX_LAENDERNAME)
     @NotBlank
     private String land;
 }

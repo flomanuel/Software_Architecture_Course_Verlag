@@ -38,9 +38,14 @@ import java.util.Currency;
 public class Preis {
 
     /**
+     * Konstante für die minimale Größe eines Bruttobetrags.
+     */
+    public static final String DECIMAL_MIN_BRUTTOBETRAG = "0.0";
+
+    /**
      * Der Bruttobetrag des Preises.
      */
-    @DecimalMin("0.0")
+    @DecimalMin(DECIMAL_MIN_BRUTTOBETRAG)
     @NotNull
     private BigDecimal bruttobetrag;
 
