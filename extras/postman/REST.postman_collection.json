@@ -196,7 +196,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Springer Fachmedien Wiesbaden GmbH\",\r\n    \"gruendungsjahr\": \"2010\",\r\n    \"hauptsitz\": {\r\n        \"plz\": \"65189\",\r\n        \"ort\": \"Wiesbaden\",\r\n        \"land\": \"Deutschland\"\r\n    },\r\n    \"buecher\": [\r\n        {\r\n            \"isbn13\": \"9783658270018\",\r\n            \"haupttitel\": \"Kosten- und Leistungsrechnung\",\r\n            \"nebentitel\": \"Ein Überblick mit Fragen, Beispielen, Übungen und Lösungen\",\r\n            \"erscheinungsjahr\": \"2019\",\r\n            \"auflage\": 1,\r\n            \"preis\": {\r\n                \"bruttobetrag\": 39.99,\r\n                \"waehrung\": \"EUR\"\r\n            },\r\n            \"kategorie\": \"S\",\r\n            \"seitenzahl\": 190\r\n        }\r\n    ]\r\n}"
+							"raw": "{\r\n    \"name\": \"Springer Fachmedien Wiesbaden GmbH\",\r\n    \"gruendungsjahr\": \"2010\",\r\n    \"hauptsitz\": {\r\n        \"plz\": \"65189\",\r\n        \"ort\": \"Wiesbaden\",\r\n        \"land\": \"Deutschland\"\r\n    },\r\n    \"buecher\": [\r\n        {\r\n            \"id\": \"99000000-0000-0000-0000-000000000000\",\r\n            \"isbn13\": \"9783658270018\",\r\n            \"haupttitel\": \"Kosten- und Leistungsrechnung\",\r\n            \"nebentitel\": \"Ein Überblick mit Fragen, Beispielen, Übungen und Lösungen\",\r\n            \"erscheinungsjahr\": \"2019\",\r\n            \"auflage\": 1,\r\n            \"preis\": {\r\n                \"bruttobetrag\": 39.99,\r\n                \"waehrung\": \"EUR\"\r\n            },\r\n            \"kategorie\": \"S\",\r\n            \"seitenzahl\": 190\r\n        }\r\n    ]\r\n}"
 						},
 						"url": {
 							"raw": "{{rest_url}}",
@@ -220,7 +220,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"\",\r\n    \"gruendungsjahr\": \"2100\",\r\n    \"hauptsitz\": {\r\n        \"plz\": \"6518\",\r\n        \"ort\": \"IchBinEinVielZuLangerOrtsname_IchBinEinVielZuLangerOrtsname_IchBinEinVielZuLangerOrtsname_IchBinEinVielZuLangerOrtsname\",\r\n        \"land\": \"Deutschland\"\r\n    },\r\n    \"buecher\": [\r\n        {\r\n            \"isbn13\": \"IchBinKeineISBN\",\r\n            \"haupttitel\": \"Kosten- und Leistungsrechnung\",\r\n            \"nebentitel\": \"Ein Überblick mit Fragen, Beispielen, Übungen und Lösungen\",\r\n            \"erscheinungsjahr\": \"2019\",\r\n            \"auflage\": 1,\r\n            \"preis\": {\r\n                \"bruttobetrag\": 39.99,\r\n                \"waehrung\": \"EUR\"\r\n            },\r\n            \"kategorie\": \"S\",\r\n            \"seitenzahl\": -10\r\n        }\r\n    ]\r\n}"
+							"raw": "{\r\n    \"name\": \"\",\r\n    \"gruendungsjahr\": \"2100\",\r\n    \"hauptsitz\": {\r\n        \"plz\": \"6518\",\r\n        \"ort\": \"IchBinEinVielZuLangerOrtsname_IchBinEinVielZuLangerOrtsname_IchBinEinVielZuLangerOrtsname_IchBinEinVielZuLangerOrtsname\",\r\n        \"land\": \"Deutschland\"\r\n    },\r\n    \"buecher\": [\r\n        {\r\n            \"id\": \"99000000-0000-0000-0000-000000000000\",\r\n            \"isbn13\": \"IchBinKeineISBN\",\r\n            \"haupttitel\": \"Kosten- und Leistungsrechnung\",\r\n            \"nebentitel\": \"Ein Überblick mit Fragen, Beispielen, Übungen und Lösungen\",\r\n            \"erscheinungsjahr\": \"2019\",\r\n            \"auflage\": 1,\r\n            \"preis\": {\r\n                \"bruttobetrag\": 39.99,\r\n                \"waehrung\": \"EUR\"\r\n            },\r\n            \"kategorie\": \"S\",\r\n            \"seitenzahl\": -10\r\n        }\r\n    ]\r\n}"
 						},
 						"url": {
 							"raw": "{{rest_url}}",
@@ -244,7 +244,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Springer Fachmedien Wiesbaden GmbH\",\r\n    \"gruendungsjahr\": \"2010\",\r\n    \"hauptsitz\": {\r\n        \"plz\": \"65189\",\r\n        \"ort\": \"Wiesbaden\",\r\n        \"land\": \"Deutschland\"\r\n    },\r\n    \"buecher\": [\r\n        {\r\n            \"isbn13\": \"9783658270018\",\r\n            \"haupttitel\": \"Kosten- und Leistungsrechnung\",\r\n            \"nebentitel\": \"Ein Überblick mit Fragen, Beispielen, Übungen und Lösungen\",\r\n            \"erscheinungsjahr\": \"2019\",\r\n            \"auflage\": 1,\r\n            \"preis\": {\r\n                \"bruttobetrag\": \"GanzVielGeld\",\r\n                \"waehrung\": \"EUR\"\r\n            },\r\n            \"kategorie\": \"S\",\r\n            \"seitenzahl\": 190\r\n        }\r\n    ]\r\n}"
+							"raw": "{\r\n    \"name\": \"Springer Fachmedien Wiesbaden GmbH\",\r\n    \"gruendungsjahr\": \"2010\",\r\n    \"hauptsitz\": {\r\n        \"plz\": \"65189\",\r\n        \"ort\": \"Wiesbaden\",\r\n        \"land\": \"Deutschland\"\r\n    },\r\n    \"buecher\": [\r\n        {\r\n            \"id\": \"99000000-0000-0000-0000-000000000000\",\r\n            \"isbn13\": \"9783658270018\",\r\n            \"haupttitel\": \"Kosten- und Leistungsrechnung\",\r\n            \"nebentitel\": \"Ein Überblick mit Fragen, Beispielen, Übungen und Lösungen\",\r\n            \"erscheinungsjahr\": \"2019\",\r\n            \"auflage\": 1,\r\n            \"preis\": {\r\n                \"bruttobetrag\": \"GanzVielGeld\",\r\n                \"waehrung\": \"EUR\"\r\n            },\r\n            \"kategorie\": \"S\",\r\n            \"seitenzahl\": 190\r\n        }\r\n    ]\r\n}"
 						},
 						"url": {
 							"raw": "{{rest_url}}",
@@ -274,7 +274,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Carl Hanser Verlag - Neuer Name\",\r\n    \"gruendungsjahr\": \"1928\",\r\n    \"hauptsitz\": {\r\n        \"plz\": \"81631\",\r\n        \"ort\": \"München\",\r\n        \"land\": \"Deutschland\"\r\n    },\r\n    \"buecher\": [\r\n        {\r\n            \"isbn13\": \"9783446430570\",\r\n            \"haupttitel\": \"UML 2 glasklar\",\r\n            \"nebentitel\": \"Praxiswissen für die UML-Modellierung\",\r\n            \"erscheinungsjahr\": \"2012\",\r\n            \"auflage\": 4,\r\n            \"preis\": {\r\n                \"bruttobetrag\": 34.9,\r\n                \"waehrung\": \"EUR\"\r\n            },\r\n            \"kategorie\": \"S\",\r\n            \"seitenzahl\": 560\r\n        }\r\n    ]\r\n}"
+							"raw": "{\r\n    \"name\": \"Carl Hanser Verlag - Neuer Name\",\r\n    \"gruendungsjahr\": \"1928\",\r\n    \"hauptsitz\": {\r\n        \"plz\": \"81631\",\r\n        \"ort\": \"München\",\r\n        \"land\": \"Deutschland\"\r\n    },\r\n    \"buecher\": [\r\n        {\r\n            \"id\" : \"10000000-0000-0000-0000-000000000000\",\r\n            \"isbn13\": \"9783446430570\",\r\n            \"haupttitel\": \"UML 2 glasklar\",\r\n            \"nebentitel\": \"Praxiswissen für die UML-Modellierung\",\r\n            \"erscheinungsjahr\": \"2012\",\r\n            \"auflage\": 4,\r\n            \"preis\": {\r\n                \"bruttobetrag\": 34.9,\r\n                \"waehrung\": \"EUR\"\r\n            },\r\n            \"kategorie\": \"S\",\r\n            \"seitenzahl\": 560\r\n        }\r\n    ]\r\n}"
 						},
 						"url": {
 							"raw": "{{rest_url}}/:id",
@@ -307,7 +307,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Carl Hanser Verlag\",\r\n    \"gruendungsjahr\": \"1928\",\r\n    \"hauptsitz\": {\r\n        \"plz\": \"81631\",\r\n        \"ort\": \"München\",\r\n        \"land\": \"Deutschland\"\r\n    },\r\n    \"buecher\": [\r\n        {\r\n            \"isbn13\": \"9783446430570\",\r\n            \"haupttitel\": \"UML 2 glasklar\",\r\n            \"nebentitel\": \"Praxiswissen für die UML-Modellierung\",\r\n            \"erscheinungsjahr\": \"2012\",\r\n            \"auflage\": 4,\r\n            \"preis\": {\r\n                \"bruttobetrag\": 34.9,\r\n                \"waehrung\": \"EUR\"\r\n            },\r\n            \"kategorie\": \"S\",\r\n            \"seitenzahl\": 560\r\n        }\r\n    ]\r\n}"
+							"raw": "{\r\n    \"name\": \"Carl Hanser Verlag\",\r\n    \"gruendungsjahr\": \"1928\",\r\n    \"hauptsitz\": {\r\n        \"plz\": \"81631\",\r\n        \"ort\": \"München\",\r\n        \"land\": \"Deutschland\"\r\n    },\r\n    \"buecher\": [\r\n        {\r\n            \"id\": \"10000000-0000-0000-0000-000000000000\",\r\n            \"isbn13\": \"9783446430570\",\r\n            \"haupttitel\": \"UML 2 glasklar\",\r\n            \"nebentitel\": \"Praxiswissen für die UML-Modellierung\",\r\n            \"erscheinungsjahr\": \"2012\",\r\n            \"auflage\": 4,\r\n            \"preis\": {\r\n                \"bruttobetrag\": 34.9,\r\n                \"waehrung\": \"EUR\"\r\n            },\r\n            \"kategorie\": \"S\",\r\n            \"seitenzahl\": 560\r\n        }\r\n    ]\r\n}"
 						},
 						"url": {
 							"raw": "{{rest_url}}/:id",

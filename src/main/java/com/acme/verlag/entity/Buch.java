@@ -31,6 +31,7 @@ import lombok.ToString;
 import org.hibernate.validator.constraints.ISBN;
 
 import java.time.Year;
+import java.util.UUID;
 
 /**
  * Daten eines Buches für die Anwendungslogik und zum Abspeichern in der Datenbank.
@@ -57,6 +58,12 @@ public class Buch {
      * Konstante für die maximale Länge eines Nebentitels.
      */
     public static final int SIZE_MAX_NEBENTITEL = 100;
+
+    /**
+     * Die UUID des Buches.
+     */
+    @EqualsAndHashCode.Include
+    private UUID id;
 
     /**
      * Die ISBN-13 des Buches.

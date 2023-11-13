@@ -47,7 +47,7 @@ interface VerlagMapper {
      * @param dto DTO-Objekt für BuchDTO ohne ID.
      * @return Konvertiertes Buch-Objekt mit null als ID.
      */
-    @Mapping(target = "isbn13", ignore = true)
+    @Mapping(target = "id", ignore = true)
     Buch toBuch(BuchDTO dto);
 
     /**
@@ -57,7 +57,6 @@ interface VerlagMapper {
      * @return Konvertiertes Adresse-Objekt.
      */
     Adresse toAdresse(AdresseDTO dto);
-
 
     /**
      * Ein DTO-Objekt von PreisDTO in ein Objekt für Preis konvertieren.
