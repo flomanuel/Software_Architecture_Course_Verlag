@@ -17,13 +17,21 @@
 
 package com.acme.verlag.entity;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.validator.constraints.ISBN;
 
 import java.time.Year;
+import java.util.UUID;
 
 /**
  * Daten eines Buches für die Anwendungslogik und zum Abspeichern in der Datenbank.
@@ -37,43 +45,76 @@ import java.time.Year;
 public class Buch {
 
     /**
-     * Der Haupttitel des Buches.
+     * Konstante für die maximale Länge eines Haupttitels.
      */
-    private String haupttitel;
+    public static final int SIZE_MAX_HAUPTTITEL = 100;
 
     /**
-     * Der Nebentitel des Buches.
+     * Konstante für die minimale Länge eines Haupttitels.
      */
-    private String nebentitel;
+    public static final int SIZE_MIN_HAUPTTITEL = 1;
 
     /**
-     * Das Erscheinungsjahr des Buches.
+     * Konstante für die maximale Länge eines Nebentitels.
      */
-    private Year erscheinungsjahr;
+    public static final int SIZE_MAX_NEBENTITEL = 100;
 
     /**
-     * Die Auflage des Buches.
+     * Die UUID des Buches.
      */
-    private int auflage;
-
-    /**
-     * Der Preis des Buches.
-     */
-    private Preis preis;
-
-    /**
-     * Die thematische Kategorie des Buches.
-     */
-    private KategorieType kategorie;
+    @EqualsAndHashCode.Include
+    private UUID id;
 
     /**
      * Die ISBN-13 des Buches.
      */
     @EqualsAndHashCode.Include
+    @ISBN
     private String isbn13;
+
+    /**
+     * Der Haupttitel des Buches.
+     */
+    @Size(min = SIZE_MIN_HAUPTTITEL, max = SIZE_MAX_HAUPTTITEL)
+    @NotBlank
+    private String haupttitel;
+
+    /**
+     * Der Nebentitel des Buches.
+     */
+    @Size(max = SIZE_MAX_NEBENTITEL)
+    @NotNull
+    private String nebentitel;
+
+    /**
+     * Das Erscheinungsjahr des Buches.
+     */
+    @PastOrPresent
+    @NotNull
+    private Year erscheinungsjahr;
+
+    /**
+     * Die Auflage des Buches.
+     */
+    @Positive
+    private int auflage;
+
+    /**
+     * Der Preis des Buches.
+     */
+    @Valid
+    @NotNull
+    private Preis preis;
+
+    /**
+     * Die thematische Kategorie des Buches.
+     */
+    @NotNull
+    private KategorieType kategorie;
 
     /**
      * Die Seitenzahl des Buches.
      */
+    @Positive
     private int seitenzahl;
 }

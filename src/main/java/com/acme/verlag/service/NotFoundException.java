@@ -35,7 +35,7 @@ public final class NotFoundException extends RuntimeException {
     private final UUID id;
 
     /**
-     * Die übergebenen Suchkriterien.
+     * Die übergebenen Suchkriterien, zu denen nichts gefunden wurde.
      */
     private final Map<String, List<String>> suchkriterien;
 

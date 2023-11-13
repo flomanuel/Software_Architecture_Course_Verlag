@@ -17,6 +17,8 @@
 
 package com.acme.verlag.entity;
 
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,12 +38,20 @@ import java.util.Currency;
 public class Preis {
 
     /**
+     * Konstante für die minimale Größe eines Bruttobetrags.
+     */
+    public static final String DECIMAL_MIN_BRUTTOBETRAG = "0.0";
+
+    /**
      * Der Bruttobetrag des Preises.
      */
+    @DecimalMin(DECIMAL_MIN_BRUTTOBETRAG)
+    @NotNull
     private BigDecimal bruttobetrag;
 
     /**
      * Die Währung des Preises.
      */
+    @NotNull
     private Currency waehrung;
 }

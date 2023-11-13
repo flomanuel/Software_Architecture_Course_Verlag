@@ -54,7 +54,7 @@ public class VerlagGetController {
      * Muster für eine UUID.
      */
     public static final String ID_PATTERN =
-        "[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}";
+        "[\\dA-Fa-f]{8}-[\\dA-Fa-f]{4}-[\\dA-Fa-f]{4}-[\\dA-Fa-f]{4}-[\\dA-Fa-f]{12}";
 
     /**
      * Service für Verlage.

@@ -21,16 +21,18 @@ import com.acme.verlag.entity.Verlag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
-import java.time.Year;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.OptionalInt;
 import java.util.UUID;
+import java.time.Year;
+import java.util.stream.IntStream;
 
-import static java.util.Collections.emptyList;
 import static com.acme.verlag.repository.DB.VERLAGE;
+import static java.util.Collections.emptyList;
 
 /**
  * Repository für den Datenbankzugriff bei Verlagen.
@@ -57,11 +59,9 @@ public class VerlagRepository {
      */
     public Optional<Verlag> findById(final UUID id) {
         log.debug("findById: id={}", id);
-
         final var result = VERLAGE.stream()
             .filter(verlag -> Objects.equals(verlag.getId(), id))
             .findFirst();
-
         log.debug("findById: {}", result);
         return result;
     }
@@ -75,11 +75,9 @@ public class VerlagRepository {
     @SuppressWarnings({"ReturnCount"})
     public Collection<Verlag> find(final Map<String, ? extends List<String>> suchkriterien) {
         log.debug("find: suchkriterien={}", suchkriterien);
-
         if (suchkriterien.isEmpty()) {
             return findAll();
         }
-
         for (final var entry : suchkriterien.entrySet()) {
             switch (entry.getKey()) {
                 case "name" -> {
@@ -125,5 +123,38 @@ public class VerlagRepository {
             .toList();
         log.debug("findByGruendungsjahr: verlage={}", verlage);
         return verlage;
+    }
+
+    /**
+     * Einen neuen Verlag anlegen.
+     *
+     * @param verlag Das Objekt des neu anzulegenden Verlags.
+     * @return Der neu angelegte Verlag mit generierter ID.
+     */
+    public Verlag create(final Verlag verlag) {
+        log.debug("create: {}", verlag);
+        verlag.setId(UUID.randomUUID());
+        VERLAGE.add(verlag);
+        log.debug("create: {}", verlag);
+        return verlag;
+    }
+
+    /**
+     * Einen vorhandenen Verlag aktualisieren.
+     *
+     * @param verlag Das Verlags-Objekt mit den neuen Daten.
+     */
+    public void update(final Verlag verlag) {
+        log.debug("update: {}", verlag);
+        final OptionalInt index = IntStream
+            .range(0, VERLAGE.size())
+            .filter(i -> Objects.equals(VERLAGE.get(i).getId(), verlag.getId()))
+            .findFirst();
+        log.trace("update: index={}", index);
+        if (index.isEmpty()) {
+            return;
+        }
+        VERLAGE.set(index.getAsInt(), verlag);
+        log.debug("update: {}", verlag);
     }
 }

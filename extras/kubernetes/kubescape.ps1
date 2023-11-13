@@ -31,6 +31,6 @@ $host.ui.RawUI.WindowTitle = 'kubescape'
 $release = 'verlag'
 Set-Location .\$release
 helm template $release . -f values.yaml -f dev.yaml > ${env:TEMP}\$release.yaml
-C:\Zimmermann\kubescape\kubescape.exe scan --verbose ${env:TEMP}\$relea se.yaml
+C:\Zimmermann\kubescape\kubescape.exe scan --verbose ${env:TEMP}\$release.yaml
 Set-Location ..
 Remove-Item -Force ${env:TEMP}\$release.yaml

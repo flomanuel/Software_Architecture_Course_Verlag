@@ -72,7 +72,9 @@ final class DB {
                                 .waehrung(currencyGermany)
                                 .bruttobetrag(new BigDecimal("34.9"))
                                 .build()
-                            ).build())
+                            )
+                            .id(UUID.fromString("10000000-0000-0000-0000-000000000000"))
+                            .build())
                     .collect(Collectors.toList())).build(),
             // HTTP DELETE
             Verlag.builder()
@@ -97,7 +99,9 @@ final class DB {
                             .waehrung(currencyGermany)
                             .bruttobetrag(new BigDecimal("72.99")
                             ).build()
-                        ).build()
+                        )
+                        .id(UUID.fromString("20000000-0000-0000-0000-000000000000"))
+                        .build()
                 ).collect(Collectors.toList())).build(),
             // zur freien Verfügung
             Verlag.builder()
@@ -122,7 +126,9 @@ final class DB {
                             .waehrung(currencyGermany)
                             .bruttobetrag(new BigDecimal("49.9"))
                             .build()
-                        ).build()
+                        )
+                        .id(UUID.fromString("30000000-0000-0000-0000-000000000000"))
+                        .build()
                 ).collect(Collectors.toList())).build(),
             // HTTP Get
             Verlag.builder()
@@ -147,7 +153,9 @@ final class DB {
                             .waehrung(currencyGermany)
                             .bruttobetrag(new BigDecimal("11.95"))
                             .build()
-                        ).build()
+                        )
+                        .id(UUID.fromString("40000000-0000-0000-0000-000000000000"))
+                        .build()
                 ).collect(Collectors.toList())).build()
         ).collect(Collectors.toList());
     }

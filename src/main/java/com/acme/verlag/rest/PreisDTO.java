@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 - present Juergen Zimmermann, Hochschule Karlsruhe
+ * Copyright (c) 2023 - present Florian Sauer
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+package com.acme.verlag.rest;
+
+import java.math.BigDecimal;
+import java.util.Currency;
+
 /**
- * Microservice "verlag".
+ * ValueObject für das Neuanlegen und Ändern eines Buches.
+ *
+ * @param bruttobetrag Der Bruttobetrag des Buchpreises.
+ * @param waehrung Die Währung des Buchpreises.
  */
-package com.acme.verlag;
+record PreisDTO(
+    BigDecimal bruttobetrag,
+    Currency waehrung
+) {
+
+}

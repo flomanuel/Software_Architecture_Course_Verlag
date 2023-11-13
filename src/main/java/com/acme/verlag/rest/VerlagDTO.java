@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 - present Juergen Zimmermann, Hochschule Karlsruhe
+ * Copyright (c) 2023 - present Florian Sauer
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+package com.acme.verlag.rest;
+
+import java.time.Year;
+import java.util.List;
+
 /**
- * Microservice "verlag".
+ * ValueObject für das Neuanlegen und Ändern eines Verlags.
+ *
+ * @param name           Der Name des Verlags.
+ * @param gruendungsjahr Das Gründungsjahr des Verlags.
+ * @param hauptsitz      Der Hauptsitz des Verlags.
+ * @param buecher        Die Bücher, die in einem Verlag erschienen sind.
  */
-package com.acme.verlag;
+record VerlagDTO(
+    String name,
+    Year gruendungsjahr,
+    AdresseDTO hauptsitz,
+    List<BuchDTO> buecher
+) {
+
+}
