@@ -13,3 +13,5 @@ extras/mysql/.kpt-pipeline
 extras/http-client/http-client.private.env.json
 src/main/resources/truststore.p12
 src/main/resources/keystore.p12
+src/main/resources/certificate.crt
+src/main/resources/private-key.pem
