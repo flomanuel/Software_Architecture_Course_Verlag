@@ -37,7 +37,7 @@ record BuchInput(String isbn13,
                  String nebentitel,
                  String erscheinungsjahr,
                  int auflage,
-                 Preis preis,
+                 PreisInput preis,
                  KategorieType kategorie,
                  int seitenzahl
 ) {

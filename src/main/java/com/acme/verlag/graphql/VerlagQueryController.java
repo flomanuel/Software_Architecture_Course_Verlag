@@ -24,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
 
 import java.util.Collection;
@@ -79,6 +80,7 @@ public class VerlagQueryController {
      * @param first  Die ersten Buchdaten in der Liste der Bücher zum gefundenen Verlag.
      * @return Liste mit Buch-Objekten, die für das Field "buecher" beim gefundenen Verlag-Objekt verwendet werden.
      */
+    @SchemaMapping
     List<Buch> buecher(final Verlag verlag, @Argument final int first) {
         log.debug("buecher: verlag={}, buecher={}, first={}", verlag, verlag.getBuecher(), first);
         if (first <= 0) {

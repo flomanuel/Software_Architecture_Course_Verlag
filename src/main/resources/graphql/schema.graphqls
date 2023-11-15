@@ -33,14 +33,13 @@ type Mutation {
   create(input: VerlagInput!): CreatePayload
 }
 
-
 "Eigenschaften eines Verlag-Datensatzes mit untergeordneten Eigenschaften."
 type Verlag {
   id: ID!
   name: String!
   gruendungsjahr: String!
   hauptsitz: Adresse!
-  buecher(first: Int!): [Buch]
+  buecher(first: Int!): [Buch!]
 }
 
 type Buch {
@@ -70,7 +69,7 @@ input VerlagInput {
   name: String!
   gruendungsjahr: String!
   hauptsitz: AdresseInput!
-  buecher: [BuchInput]
+  buecher: [BuchInput!]
 }
 
 input AdresseInput {
@@ -80,6 +79,7 @@ input AdresseInput {
 }
 
 input BuchInput {
+  id: ID!
   isbn13: String!
   haupttitel: String!
   nebentitel: String!

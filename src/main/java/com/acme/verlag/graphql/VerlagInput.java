@@ -32,8 +32,8 @@ import java.util.List;
  */
 record VerlagInput(String name,
                    String gruendungsjahr,
-                   Adresse hauptsitz,
-                   List<Buch> buecher
+                   AdresseInput hauptsitz,
+                   List<BuchInput> buecher
 ) {
 
 }

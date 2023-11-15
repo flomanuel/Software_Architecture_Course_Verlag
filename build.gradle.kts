@@ -93,7 +93,7 @@ import net.ltgt.gradle.errorprone.errorprone
 
 val javaVersion: String = System.getProperty("java") ?: libs.versions.javaVersion.get()
 
-val imagePath = project.properties["imagePath"] ?: "juergenzimmermann"
+val imagePath = project.properties["imagePath"] ?: "floriansauer"
 val enablePreview = if (project.properties["enablePreview"] == false) null else "--enable-preview"
 val alternativeBuildpack = project.properties["buildpack"]
 

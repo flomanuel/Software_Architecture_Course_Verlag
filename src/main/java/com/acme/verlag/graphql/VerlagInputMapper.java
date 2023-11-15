@@ -21,6 +21,7 @@ import com.acme.verlag.entity.Adresse;
 import com.acme.verlag.entity.Buch;
 import com.acme.verlag.entity.Preis;
 import com.acme.verlag.entity.Verlag;
+import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.NullValueMappingStrategy;
@@ -29,7 +30,6 @@ import org.mapstruct.NullValueMappingStrategy;
  * Mapper zwischen Entity-Klassen. Siehe build\generated\sources\annotationProcessor\java\...\VerlagInputMapperImpl.java.
  */
 @Mapper(componentModel = "spring", nullValueIterableMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT)
-//@DecoratedWith(AbstractVerlagMapperDecorator.class)
 interface VerlagInputMapper {
 
     /**
@@ -58,7 +58,7 @@ interface VerlagInputMapper {
      * @param input AdresseInput ohne ID
      * @return Konvertiertes Adresse-Objekt
      */
-    Adresse toAdresse(AdresseInput input); // todo: warum agt IDE, die Methoden werden nie genutzt?
+    Adresse toAdresse(AdresseInput input);
 
     /**
      * Ein PreisInput-Objekt in ein Objekt für Preise konvertieren.
