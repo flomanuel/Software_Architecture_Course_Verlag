@@ -17,10 +17,11 @@
 
 package com.acme.verlag.entity;
 
-    import jakarta.validation.Valid;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -44,6 +45,16 @@ import java.util.UUID;
 public class Verlag {
 
     /**
+     * Konstante für die maximale Länge eines Verlagsnamens.
+     */
+    public static final int SIZE_MAX_NAME = 200;
+
+    /**
+     * Konstante für die minimale Länge eines Verlagsnamens.
+     */
+    public static final int SIZE_MIN_NAME = 1;
+
+    /**
      * Die UUID des Verlags.
      */
     @EqualsAndHashCode.Include
@@ -52,6 +63,7 @@ public class Verlag {
     /**
      * Der Name des Verlags.
      */
+    @Size(min = SIZE_MIN_NAME, max = SIZE_MAX_NAME)
     @NotBlank
     private String name;
 
