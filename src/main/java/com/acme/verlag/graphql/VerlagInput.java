@@ -17,18 +17,15 @@
 
 package com.acme.verlag.graphql;
 
-import com.acme.verlag.entity.Adresse;
-import com.acme.verlag.entity.Buch;
-
 import java.util.List;
 
 /**
  * Eine Value-Klasse für Eingabedaten passend zu VerlagInput aus dem GraphQL-Schema.
  *
- * @param name           Name
+ * @param name            Name
  * @param gruendungsdatum Gründungsdatum
- * @param hauptsitz      Hauptsitz
- * @param buecher        Bücher
+ * @param hauptsitz       Hauptsitz
+ * @param buecher         Bücher
  */
 record VerlagInput(String name,
                    String gruendungsdatum,

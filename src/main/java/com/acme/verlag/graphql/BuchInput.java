@@ -18,19 +18,18 @@
 package com.acme.verlag.graphql;
 
 import com.acme.verlag.entity.KategorieType;
-import com.acme.verlag.entity.Preis;
 
 /**
  * Eine Value-Klasse für Eingabedaten passend zu BuchInput aus dem GraphQL-Schema.
  *
- * @param isbn13           ISBN-13
- * @param haupttitel       Haupttitel
- * @param nebentitel       Nebentitel
+ * @param isbn13            ISBN-13
+ * @param haupttitel        Haupttitel
+ * @param nebentitel        Nebentitel
  * @param erscheinungsdatum Erscheinungsdatum
- * @param auflage          Auflage
- * @param preis            Preis
- * @param kategorie        Kategorie
- * @param seitenzahl       Seitenzahl
+ * @param auflage           Auflage
+ * @param preis             Preis
+ * @param kategorie         Kategorie
+ * @param seitenzahl        Seitenzahl
  */
 record BuchInput(String isbn13,
                  String haupttitel,
