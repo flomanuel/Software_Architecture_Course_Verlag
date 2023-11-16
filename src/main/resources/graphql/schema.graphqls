@@ -23,7 +23,7 @@ type Query {
   "Suche Verlagsdaten anhand der ID."
   verlag(id: ID!): Verlag
 
-  "Suche Verlagsdaten anhand des Gründungsjahres oder dem Namen."
+  "Suche Verlagsdaten anhand des Gründungsdatums oder dem Namen."
   verlage(input: Suchkriterien): [Verlag!]
 }
 
@@ -37,7 +37,7 @@ type Mutation {
 type Verlag {
   id: ID!
   name: String!
-  gruendungsjahr: String!
+  gruendungsdatum: String!
   hauptsitz: Adresse!
   buecher(first: Int!): [Buch!]
 }
@@ -47,7 +47,7 @@ type Buch {
   isbn13: String!
   haupttitel: String!
   nebentitel: String!
-  erscheinungsjahr: String!
+  erscheinungsdatum: String!
   auflage: Int!
   preis: Preis!
   kategorie: Kategorie!
@@ -67,7 +67,7 @@ type Preis {
 
 input VerlagInput {
   name: String!
-  gruendungsjahr: String!
+  gruendungsdatum: String!
   hauptsitz: AdresseInput!
   buecher: [BuchInput!]
 }
@@ -83,7 +83,7 @@ input BuchInput {
   isbn13: String!
   haupttitel: String!
   nebentitel: String!
-  erscheinungsjahr: String!
+  erscheinungsdatum: String!
   auflage: Int!
   preis: PreisInput!
   kategorie: Kategorie!
@@ -103,8 +103,8 @@ input PreisInput {
 input Suchkriterien {
   "(Teil-) Name der gesuchten Verlage."
   name:String
-  "Gründungsjahr der gesuchten Verlage."
-  gruendungsjahr: String
+  "Gründungsdatums der gesuchten Verlage."
+  gruendungsdatum: String
 }
 
 "Rückgabetyp beim Neuanlegen eines Verlags."

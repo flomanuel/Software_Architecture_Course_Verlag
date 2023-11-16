@@ -1,6 +1,6 @@
 {
   "name": "verlag",
-  "schemaPath": "schema.graphql",
+  "schemaPath": "schema.graphqls",
   "extensions": {
     "endpoints": {
       "HTTPS localhost": {

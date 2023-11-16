@@ -26,12 +26,12 @@ import java.util.List;
  * Eine Value-Klasse für Eingabedaten passend zu VerlagInput aus dem GraphQL-Schema.
  *
  * @param name           Name
- * @param gruendungsjahr Gründungsjahr
+ * @param gruendungsdatum Gründungsdatum
  * @param hauptsitz      Hauptsitz
  * @param buecher        Bücher
  */
 record VerlagInput(String name,
-                   String gruendungsjahr,
+                   String gruendungsdatum,
                    AdresseInput hauptsitz,
                    List<BuchInput> buecher
 ) {

@@ -25,9 +25,9 @@ import java.util.Map;
  * Eine Value-Klasse für Eingabedaten passend zu Suchkriterien aus dem GraphQL-Schema.
  *
  * @param name           Verlagsname
- * @param gruendungsjahr Gründungsjahr
+ * @param gruendungsdatum Gründungsdatum
  */
-record Suchkriterien(String name, String gruendungsjahr) {
+record Suchkriterien(String name, String gruendungsdatum) {
 
     /**
      * Konvertierung in eine Map.
@@ -39,8 +39,8 @@ record Suchkriterien(String name, String gruendungsjahr) {
         if (name != null) {
             map.put("verlagsname", List.of(name));
         }
-        if (gruendungsjahr != null) {
-            map.put("gruendungsjahr", List.of(gruendungsjahr));
+        if (gruendungsdatum != null) {
+            map.put("gruendungsdatum", List.of(gruendungsdatum));
         }
         return map;
     }

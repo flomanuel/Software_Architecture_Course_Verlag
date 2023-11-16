@@ -17,20 +17,20 @@
 
 package com.acme.verlag.rest;
 
-import java.time.Year;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
  * ValueObject für das Neuanlegen und Ändern eines Verlags.
  *
- * @param name           Der Name des Verlags.
- * @param gruendungsjahr Das Gründungsjahr des Verlags.
- * @param hauptsitz      Der Hauptsitz des Verlags.
- * @param buecher        Die Bücher, die in einem Verlag erschienen sind.
+ * @param name            Der Name des Verlags.
+ * @param gruendungsdatum Das Gründungsdatum des Verlags.
+ * @param hauptsitz       Der Hauptsitz des Verlags.
+ * @param buecher         Die Bücher, die in einem Verlag erschienen sind.
  */
 record VerlagDTO(
     String name,
-    Year gruendungsjahr,
+    LocalDate gruendungsdatum,
     AdresseDTO hauptsitz,
     List<BuchDTO> buecher
 ) {

@@ -21,7 +21,6 @@ import com.acme.verlag.entity.Adresse;
 import com.acme.verlag.entity.Buch;
 import com.acme.verlag.entity.Preis;
 import com.acme.verlag.entity.Verlag;
-import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -42,8 +41,6 @@ interface VerlagInputMapper {
      * @return Konvertiertes Verlag-Objekt
      */
     @Mapping(target = "id", ignore = true)
-    //@Mapping(target = "gruendungsjahr", ignore = true) //todo Mapping auf Datentyp Year ermöglichen
-    @Mapping(target = "gruendungsjahr", qualifiedByName = "gruendungsjahr")
     Verlag toVerlag(VerlagInput input);
 
     /**
@@ -53,8 +50,6 @@ interface VerlagInputMapper {
      * @return Konvertiertes Buch-Objekt
      */
     @Mapping(target = "id", ignore = true)
-    //@Mapping(target = "erscheinungsjahr", ignore = true) //todo Mapping auf Datentyp Year ermöglichen
-    @Mapping(target = "erscheinungsjahr", qualifiedByName = "erscheinungsjahr")
     Buch toBuch(BuchInput input);
 
     /**
@@ -72,26 +67,4 @@ interface VerlagInputMapper {
      * @return Konvertiertes Preis-Objekt
      */
     Preis toPreis(PreisInput input);
-
-    /**
-     * Das Erscheinungsjahr als String in ein Year-Objekt konvertieren.
-     *
-     * @param input Erscheinungsjahr als String.
-     * @return Erscheinungsjahr als Year-Objekt
-     */
-    @Named("erscheinungsjahr")
-    default Year toErscheinungsjahr(String input) {
-        return Year.parse(input);
-    }
-
-    /**
-     * Das Gründungsjahr als String in ein Year-Objekt konvertieren.
-     *
-     * @param input Gründungsjahr als String.
-     * @return Gründungsjahr als Year-Objekt
-     */
-    @Named("gruendungsjahr")
-    default Year toGruendungsjahr(String input) {
-        return Year.parse(input);
-    }
 }

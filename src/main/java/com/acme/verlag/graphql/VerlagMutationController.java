@@ -73,6 +73,12 @@ public class VerlagMutationController {
     }
      */
 
+    /**
+     * Fehlerbehandlung bei verletzten Beschränkungen.
+     *
+     * @param ex ConstraintViolationsException.
+     * @return Collection mit GraphQLError-Objekten.
+     */
     @GraphQlExceptionHandler
     @SuppressWarnings("unused")
     Collection<GraphQLError> onConstraintViolations(final ConstraintViolationsException ex) {
@@ -82,6 +88,12 @@ public class VerlagMutationController {
             .collect(Collectors.toList());
     }
 
+    /**
+     * Eine ConstraintViolation in ein GraphQLError-Objekt umwandeln.
+     *
+     * @param violation Details der verletzten Beschränkung.
+     * @return GraphQLError-Objekt
+     */
     private GraphQLError violationToGraphQLError(final ConstraintViolation<Verlag> violation) {
         final List<Object> path = new ArrayList<>(5);
         path.add("input");

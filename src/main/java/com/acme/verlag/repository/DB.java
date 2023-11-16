@@ -23,7 +23,8 @@ import com.acme.verlag.entity.Preis;
 import com.acme.verlag.entity.Verlag;
 
 import java.math.BigDecimal;
-import java.time.Year;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Currency;
 import java.util.List;
 import java.util.UUID;
@@ -52,7 +53,7 @@ final class DB {
             Verlag.builder()
                 .id(UUID.fromString("00000000-0000-0000-0000-000000000001"))
                 .name("Carl Hanser Verlag")
-                .gruendungsjahr(Year.parse("1928"))
+                .gruendungsdatum(LocalDate.parse("10.04.1928", DateTimeFormatter.ofPattern("dd.MM.yyy")))
                 .hauptsitz(Adresse.builder()
                     .plz("81631")
                     .ort("München")
@@ -64,7 +65,7 @@ final class DB {
                             .haupttitel("UML 2 glasklar")
                             .nebentitel("Praxiswissen für die UML-Modellierung")
                             .isbn13("9783446430570")
-                            .erscheinungsjahr(Year.parse("2012"))
+                            .erscheinungsdatum(LocalDate.parse("25.05.2012", DateTimeFormatter.ofPattern("dd.MM.yyy")))
                             .auflage(4)
                             .kategorie(SACHBUCH)
                             .seitenzahl(560)
@@ -80,7 +81,7 @@ final class DB {
             Verlag.builder()
                 .id(UUID.fromString("00000000-0000-0000-0000-000000000002"))
                 .name("Verlagsgruppe Droemer Knaur")
-                .gruendungsjahr(Year.parse("1901"))
+                .gruendungsdatum(LocalDate.parse("02.11.1901", DateTimeFormatter.ofPattern("dd.MM.yyy")))
                 .hauptsitz(Adresse.builder()
                     .plz("80636")
                     .ort("München")
@@ -91,7 +92,7 @@ final class DB {
                         .haupttitel("Die Drachen von Eden")
                         .nebentitel("Das Wunder der menschlichen Intelligenz")
                         .isbn13("9783426045992")
-                        .erscheinungsjahr(Year.parse("1978"))
+                        .erscheinungsdatum(LocalDate.parse("01.06.1978", DateTimeFormatter.ofPattern("dd.MM.yyy")))
                         .auflage(1)
                         .kategorie(SACHBUCH)
                         .seitenzahl(271)
@@ -107,7 +108,7 @@ final class DB {
             Verlag.builder()
                 .id(UUID.fromString("00000000-0000-0000-0000-000000000003"))
                 .name("Rheinwerk Verlag GmbH")
-                .gruendungsjahr(Year.parse("1999"))
+                .gruendungsdatum(LocalDate.parse("09.08.1999", DateTimeFormatter.ofPattern("dd.MM.yyy")))
                 .hauptsitz(Adresse.builder()
                     .plz("53227")
                     .ort("Bonn")
@@ -118,7 +119,7 @@ final class DB {
                         .haupttitel("Java ist auch eine Insel")
                         .nebentitel("Einführung, Ausbildung, Praxis")
                         .isbn13("9783836287456")
-                        .erscheinungsjahr(Year.parse("2022"))
+                        .erscheinungsdatum(LocalDate.parse("19.12.2022", DateTimeFormatter.ofPattern("dd.MM.yyy")))
                         .auflage(16)
                         .kategorie(SACHBUCH)
                         .seitenzahl(1258)
@@ -134,7 +135,7 @@ final class DB {
             Verlag.builder()
                 .id(UUID.fromString("00000000-0000-0000-0000-000000000004"))
                 .name("dtv Verlagsgesellschaft")
-                .gruendungsjahr(Year.parse("1960"))
+                .gruendungsdatum(LocalDate.parse("11.11.1960", DateTimeFormatter.ofPattern("dd.MM.yyy")))
                 .hauptsitz(Adresse.builder()
                     .plz("80337")
                     .ort("München")
@@ -145,7 +146,7 @@ final class DB {
                         .haupttitel("Der kleine Hobbit")
                         .nebentitel("")
                         .isbn13("9783423214124")
-                        .erscheinungsjahr(Year.parse("2012"))
+                        .erscheinungsdatum(LocalDate.parse("22.12.2012", DateTimeFormatter.ofPattern("dd.MM.yyy")))
                         .auflage(15)
                         .kategorie(SACHBUCH)
                         .seitenzahl(336)

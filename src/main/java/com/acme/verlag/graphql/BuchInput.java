@@ -26,7 +26,7 @@ import com.acme.verlag.entity.Preis;
  * @param isbn13           ISBN-13
  * @param haupttitel       Haupttitel
  * @param nebentitel       Nebentitel
- * @param erscheinungsjahr Erscheinungsjahr
+ * @param erscheinungsdatum Erscheinungsdatum
  * @param auflage          Auflage
  * @param preis            Preis
  * @param kategorie        Kategorie
@@ -35,7 +35,7 @@ import com.acme.verlag.entity.Preis;
 record BuchInput(String isbn13,
                  String haupttitel,
                  String nebentitel,
-                 String erscheinungsjahr,
+                 String erscheinungsdatum,
                  int auflage,
                  PreisInput preis,
                  KategorieType kategorie,

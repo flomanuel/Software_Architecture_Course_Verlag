@@ -29,7 +29,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.validator.constraints.UniqueElements;
 
-import java.time.Year;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -68,11 +68,11 @@ public class Verlag {
     private String name;
 
     /**
-     * Das Gründungsjahr des Verlags.
+     * Das Gründungsdatum des Verlags.
      */
     @PastOrPresent
     @NotNull
-    private Year gruendungsjahr;
+    private LocalDate gruendungsdatum;
 
     /**
      * Die Adresse des Hauptsitzes des Verlags.

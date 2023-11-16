@@ -30,7 +30,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.validator.constraints.ISBN;
 
-import java.time.Year;
+import java.time.LocalDate;
 import java.util.UUID;
 
 /**
@@ -87,11 +87,11 @@ public class Buch {
     private String nebentitel;
 
     /**
-     * Das Erscheinungsjahr des Buches.
+     * Das Erscheinungsdatum des Buches.
      */
     @PastOrPresent
     @NotNull
-    private Year erscheinungsjahr;
+    private LocalDate erscheinungsdatum;
 
     /**
      * Die Auflage des Buches.
