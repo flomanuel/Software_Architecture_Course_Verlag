@@ -24,7 +24,7 @@ import java.util.Map;
 /**
  * Eine Value-Klasse für Eingabedaten passend zu Suchkriterien aus dem GraphQL-Schema.
  *
- * @param name           Verlagsname
+ * @param name            Verlagsname
  * @param gruendungsdatum Gründungsdatum
  */
 record Suchkriterien(String name, String gruendungsdatum) {

@@ -23,10 +23,7 @@ import com.acme.verlag.entity.Preis;
 import com.acme.verlag.entity.Verlag;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Named;
 import org.mapstruct.NullValueMappingStrategy;
-
-import java.time.Year;
 
 /**
  * Mapper zwischen Entity-Klassen. Siehe build\generated\sources\annotationProcessor\java\...\VerlagInputMapperImpl.java.

@@ -30,6 +30,7 @@ import org.springframework.graphql.data.method.annotation.GraphQlExceptionHandle
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.stereotype.Controller;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -60,25 +61,15 @@ public class VerlagMutationController {
         return new CreatePayload(id);
     }
 
-    /*
-        @GraphQlExceptionHandler
+    @GraphQlExceptionHandler
     @SuppressWarnings("unused")
     GraphQLError onDateTimeParseException(final DateTimeParseException ex) {
-        final List<Object> path = List.of("input", "geburtsdatum");
         return GraphQLError.newError()
             .errorType(BAD_REQUEST)
             .message(STR."Das Datum \{ex.getParsedString()} ist nicht korrekt.")
-            .path(path)
             .build();
     }
-     */
 
-    /**
-     * Fehlerbehandlung bei verletzten Beschränkungen.
-     *
-     * @param ex ConstraintViolationsException.
-     * @return Collection mit GraphQLError-Objekten.
-     */
     @GraphQlExceptionHandler
     @SuppressWarnings("unused")
     Collection<GraphQLError> onConstraintViolations(final ConstraintViolationsException ex) {

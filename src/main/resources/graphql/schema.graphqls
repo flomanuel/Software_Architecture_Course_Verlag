@@ -29,7 +29,7 @@ type Query {
 
 "Anlegen, Editieren, Löschen von Verlagsdaten."
 type Mutation {
-  "Einen neune Verlagsdatensatz anlegen."
+  "Einen neuen Verlagsdatensatz anlegen."
   create(input: VerlagInput!): CreatePayload
 }
 
