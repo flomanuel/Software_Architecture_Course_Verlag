@@ -35,8 +35,8 @@ interface VerlagInputMapper {
     /**
      * Ein VerlagInput-Objekt in ein Objekt für Verlage konvertieren.
      *
-     * @param input VerlagInput ohne ID
-     * @return Konvertiertes Verlag-Objekt
+     * @param input VerlagInput ohne ID.
+     * @return Konvertiertes Verlag-Objekt.
      */
     @Mapping(target = "id", ignore = true)
     Verlag toVerlag(VerlagInput input);
@@ -44,8 +44,8 @@ interface VerlagInputMapper {
     /**
      * Ein BuchInput-Objekt in ein Objekt für Bücher konvertieren.
      *
-     * @param input BuchInput ohne ID
-     * @return Konvertiertes Buch-Objekt
+     * @param input BuchInput ohne ID.
+     * @return Konvertiertes Buch-Objekt.
      */
     @Mapping(target = "id", ignore = true)
     Buch toBuch(BuchInput input);
@@ -53,16 +53,16 @@ interface VerlagInputMapper {
     /**
      * Ein AdresseInput-Objekt in ein Objekt für Adressen konvertieren.
      *
-     * @param input AdresseInput ohne ID
-     * @return Konvertiertes Adresse-Objekt
+     * @param input AdresseInput ohne ID.
+     * @return Konvertiertes Adresse-Objekt.
      */
     Adresse toAdresse(AdresseInput input);
 
     /**
      * Ein PreisInput-Objekt in ein Objekt für Preise konvertieren.
      *
-     * @param input PreisInput ohne ID
-     * @return Konvertiertes Preis-Objekt
+     * @param input PreisInput ohne ID.
+     * @return Konvertiertes Preis-Objekt.
      */
     Preis toPreis(PreisInput input);
 }

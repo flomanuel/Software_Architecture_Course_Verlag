@@ -132,7 +132,7 @@ enum Kategorie {
   SACHBUCH
 }
 
-"Preisangabe für eine Buch."
+"Preisangabe für ein Buch."
 input PreisInput {
   "Bruttobetrag eines Preises."
   bruttobetrag: String!
@@ -140,7 +140,7 @@ input PreisInput {
   waehrung: String!
 }
 
-"Suchkriterien für die Query 'Verlage'."
+"Suchkriterien für die Query 'verlage'."
 input Suchkriterien {
   "(Teil-) Name der gesuchten Verlage."
   name:String

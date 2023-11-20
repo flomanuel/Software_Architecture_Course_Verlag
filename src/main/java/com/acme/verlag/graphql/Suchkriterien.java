@@ -32,7 +32,7 @@ record Suchkriterien(String name, String gruendungsdatum) {
     /**
      * Konvertierung in eine Map.
      *
-     * @return Das konvertierte Map-Objekt
+     * @return Das konvertierte Map-Objekt.
      */
     Map<String, List<String>> toMap() {
         final Map<String, List<String>> map = new HashMap<>(2, 1);

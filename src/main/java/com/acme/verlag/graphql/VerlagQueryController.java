@@ -47,8 +47,8 @@ public class VerlagQueryController {
     /**
      * Suche anhand der Verlag-ID.
      *
-     * @param id ID des zu suchenden Verlags
-     * @return Der gefundene Verlag
+     * @param id ID des zu suchenden Verlags.
+     * @return Der gefundene Verlag.
      */
     @QueryMapping("verlag")
     Verlag findById(@Argument final UUID id) {
@@ -61,8 +61,8 @@ public class VerlagQueryController {
     /**
      * Suche mit verschiedenen Suchkriterien.
      *
-     * @param input Suchkriterien und ihre zugehörigen Werte
-     * @return Die gefundenen Verlage als Collection
+     * @param input Suchkriterien und ihre zugehörigen Werte.
+     * @return Die gefundenen Verlage als Collection.
      */
     @QueryMapping("verlage")
     Collection<Verlag> find(@Argument final Optional<Suchkriterien> input) {
