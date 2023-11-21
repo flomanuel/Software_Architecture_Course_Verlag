@@ -15,24 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.acme.verlag.rest;
+package com.acme.verlag.graphql;
 
-import java.time.LocalDate;
-import java.util.List;
+import java.util.UUID;
 
 /**
- * ValueObject für das Neuanlegen und Ändern eines Verlags.
+ * Value-Klasse für das Resultat, wenn an der GraphQL-Schnittstelle ein neuer Verlag angelegt wurde.
  *
- * @param name            Der Name des Verlags.
- * @param gruendungsdatum Das Gründungsdatum des Verlags.
- * @param hauptsitz       Der Hauptsitz des Verlags.
- * @param buecher         Die Bücher, die in einem Verlag erschienen sind.
+ * @param id Die ID des neu angelegten Verlags.
  */
-record VerlagDTO(
-    String name,
-    LocalDate gruendungsdatum,
-    AdresseDTO hauptsitz,
-    List<BuchDTO> buecher
-) {
+record CreatePayload(UUID id) {
 
 }

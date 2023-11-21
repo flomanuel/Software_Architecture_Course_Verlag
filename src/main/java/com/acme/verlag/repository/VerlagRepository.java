@@ -21,6 +21,7 @@ import com.acme.verlag.entity.Verlag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +29,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.UUID;
-import java.time.Year;
 import java.util.stream.IntStream;
 
 import static com.acme.verlag.repository.DB.VERLAGE;
@@ -83,8 +83,8 @@ public class VerlagRepository {
                 case "name" -> {
                     return findByName(entry.getValue().getFirst());
                 }
-                case "gruendungsjahr" -> {
-                    return findByGruendungsjahr(entry.getValue().getFirst());
+                case "gruendungsdatum" -> {
+                    return findByGruendungsdatum(entry.getValue().getFirst());
                 }
                 default -> {
                     log.debug("find: ungueltiges Suchkriterium={}", entry.getKey());
@@ -111,17 +111,17 @@ public class VerlagRepository {
     }
 
     /**
-     * Verlage anhand des Gründungsjahres suchen.
+     * Verlage anhand des Gründungsdatums suchen.
      *
-     * @param gruendungsjahr Das Gründungsjahr der gesuchten Verlage.
+     * @param gruendungsdatum Das Gründungsdatum der gesuchten Verlage.
      * @return Die gefundenen Verlage oder eine leere Collection.
      */
-    private Collection<Verlag> findByGruendungsjahr(final CharSequence gruendungsjahr) {
-        log.debug("findByGruendungsjahr: Gruendungsjahr={}", gruendungsjahr);
+    private Collection<Verlag> findByGruendungsdatum(final CharSequence gruendungsdatum) {
+        log.debug("findByGruendungsdatum Gruendungsdatum={}", gruendungsdatum);
         final var verlage = VERLAGE.stream()
-            .filter(verlag -> verlag.getGruendungsjahr().compareTo(Year.parse(gruendungsjahr)) == 0)
+            .filter(verlag -> verlag.getGruendungsdatum().compareTo(LocalDate.parse(gruendungsdatum)) == 0)
             .toList();
-        log.debug("findByGruendungsjahr: verlage={}", verlage);
+        log.debug("findByGruendungsdatum: verlage={}", verlage);
         return verlage;
     }
 

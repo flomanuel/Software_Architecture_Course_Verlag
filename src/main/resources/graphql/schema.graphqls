@@ -1,0 +1,155 @@
+# Copyright (c) 2023 - present Florian Sauer
+#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+"Suche nach Verlagsdaten."
+type Query {
+  "Suche Verlagsdaten anhand der ID."
+  verlag(id: ID!): Verlag
+
+  "Suche Verlagsdaten anhand des Gründungsdatums oder dem Namen."
+  verlage(input: Suchkriterien): [Verlag!]
+}
+
+type Mutation {
+  "Einen neuen Verlagsdatensatz anlegen."
+  create(input: VerlagInput!): CreatePayload
+}
+
+"Eigenschaften eines Verlag-Datensatzes mit untergeordneten Eigenschaften."
+type Verlag {
+  "ID des Verlags."
+  id: ID!
+  "Name des Verlags."
+  name: String!
+  "Gründungsdatum des Verlags."
+  gruendungsdatum: String!
+  "Hauptsitz des Verlags."
+  hauptsitz: Adresse!
+  "Die in diesem Verlag veröffentlichten Bücher."
+  buecher(first: Int!): [Buch!]
+}
+
+"Eigenschaften eines Buch-Datensatzes."
+type Buch {
+  "ID des Buches."
+  id: ID!
+  "ISBN-13 des Buches."
+  isbn13: String!
+  "Haupttitel des Buches."
+  haupttitel: String!
+  "Nebentitel des Buches."
+  nebentitel: String!
+  "Erscheinungsdatum des Buches."
+  erscheinungsdatum: String!
+  "Auflage des Buches."
+  auflage: Int!
+  "Preis des Buches."
+  preis: Preis!
+  "Kategorie des Buches."
+  kategorie: Kategorie!
+  "Seitenzahl des Buches."
+  seitenzahl: Int!
+}
+
+"Daten zu einer Adresse."
+type Adresse {
+  "Postleitzahl der Adresse."
+  plz: String!
+  "Ortsnamen der Adresse."
+  ort: String!
+  "Ländername der Adresse."
+  land: String!
+}
+
+"Daten zu einem Preis."
+type Preis {
+  "Bruttobetrag eines Preises."
+  bruttobetrag: String!
+  "Währung eines Preises."
+  waehrung: String!
+}
+
+"Eingabedaten für einen neuen Verlag."
+input VerlagInput {
+  "Name des Verlags."
+  name: String!
+  "Gründungsdatum des Verlags."
+  gruendungsdatum: String!
+  "Hauptsitz des Verlags."
+  hauptsitz: AdresseInput!
+  "Die in diesem Verlag veröffentlichten Bücher."
+  buecher: [BuchInput!]
+}
+
+"Neue Adresse."
+input AdresseInput {
+  plz: String!
+  ort: String!
+  land: String!
+}
+
+"Eingabedaten für ein neues Buch."
+input BuchInput {
+  "ID des Buches."
+  id: ID!
+  "ISBN-13 des Buches."
+  isbn13: String!
+  "Haupttitel des Buches."
+  haupttitel: String!
+  "Nebentitel des Buches."
+  nebentitel: String!
+  "Erscheinungsdatum des Buches."
+  erscheinungsdatum: String!
+  "Auflage des Buches."
+  auflage: Int!
+  "Preis des Buches."
+  preis: PreisInput!
+  "Kategorie des Buches."
+  kategorie: Kategorie!
+  "Seitenzahl des Buches."
+  seitenzahl: Int!
+}
+
+"Aufzählungstyp für die Kategorien eines Buches."
+enum Kategorie {
+  SACHBUCH
+}
+
+"Preisangabe für ein Buch."
+input PreisInput {
+  "Bruttobetrag eines Preises."
+  bruttobetrag: String!
+  "Währung eines Preises."
+  waehrung: String!
+}
+
+"Suchkriterien für die Query 'verlage'."
+input Suchkriterien {
+  "(Teil-) Name der gesuchten Verlage."
+  name:String
+  "Gründungsdatums der gesuchten Verlage."
+  gruendungsdatum: String
+}
+
+"Rückgabetyp beim Neuanlegen eines Verlags."
+type CreatePayload {
+  "Die ID des neu angelegten Verlags."
+  id: String!
+}

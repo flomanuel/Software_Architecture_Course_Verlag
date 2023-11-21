@@ -15,33 +15,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.acme.verlag.rest;
+package com.acme.verlag.graphql;
 
 import com.acme.verlag.entity.KategorieType;
 
-import java.time.LocalDate;
-
 /**
- * ValueObject für das Neuanlegen und Ändern eines Buches.
+ * Eine Value-Klasse für Eingabedaten passend zu BuchInput aus dem GraphQL-Schema.
  *
- * @param haupttitel        Der Haupttitel eins Buches.
- * @param nebentitel        Der Nebentitel eines Buches.
- * @param erscheinungsdatum Das Erscheinungsdatum eines Buches.
- * @param auflage           Die Auflage eines Buches.
- * @param preis             Der Preis eines Buches.
- * @param kategorie         Die Kategorie eines Buches.
- * @param isbn13            Die ISBN13 eines Buches.
- * @param seitenzahl        Die Seitenzahl eines Buches.
+ * @param isbn13            ISBN-13
+ * @param haupttitel        Haupttitel
+ * @param nebentitel        Nebentitel
+ * @param erscheinungsdatum Erscheinungsdatum
+ * @param auflage           Auflage
+ * @param preis             Preis
+ * @param kategorie         Kategorie
+ * @param seitenzahl        Seitenzahl
  */
-record BuchDTO(
-    String haupttitel,
-    String nebentitel,
-    LocalDate erscheinungsdatum,
-    int auflage,
-    PreisDTO preis,
-    KategorieType kategorie,
-    String isbn13,
-    int seitenzahl
+record BuchInput(String isbn13,
+                 String haupttitel,
+                 String nebentitel,
+                 String erscheinungsdatum,
+                 int auflage,
+                 PreisInput preis,
+                 KategorieType kategorie,
+                 int seitenzahl
 ) {
 
 }

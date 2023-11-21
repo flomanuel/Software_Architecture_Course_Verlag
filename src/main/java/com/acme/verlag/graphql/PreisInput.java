@@ -15,24 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.acme.verlag.rest;
+package com.acme.verlag.graphql;
 
-import java.time.LocalDate;
-import java.util.List;
+import java.math.BigDecimal;
+import java.util.Currency;
 
 /**
- * ValueObject für das Neuanlegen und Ändern eines Verlags.
+ * Geldbetrag und Währungseinheit für eine Preisangabe.
  *
- * @param name            Der Name des Verlags.
- * @param gruendungsdatum Das Gründungsdatum des Verlags.
- * @param hauptsitz       Der Hauptsitz des Verlags.
- * @param buecher         Die Bücher, die in einem Verlag erschienen sind.
+ * @param bruttobetrag Der Bruttobetrag als unveränderliches Pflichtfeld.
+ * @param waehrung     Die Währung als unveränderliches Pflichtfeld.
  */
-record VerlagDTO(
-    String name,
-    LocalDate gruendungsdatum,
-    AdresseDTO hauptsitz,
-    List<BuchDTO> buecher
-) {
+record PreisInput(BigDecimal bruttobetrag, Currency waehrung) {
 
 }

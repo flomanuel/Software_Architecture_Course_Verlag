@@ -15,24 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.acme.verlag.rest;
-
-import java.time.LocalDate;
-import java.util.List;
+package com.acme.verlag.graphql;
 
 /**
- * ValueObject für das Neuanlegen und Ändern eines Verlags.
+ * Adressdaten
  *
- * @param name            Der Name des Verlags.
- * @param gruendungsdatum Das Gründungsdatum des Verlags.
- * @param hauptsitz       Der Hauptsitz des Verlags.
- * @param buecher         Die Bücher, die in einem Verlag erschienen sind.
+ * @param plz  Die 5-stellige Postleitzahl als unveränderliches Pflichtfeld
+ * @param ort  Der Ort als unveränderliches Pflichtfeld.
+ * @param land Das Land als unveränderliches Pflichtfeld.
  */
-record VerlagDTO(
-    String name,
-    LocalDate gruendungsdatum,
-    AdresseDTO hauptsitz,
-    List<BuchDTO> buecher
-) {
+record AdresseInput(String plz, String ort, String land) {
 
 }
