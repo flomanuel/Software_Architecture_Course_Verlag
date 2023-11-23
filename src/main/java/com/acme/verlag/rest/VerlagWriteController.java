@@ -19,6 +19,8 @@ package com.acme.verlag.rest;
 
 import com.acme.verlag.service.ConstraintViolationsException;
 import com.acme.verlag.service.VerlagWriteService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -51,6 +53,7 @@ public class VerlagWriteController {
 
     private static final String PROBLEM_PATH = "/problem/";
     private final VerlagMapper mapper;
+    private final UriHelper uriHelper;
 
     /**
      * Service für Verlage.
@@ -66,6 +69,10 @@ public class VerlagWriteController {
      * Constraint verletzt ist oder Statuscode 400, falls syntaktische Fehler im Request-Body vorliegen.
      */
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
+    @Operation(summary = "Einen neuen Verlag anlegen", tags = "Neuanlegen")
+    @ApiResponse(responseCode = "201", description = "Verlag neu angelegt")
+    @ApiResponse(responseCode = "400", description = "Syntaktische Fehler im Request-Body")
+    @ApiResponse(responseCode = "422", description = "Ungültige Werte")
     ResponseEntity<Void> post(
         @RequestBody final VerlagDTO verlagDTO,
         final HttpServletRequest request
@@ -73,7 +80,7 @@ public class VerlagWriteController {
         log.debug("post: {}", verlagDTO);
         final var verlagInput = mapper.toVerlag(verlagDTO);
         final var verlag = service.create(verlagInput);
-        final var baseUri = request.getRequestURL();
+        final var baseUri = uriHelper.getBaseUri(request).toString();
         final var location = URI.create(STR."\{baseUri}/\{verlag.getId()}");
         return created(location).build();
     }
@@ -86,6 +93,11 @@ public class VerlagWriteController {
      */
     @PutMapping(path = "{id:" + ID_PATTERN + "}", consumes = APPLICATION_JSON_VALUE)
     @ResponseStatus(NO_CONTENT)
+    @Operation(summary = "Einen Verlag mit neuen Werten aktualisieren", tags = "Aktualisieren")
+    @ApiResponse(responseCode = "204", description = "Aktualisiert")
+    @ApiResponse(responseCode = "400", description = "Syntaktische Fehler im Request-Body")
+    @ApiResponse(responseCode = "404", description = "Verlag nicht vorhanden")
+    @ApiResponse(responseCode = "422", description = "Ungültige Werte")
     void put(@PathVariable final UUID id,
              @RequestBody final VerlagDTO verlagDTO
     ) {
