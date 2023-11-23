@@ -20,7 +20,6 @@ package com.acme.verlag.rest;
 import com.acme.verlag.entity.Adresse;
 import com.acme.verlag.entity.Buch;
 import com.acme.verlag.entity.Verlag;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -37,7 +36,6 @@ import java.util.List;
 @Getter
 @Setter
 @ToString(callSuper = true)
-//@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false) todo drinnen lassen? wie damit umgehen, dass UUID ein Attribut?
 public class VerlagModel extends RepresentationModel<VerlagModel> {
 
     private final String name;
