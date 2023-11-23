@@ -17,12 +17,10 @@
 
 package com.acme.verlag.rest;
 
-import com.acme.verlag.entity.Verlag;
 import com.acme.verlag.service.VerlagReadService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.query.sqm.mutation.internal.temptable.UpdateExecutionDelegate;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.LinkRelation;
@@ -33,7 +31,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.UUID;
 
 import static com.acme.verlag.rest.VerlagGetController.REST_PATH;
@@ -65,7 +62,6 @@ public class VerlagGetController {
      * Service für Verlage.
      */
     private final VerlagReadService service;
-    private final UriHelper uriHelper;
 
     /**
      * Suche anhand der Verlags-ID als Pfad-Parameter.
