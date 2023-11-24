@@ -93,8 +93,7 @@ public class VerlagGetController {
         final var listLink = Link.of(baseUri, LinkRelation.of("list"));
         final var addLink = Link.of(baseUri, LinkRelation.of("add"));
         final var updateLink = Link.of(baseUri, LinkRelation.of("update"));
-        final var removeLink = Link.of(baseUri, LinkRelation.of("remove"));
-        model.add(selfLink, listLink, addLink, updateLink, removeLink);
+        model.add(selfLink, listLink, addLink, updateLink);
         log.debug("getById: {}", verlag);
         return model;
     }
