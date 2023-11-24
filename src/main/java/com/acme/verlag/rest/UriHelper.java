@@ -28,7 +28,6 @@ import static com.acme.verlag.rest.VerlagGetController.REST_PATH;
 
 /**
  * Hilfsklasse um URIs für HATEOAS zu ermitteln.
- *
  */
 @Component
 @Slf4j
@@ -55,7 +54,8 @@ class UriHelper {
         // KEIN Forwarding von einem API-Gateway
         // URI aus Schema, Host, Port und Pfad
         final var uriComponents = ServletUriComponentsBuilder.fromRequestUri(request).build();
-        final var baseUri = STR."\{uriComponents.getScheme()}://\{uriComponents.getHost()}:\{uriComponents.getPort()}\{REST_PATH}";
+        final var baseUri =
+            STR."\{uriComponents.getScheme()}://\{uriComponents.getHost()}:\{uriComponents.getPort()}\{REST_PATH}";
         log.debug("getBaseUri (ohne Forwarding): baseUri={}", baseUri);
         return URI.create(baseUri);
     }

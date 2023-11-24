@@ -20,6 +20,7 @@ package com.acme.verlag.rest;
 import com.acme.verlag.entity.Adresse;
 import com.acme.verlag.entity.Buch;
 import com.acme.verlag.entity.Verlag;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -35,6 +36,7 @@ import java.util.List;
 @Relation(collectionRelation = "verlage", itemRelation = "verlag")
 @Getter
 @Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 @ToString(callSuper = true)
 public class VerlagModel extends RepresentationModel<VerlagModel> {
 
