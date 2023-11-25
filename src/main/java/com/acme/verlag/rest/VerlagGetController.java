@@ -72,7 +72,7 @@ public class VerlagGetController {
     /**
      * Suche anhand der Verlags-ID als Pfad-Parameter.
      *
-     * @param id Die ID des zu suchenden Verlags.
+     * @param id      Die ID des zu suchenden Verlags.
      * @param request Das Request-Objekt, um Links für HATEOAS zu erstellen.
      * @return Der gefundene Verlag mit Atom-Links.
      */
@@ -102,7 +102,7 @@ public class VerlagGetController {
      * Suche mit diversen Suchkriterien als Query-Parameter.
      *
      * @param suchkriterien Die Query-Parameter als Map.
-     * @param request Das Request-Objekt, um Links für HATEOAS zu erstellen.
+     * @param request       Das Request-Objekt, um Links für HATEOAS zu erstellen.
      * @return Alle gefundenen Verlage als CollectionModel.
      */
     @GetMapping(produces = HAL_JSON_VALUE)
