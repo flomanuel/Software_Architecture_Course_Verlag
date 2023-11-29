@@ -15,7 +15,7 @@ pluginManagement {
 
 // buildCache {
 //    local {
-//        directory = "C:/Z/caches"
+//        directory = "/home/florian/Z/caches"
 //    }
 // }
 

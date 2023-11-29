@@ -775,7 +775,7 @@ sonarqube {
 // cd C:\Z\caches\modules-2\files-2.1\com.h2database\h2\2.1.214\...
 // java -jar h2-2.1.214.jar
 //  Generic H2 (Embedded)
-//  JDBC URL:   jdbc:h2:tcp://localhost/C:/Zimmermann/dependency-check-data/odc
+//  JDBC URL:   jdbc:h2:tcp://localhost/home/florian/Zimmermann/dependency-check-data/odc
 dependencyCheck {
     // https://github.com/dependency-check/dependency-check-gradle/blob/main/src/main/groovy/org/owasp/dependencycheck/gradle/extension/NvdExtension.groovy
     // NVD = National Vulnerability Database
@@ -793,7 +793,7 @@ dependencyCheck {
 
     data(
         closureOf<org.owasp.dependencycheck.gradle.extension.DataExtension> {
-            directory = "C:/Zimmermann/dependency-check-data"
+            directory = "/home/florian/Zimmermann/dependency-check-data"
             // https://github.com/jeremylong/DependencyCheck/blob/main/core/src/main/java/org/owasp/dependencycheck/data/nvdcve/DatabaseManager.java#L158
             // username = "dcuser"
             // password = "DC-Pass1337!"

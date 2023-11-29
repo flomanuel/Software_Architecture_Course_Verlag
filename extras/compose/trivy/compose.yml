@@ -21,7 +21,7 @@ services:
     command: [image, floriansauer/verlag:2023.10.0-buildpacks]
     volumes:
       - type: bind
-        source: C:/Zimmermann/volumes/trivy
+        source: /home/florian/Zimmermann/volumes/trivy
         target: /root/.cache
       - type: bind
         source: /var/run/docker.sock

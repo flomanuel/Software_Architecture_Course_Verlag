@@ -27,7 +27,7 @@ import org.mapstruct.NullValueMappingStrategy;
 
 /**
  * Mapper zwischen Entity-Klassen.
- * Siehe build\generated\sources\annotationProcessor\java\main\...\VerlagMapperImpl.java.
+ * Siehe build/generated/sources/annotationProcessor/java/main/.../VerlagMapperImpl.java.
  */
 @Mapper(componentModel = "spring", nullValueIterableMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT)
 interface VerlagMapper {
