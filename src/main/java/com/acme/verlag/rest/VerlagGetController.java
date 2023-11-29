@@ -107,7 +107,7 @@ public class VerlagGetController {
      */
     @GetMapping(produces = HAL_JSON_VALUE)
     @Operation(summary = "Suche mit Suchkriterien", tags = "Suchen")
-    @ApiResponse(responseCode = "200", description = "CollectionModel mid den Verlagen")
+    @ApiResponse(responseCode = "200", description = "CollectionModel mit den Verlagen")
     @ApiResponse(responseCode = "404", description = "Keine Verlage gefunden")
     CollectionModel<VerlagModel> get(
         @RequestParam final MultiValueMap<String, String> suchkriterien, final HttpServletRequest request

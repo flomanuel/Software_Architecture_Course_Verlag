@@ -76,12 +76,12 @@
 //  13) Native Compilation mit Spring AOT (= Ahead Of Time) in einer Eingabeaufforderung
 //        "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
 //        .\gradlew nativeCompile -Dflyway=false
-//        .\build\native\nativeCompile\kunde.exe --spring.profiles.active=dev --logging.file.name=.\build\log\application.log
-//        .\build\native\nativeCompile\kunde.exe --spring.datasource.url=jdbc:h2:mem:testdb --spring.datasource.username=sa --spring.datasource.password="" --logging.file.name=.\build\log\application.log
+//        .\build\native\nativeCompile\verlag.exe --spring.profiles.active=dev --logging.file.name=.\build\log\application.log
+//        .\build\native\nativeCompile\verlag.exe --spring.datasource.url=jdbc:h2:mem:testdb --spring.datasource.username=sa --spring.datasource.password="" --logging.file.name=.\build\log\application.log
 //
 //  14) Initialisierung des Gradle Wrappers in der richtigen Version
 //      dazu ist ggf. eine Internetverbindung erforderlich
-//        gradle wrapper --gradle-version=8.5-rc-2 --distribution-type=bin
+//        gradle wrapper --gradle-version=8.5-rc-3 --distribution-type=bin
 
 // https://github.com/gradle/kotlin-dsl/tree/master/samples
 // https://docs.gradle.org/current/userguide/kotlin_dsl.html
@@ -256,9 +256,9 @@ dependencies {
     implementation(platform("com.fasterxml.jackson:jackson-bom:${libs.versions.jackson.get()}"))
     implementation(platform("io.netty:netty-bom:${libs.versions.netty.get()}"))
     implementation(platform("io.projectreactor:reactor-bom:${libs.versions.reactor.get()}"))
-    //implementation(platform("org.springframework:spring-framework-bom:${libs.versions.spring.get()}"))
-    //implementation(platform("org.springframework.data:spring-data-bom:${libs.versions.springData.get()}"))
-    //implementation(platform("org.springframework.security:spring-security-bom:${libs.versions.springSecurity.get()}"))
+    implementation(platform("org.springframework:spring-framework-bom:${libs.versions.spring.get()}"))
+    implementation(platform("org.springframework.data:spring-data-bom:${libs.versions.springData.get()}"))
+    implementation(platform("org.springframework.security:spring-security-bom:${libs.versions.springSecurity.get()}"))
     implementation(platform("io.zipkin.reporter2:zipkin-reporter-bom:${libs.versions.zipkinReporter.get()}"))
 
     //testImplementation(platform("org.assertj:assertj-bom:${libs.versions.assertj.get()}"))
@@ -295,7 +295,7 @@ dependencies {
 
     // https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html#tooling-modelgen
     // https://docs.jboss.org/hibernate/orm/current/introduction/html_single/Hibernate_Introduction.html#generator
-    // build\generated\sources\annotationProcessor\java\main\com.acme.kunde\entity\Kunde_.java
+    // build\generated\sources\annotationProcessor\java\main\com.acme.verlag\entity\Verlag_.java
     annotationProcessor("org.hibernate:hibernate-jpamodelgen:${libs.versions.hibernateJpamodelgen.get()}")
 
     // Flyway unterstuetzt nur Oracle 21 in der lizenzpflichtigen Version: https://documentation.red-gate.com/fd/oracle-184127602.html
@@ -374,7 +374,7 @@ dependencies {
     constraints {
         implementation("org.jetbrains:annotations:${libs.versions.annotations.get()}")
         //implementation("org.springframework.graphql:spring-graphql:${libs.versions.springGraphQL.get()}")
-        //implementation("org.springframework.hateoas:spring-hateoas:${libs.versions.springHateoas.get()}")
+        implementation("org.springframework.hateoas:spring-hateoas:${libs.versions.springHateoas.get()}")
         //implementation("jakarta.persistence:jakarta.persistence-api:${libs.versions.jakartaPersistence.get()}")
         implementation("org.hibernate.orm:hibernate-core:${libs.versions.hibernate.get()}")
         //runtimeOnly("org.postgresql:postgresql:${libs.versions.postgres.get()}")
@@ -461,13 +461,16 @@ tasks.named<JavaCompile>("compileTestJava") {
 }
 
 tasks.named("bootJar", org.springframework.boot.gradle.tasks.bundling.BootJar::class.java) {
+    // in src/main/resources/
+    exclude("private-key.pem", "certificate.cer")
+
     doLast {
         println(
             """
             |
             |Aufruf der ausfuehrbaren JAR-Datei:
             |
-            |java --enable-preview -jar build/libs/kunde-2023.10.0.jar
+            |java --enable-preview -jar build/libs/verlag-2023.10.0.jar `
             |     --spring.profiles.active=dev `
             |     --spring.ssl.bundle.pem.microservice.keystore.private-key=./src/main/resources/private-key.pem `
             |     --spring.ssl.bundle.pem.microservice.keystore.certificate=./src/main/resources/certificate.crt `
