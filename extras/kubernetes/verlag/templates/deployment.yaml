@@ -158,17 +158,17 @@ spec:
         - name: log-{{ include "verlag.name" . }}{{ .Values.versionSuffix }}
           # https://kubernetes.io/docs/concepts/storage/volumes/#hostpath
           hostPath:
-            path: /run/desktop/mnt/host/home/florian/Zimmermann/volumes/{{ include "verlag.name" . }}{{ .Values.versionSuffix }}
+            path: /host_mnt/home/florian/Zimmermann/volumes/{{ include "verlag.name" . }}{{ .Values.versionSuffix }}
             type: Directory
           # https://kubernetes.io/docs/concepts/storage/volumes/#emptydir
           #emptyDir: {}
         - name: private-key-{{ include "verlag.name" . }}
           hostPath:
-            path: /run/desktop/mnt/host/home/florian/IdeaProjects/verlag/src/main/resources/private-key.pem
+            path: /host_mnt/home/florian/IdeaProjects/verlag/src/main/resources/private-key.pem
             type: File
         - name: certificate-{{ include "verlag.name" . }}
           hostPath:
-            path: /run/desktop/mnt/host/home/florian/IdeaProjects/verlag/src/main/resources/certificate.crt
+            path: /host_mnt/home/florian/IdeaProjects/verlag/src/main/resources/certificate.crt
             type: File
       serviceAccountName: {{ include "verlag.fullname" . }}
       automountServiceAccountToken: false
