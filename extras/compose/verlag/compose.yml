@@ -51,7 +51,7 @@ services:
         target: /workspace/BOOT-INF/classes/certificate.crt
         read_only: true
       - type: bind
-        source: /home/florian/Zimmermann/volumes/verlag # docker container ist nur readonly; tomcat kann nur schreiben, wenn volume auf host eingebunden wird
+        source: /home/florian/Zimmermann/volumes/verlag-v0 # docker container ist nur readonly; tomcat kann nur schreiben, wenn volume auf host eingebunden wird
         target: /tmp
     env_file: verlag.env
     # CAVEAT: bei Replikation keine doppelten Rechnernamen im virtuellen Netzwerk !!!
