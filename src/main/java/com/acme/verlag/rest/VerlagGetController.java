@@ -17,10 +17,17 @@
 
 package com.acme.verlag.rest;
 
-import com.acme.verlag.entity.Verlag;
 import com.acme.verlag.service.VerlagReadService;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.LinkRelation;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,11 +35,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.UUID;
 
 import static com.acme.verlag.rest.VerlagGetController.REST_PATH;
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.hateoas.MediaTypes.HAL_JSON_VALUE;
 
 /**
  * Controller-Klasse, bildet die REST-Schnittstelle.
@@ -41,6 +47,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping(REST_PATH)
 @RequiredArgsConstructor
+@OpenAPIDefinition(info = @Info(title = "Verlag API", version = "v1"))
 @Slf4j
 @SuppressWarnings("java:S1075")
 public class VerlagGetController {
@@ -60,34 +67,65 @@ public class VerlagGetController {
      * Service für Verlage.
      */
     private final VerlagReadService service;
+    private final UriHelper uriHelper;
 
     /**
      * Suche anhand der Verlags-ID als Pfad-Parameter.
      *
-     * @param id Die ID des zu suchenden Verlags.
-     * @return Der gefundene Verlag.
+     * @param id      Die ID des zu suchenden Verlags.
+     * @param request Das Request-Objekt, um Links für HATEOAS zu erstellen.
+     * @return Der gefundene Verlag mit Atom-Links.
      */
-    @GetMapping(path = "{id:" + ID_PATTERN + "}", produces = APPLICATION_JSON_VALUE)
-    Verlag getById(@PathVariable final UUID id) {
+    @GetMapping(path = "{id:" + ID_PATTERN + "}", produces = HAL_JSON_VALUE)
+    @Operation(summary = "Suche mit der Verlag-ID", tags = "Suchen")
+    @ApiResponse(responseCode = "200", description = "Verlag gefunden")
+    @ApiResponse(responseCode = "404", description = "Verlag nicht gefunden")
+    VerlagModel getById(@PathVariable final UUID id, final HttpServletRequest request) {
         log.debug("getById: id={}, Thread={}", id, Thread.currentThread().getName());
+        // Geschäftslogik
         final var verlag = service.findById(id);
+
+        // HATEOAS
+        final var model = new VerlagModel(verlag);
+        final var baseUri = uriHelper.getBaseUri(request).toString();
+        final var idUri = STR."\{baseUri}/\{verlag.getId()}}";
+        final var selfLink = Link.of(idUri);
+        final var listLink = Link.of(baseUri, LinkRelation.of("list"));
+        final var addLink = Link.of(baseUri, LinkRelation.of("add"));
+        final var updateLink = Link.of(idUri, LinkRelation.of("update"));
+        model.add(selfLink, listLink, addLink, updateLink);
         log.debug("getById: {}", verlag);
-        return verlag;
+        return model;
     }
 
     /**
      * Suche mit diversen Suchkriterien als Query-Parameter.
      *
      * @param suchkriterien Die Query-Parameter als Map.
-     * @return Alle gefundenen Verlage als Liste.
+     * @param request       Das Request-Objekt, um Links für HATEOAS zu erstellen.
+     * @return Alle gefundenen Verlage als CollectionModel.
      */
-    @GetMapping(produces = APPLICATION_JSON_VALUE)
-    List<Verlag> get(
-        @RequestParam final MultiValueMap<String, String> suchkriterien
+    @GetMapping(produces = HAL_JSON_VALUE)
+    @Operation(summary = "Suche mit Suchkriterien", tags = "Suchen")
+    @ApiResponse(responseCode = "200", description = "CollectionModel mit den Verlagen")
+    @ApiResponse(responseCode = "404", description = "Keine Verlage gefunden")
+    CollectionModel<VerlagModel> get(
+        @RequestParam final MultiValueMap<String, String> suchkriterien, final HttpServletRequest request
     ) {
         log.debug("get: suchkriterien={}", suchkriterien);
-        final var verlage = service.find(suchkriterien).stream().toList();
-        log.debug("get: {}", verlage);
-        return verlage;
+
+        // HATEOAS
+        final var baseUri = uriHelper.getBaseUri(request).toString();
+
+        // Geschäftslogik und HATEOAS
+        final var models = service.find(suchkriterien).stream()
+            .map(verlag -> {
+                final var model = new VerlagModel(verlag);
+                model.add(Link.of(STR."\{baseUri}/\{verlag.getId()}"));
+                return model;
+            })
+            .toList();
+        log.debug("get: {}", models);
+        return CollectionModel.of(models);
     }
 }

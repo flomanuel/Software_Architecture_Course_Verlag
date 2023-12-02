@@ -26,8 +26,8 @@ metadata:
   # https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels
   # https://helm.sh/docs/chart_best_practices/labels
   labels:
-    # https://helm.sh/docs/chart_template_guide/function_list
-    # nindent rueckt um eine bestimmte Anzahl ("n") Zeichen ein
+  # https://helm.sh/docs/chart_template_guide/function_list
+  # nindent rueckt um eine bestimmte Anzahl ("n") Zeichen ein
     {{- include "verlag.labels" . | nindent 4 }}
 spec:
   # https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#selector
@@ -87,12 +87,12 @@ spec:
             seccompProfile:
               # 44 system calls sind deaktiviert
               type: RuntimeDefault
-            seLinuxOptions: {}
+            seLinuxOptions: { }
             # https://snyk.io/blog/10-kubernetes-security-context-settings-you-should-understand
             capabilities:
               # keine Linux kernel capabilities
               # bei "baseline" erlaubt: AUDIT_WRITE, CHOWN, DAC_OVERRIDE, FOWNER, FSETID, KILL, MKNOD, NET_BIND_SERVICE, SETFCAP, SETGID, SETPCAP, SETUID, SYS_CHROOT
-              drop: [ALL]
+              drop: [ ALL ]
           resources:
             # https://cloud.google.com/blog/products/gcp/kubernetes-best-practices-resource-requests-and-limits
             # https://kubernetes.io/docs/concepts/configuration/manage-resources-containers
@@ -147,6 +147,12 @@ spec:
           volumeMounts:
             - mountPath: /tmp
               name: log-{{ include "verlag.name" . }}{{ .Values.versionSuffix }}
+            - mountPath: /workspace/BOOT-INF/classes/private-key.pem
+              name: private-key-{{ include "verlag.name" . }}
+              readOnly: true
+            - mountPath: /workspace/BOOT-INF/classes/certificate.crt
+              name: certificate-{{ include "verlag.name" . }}
+              readOnly: true
       priorityClassName: medium-priority
       volumes:
         - name: log-{{ include "verlag.name" . }}{{ .Values.versionSuffix }}
@@ -156,5 +162,13 @@ spec:
             type: Directory
           # https://kubernetes.io/docs/concepts/storage/volumes/#emptydir
           #emptyDir: {}
+        - name: private-key-{{ include "verlag.name" . }}
+          hostPath:
+            path: /run/desktop/mnt/host/c/Users/Florian/IdeaProjects/verlag/src/main/resources/private-key.pem
+            type: File
+        - name: certificate-{{ include "verlag.name" . }}
+          hostPath:
+            path: /run/desktop/mnt/host/c/Users/Florian/IdeaProjects/verlag/src/main/resources/certificate.crt
+            type: File
       serviceAccountName: {{ include "verlag.fullname" . }}
       automountServiceAccountToken: false
