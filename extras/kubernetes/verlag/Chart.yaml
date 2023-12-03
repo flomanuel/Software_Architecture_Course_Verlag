@@ -58,8 +58,8 @@ keywords:
   - Spring
   - Java
 
-home: https://www.www.h-ka.de
-icon: https://www.www.h-ka.de/typo3conf/ext/in2template/Resources/Public/Images/Favicons/favicon-256x256.png
+home: https://www.h-ka.de
+icon: https://www.h-ka.de/typo3conf/ext/in2template/Resources/Public/Images/Favicons/favicon-256x256.png
 
 maintainers:
   - name: Florian Sauer
