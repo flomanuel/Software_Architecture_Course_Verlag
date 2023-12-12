@@ -17,14 +17,20 @@
 
 package com.acme.verlag.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.validator.constraints.UniqueElements;
@@ -36,6 +42,10 @@ import java.util.UUID;
 /**
  * Daten eines Verlages.
  */
+@Entity
+@Table(name = "verlag")
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Getter
 @Setter
@@ -57,6 +67,11 @@ public class Verlag {
     /**
      * Die UUID des Verlags.
      */
+    @Id
+    // https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html...
+    // ...#identifiers-generators-uuid
+    // https://in.relation.to/2022/05/12/orm-uuid-mapping
+    @GeneratedValue
     @EqualsAndHashCode.Include
     private UUID id;
 

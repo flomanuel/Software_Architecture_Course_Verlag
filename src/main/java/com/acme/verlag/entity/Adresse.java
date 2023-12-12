@@ -17,18 +17,30 @@
 
 package com.acme.verlag.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.util.UUID;
 
 /**
  * Adressdaten für die Anwendungslogik und zum Abspeichern in der Datenbank.
  */
+@Entity
+@Table(name = "adresse")
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Getter
 @Setter
@@ -60,6 +72,12 @@ public class Adresse {
      * Konstante für den regulären Ausdruck einer Postleitzahl als 5-stellige Zahl mit führender Null.
      */
     public static final String PLZ_PATTERN = "^\\d{5}$";
+
+    @Id
+    @GeneratedValue
+    // Oracle: https://in.relation.to/2022/05/12/orm-uuid-mapping
+    // @org.hibernate.annotations.JdbcTypeCode(org.hibernate.type.SqlTypes.CHAR)
+    private UUID id;
 
     /**
      * Postleitzahl der Adresse.
