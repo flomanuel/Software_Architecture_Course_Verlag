@@ -21,6 +21,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -35,12 +36,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.ISBN;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
+import static jakarta.persistence.CascadeType.PERSIST;
+import static jakarta.persistence.CascadeType.REMOVE;
 import static jakarta.persistence.EnumType.STRING;
+import static jakarta.persistence.FetchType.LAZY;
 
 /**
  * Daten eines Buches für die Anwendungslogik und zum Abspeichern in der Datenbank.
@@ -122,6 +129,7 @@ public class Buch {
     /**
      * Der Preis des Buches.
      */
+    @OneToOne(optional = false, cascade = {PERSIST, REMOVE}, fetch = LAZY, orphanRemoval = true)
     @Valid
     @NotNull
     private Preis preis;
@@ -138,4 +146,10 @@ public class Buch {
      */
     @Positive
     private int seitenzahl;
+
+    @CreationTimestamp
+    private LocalDateTime erzeugt;
+
+    @UpdateTimestamp
+    private LocalDateTime aktualisiert;
 }
