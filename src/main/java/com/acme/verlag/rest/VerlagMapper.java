@@ -39,6 +39,9 @@ interface VerlagMapper {
      * @return Konvertiertes Verlag-Objekt mit null als ID.
      */
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "erzeugt", ignore = true)
+    @Mapping(target = "aktualisiert", ignore = true)
+    @Mapping(target = "fachbereicheStr", ignore = true)
     Verlag toVerlag(VerlagDTO dto);
 
     /**
@@ -48,6 +51,8 @@ interface VerlagMapper {
      * @return Konvertiertes Buch-Objekt mit null als ID.
      */
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "erzeugt", ignore = true)
+    @Mapping(target = "aktualisiert", ignore = true)
     Buch toBuch(BuchDTO dto);
 
     /**
@@ -56,6 +61,7 @@ interface VerlagMapper {
      * @param dto DTO-Objekt für AdresseDTO.
      * @return Konvertiertes Adresse-Objekt.
      */
+    @Mapping(target = "id", ignore = true)
     Adresse toAdresse(AdresseDTO dto);
 
     /**
@@ -64,5 +70,6 @@ interface VerlagMapper {
      * @param dto DTO-Objekt für PreisDTO
      * @return Konvertiertes Preis-Objekt.
      */
+    @Mapping(target = "id", ignore = true)
     Preis toPreis(PreisDTO dto);
 }

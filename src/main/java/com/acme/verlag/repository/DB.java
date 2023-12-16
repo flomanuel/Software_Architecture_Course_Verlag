@@ -19,6 +19,7 @@ package com.acme.verlag.repository;
 
 import com.acme.verlag.entity.Adresse;
 import com.acme.verlag.entity.Buch;
+import com.acme.verlag.entity.FachbereichType;
 import com.acme.verlag.entity.Preis;
 import com.acme.verlag.entity.Verlag;
 
@@ -76,7 +77,8 @@ final class DB {
                             )
                             .id(UUID.fromString("10000000-0000-0000-0000-000000000000"))
                             .build())
-                    .collect(Collectors.toList())).build(),
+                    .collect(Collectors.toList()))
+                .fachbereiche(List.of(FachbereichType.INFORMATIK)).build(),
             // HTTP DELETE
             Verlag.builder()
                 .id(UUID.fromString("00000000-0000-0000-0000-000000000002"))
@@ -103,7 +105,8 @@ final class DB {
                         )
                         .id(UUID.fromString("20000000-0000-0000-0000-000000000000"))
                         .build()
-                ).collect(Collectors.toList())).build(),
+                ).collect(Collectors.toList()))
+                .fachbereiche(List.of(FachbereichType.PHYSIK)).build(),
             // zur freien Verfügung
             Verlag.builder()
                 .id(UUID.fromString("00000000-0000-0000-0000-000000000003"))
@@ -130,7 +133,8 @@ final class DB {
                         )
                         .id(UUID.fromString("30000000-0000-0000-0000-000000000000"))
                         .build()
-                ).collect(Collectors.toList())).build(),
+                ).collect(Collectors.toList()))
+                .fachbereiche(List.of(FachbereichType.INFORMATIK)).build(),
             // HTTP Get
             Verlag.builder()
                 .id(UUID.fromString("00000000-0000-0000-0000-000000000004"))
@@ -157,7 +161,8 @@ final class DB {
                         )
                         .id(UUID.fromString("40000000-0000-0000-0000-000000000000"))
                         .build()
-                ).collect(Collectors.toList())).build()
+                ).collect(Collectors.toList()))
+                .fachbereiche(List.of(FachbereichType.FANTASY)).build()
         ).collect(Collectors.toList());
     }
 

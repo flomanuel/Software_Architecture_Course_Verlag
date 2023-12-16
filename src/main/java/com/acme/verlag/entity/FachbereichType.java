@@ -23,7 +23,7 @@ public enum FachbereichType {
     /**
      * _Geschichtswissenschaft_ mit dem internen Wert `S`.
      */
-    GESCHICHTSWISSENSCHAFT("G"),
+    GESCHICHTSWISSENSCHAFTEN("G"),
 
     /**
      * _Physik_ mit dem internen Wert `S`.
@@ -43,7 +43,12 @@ public enum FachbereichType {
     /**
      * _Informatik_ mit dem internen Wert `S`.
      */
-    INFORMATIK("I");
+    INFORMATIK("I"),
+
+    /**
+     * _Fantasy_ mit dem internen Wert `S`.
+     */
+    FANTASY("F");
 
     private final String value;
 
