@@ -83,14 +83,15 @@ public class Buch {
      * Die UUID des Buches.
      */
     @Id
-    // https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html...
-    // ...#identifiers-generators-uuid
-    // https://in.relation.to/2022/05/12/orm-uuid-mapping
     @GeneratedValue
-    // Oracle: https://in.relation.to/2022/05/12/orm-uuid-mapping
-    // @org.hibernate.annotations.JdbcTypeCode(org.hibernate.type.SqlTypes.CHAR)
     @EqualsAndHashCode.Include
     private UUID id;
+
+    @CreationTimestamp
+    private LocalDateTime erzeugt;
+
+    @UpdateTimestamp
+    private LocalDateTime aktualisiert;
 
     /**
      * Die ISBN-13 des Buches.
@@ -114,25 +115,23 @@ public class Buch {
     private String nebentitel;
 
     /**
-     * Das Erscheinungsdatum des Buches.
-     */
-    @PastOrPresent
-    @NotNull
-    private LocalDate erscheinungsdatum;
-
-    /**
      * Die Auflage des Buches.
      */
     @Positive
     private int auflage;
 
     /**
-     * Der Preis des Buches.
+     * Die Seitenzahl des Buches.
      */
-    @OneToOne(optional = false, cascade = {PERSIST, REMOVE}, fetch = LAZY, orphanRemoval = true)
-    @Valid
+    @Positive
+    private int seitenzahl;
+
+    /**
+     * Das Erscheinungsdatum des Buches.
+     */
+    @PastOrPresent
     @NotNull
-    private Preis preis;
+    private LocalDate erscheinungsdatum;
 
     /**
      * Die thematische Kategorie des Buches.
@@ -142,14 +141,10 @@ public class Buch {
     private KategorieType kategorie;
 
     /**
-     * Die Seitenzahl des Buches.
+     * Der Preis des Buches.
      */
-    @Positive
-    private int seitenzahl;
-
-    @CreationTimestamp
-    private LocalDateTime erzeugt;
-
-    @UpdateTimestamp
-    private LocalDateTime aktualisiert;
+    @OneToOne(optional = false, cascade = {PERSIST, REMOVE}, fetch = LAZY, orphanRemoval = true)
+    @Valid
+    @NotNull
+    private Preis preis;
 }

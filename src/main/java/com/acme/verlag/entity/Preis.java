@@ -54,9 +54,6 @@ public class Preis {
     public static final String DECIMAL_MIN_BRUTTOBETRAG = "0.0";
 
     @Id
-    // https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html...
-    // ...#identifiers-generators-uuid
-    // https://in.relation.to/2022/05/12/orm-uuid-mapping
     @GeneratedValue
     private UUID id;
 

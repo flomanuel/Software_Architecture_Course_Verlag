@@ -85,12 +85,15 @@ public class Verlag {
      * Die UUID des Verlags.
      */
     @Id
-    // https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html...
-    // ...#identifiers-generators-uuid
-    // https://in.relation.to/2022/05/12/orm-uuid-mapping
     @GeneratedValue
     @EqualsAndHashCode.Include
     private UUID id;
+
+    @CreationTimestamp
+    private LocalDateTime erzeugt;
+
+    @UpdateTimestamp
+    private LocalDateTime aktualisiert;
 
     /**
      * Der Name des Verlags.
@@ -98,13 +101,6 @@ public class Verlag {
     @Size(min = SIZE_MIN_NAME, max = SIZE_MAX_NAME)
     @NotBlank
     private String name;
-
-    /**
-     * Das Gründungsdatum des Verlags.
-     */
-    @PastOrPresent
-    @NotNull
-    private LocalDate gruendungsdatum;
 
     /**
      * Die Fachbereiche des Verlags.
@@ -115,6 +111,13 @@ public class Verlag {
 
     @Column(name = "fachbereiche")
     private String fachbereicheStr;
+
+    /**
+     * Das Gründungsdatum des Verlags.
+     */
+    @PastOrPresent
+    @NotNull
+    private LocalDate gruendungsdatum;
 
     /**
      * Die Adresse des Hauptsitzes des Verlags.
@@ -136,12 +139,6 @@ public class Verlag {
     @UniqueElements
     @Transient
     private List<Buch> buecher;
-
-    @CreationTimestamp
-    private LocalDateTime erzeugt;
-
-    @UpdateTimestamp
-    private LocalDateTime aktualisiert;
 
     @PrePersist
     private void buildFachbereicheStr() {

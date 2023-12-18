@@ -75,8 +75,6 @@ public class Adresse {
 
     @Id
     @GeneratedValue
-    // Oracle: https://in.relation.to/2022/05/12/orm-uuid-mapping
-    // @org.hibernate.annotations.JdbcTypeCode(org.hibernate.type.SqlTypes.CHAR)
     private UUID id;
 
     /**
