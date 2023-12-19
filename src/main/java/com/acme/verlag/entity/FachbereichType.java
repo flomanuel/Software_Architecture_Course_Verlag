@@ -17,7 +17,10 @@
 
 package com.acme.verlag.entity;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+
+import java.util.stream.Stream;
 
 public enum FachbereichType {
     /**
@@ -66,5 +69,19 @@ public enum FachbereichType {
     @Override
     public String toString() {
         return value;
+    }
+
+    /**
+     * Konvertierung eines Strings in einen Enum-Wert.
+     *
+     * @param value Der String, zu dem ein passender Enum-Wert ermittelt werden soll.
+     * @return Passender Enum-Wert oder null.
+     */
+    @JsonCreator
+    public static FachbereichType of(final String value) {
+        return Stream.of(values())
+            .filter(fachbereich -> fachbereich.value.equalsIgnoreCase(value))
+            .findFirst()
+            .orElse(null);
     }
 }

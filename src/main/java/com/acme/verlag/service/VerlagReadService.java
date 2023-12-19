@@ -18,7 +18,9 @@
 package com.acme.verlag.service;
 
 import com.acme.verlag.entity.Verlag;
+import com.acme.verlag.repository.SpecificationBuilder;
 import com.acme.verlag.repository.VerlagRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -37,6 +39,7 @@ import java.util.UUID;
 public class VerlagReadService {
 
     private final VerlagRepository repository;
+    private final SpecificationBuilder specificationBuilder;
 
     /**
      * Einen Verlag anhand seiner ID suchen.
@@ -59,13 +62,17 @@ public class VerlagReadService {
      * @param suchkriterien Die Suchkriterien
      * @return Die gefundenen Verlage oder eine leere Liste.
      */
+    @Transactional(readOnly = true)
     @SuppressWarnings({"ReturnCount", "NestedIfDepth"})
     public Collection<Verlag> find(final Map<String, List<String>> suchkriterien) {
         log.debug("find: suchkriterien={}", suchkriterien);
         if (suchkriterien.isEmpty()) {
             return repository.findAll();
         }
-        final var verlage = repository.find(suchkriterien);
+        final var spec = specificationBuilder
+            .build(suchkriterien)
+            .orElseThrow(() -> new NotFoundException(suchkriterien));
+        final var verlage = repository.findAll(spec);
         if (verlage.isEmpty()) {
             throw new NotFoundException(suchkriterien);
         }

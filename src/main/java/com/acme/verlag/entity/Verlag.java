@@ -72,6 +72,16 @@ import static java.util.Collections.emptyList;
 public class Verlag {
 
     /**
+     * NamedEntityGraph für das Attribut "fachbereiche".
+     */
+    public static final String FACHBEREICHE_GRAPH = "Verlag.fachbereiche";
+
+    /**
+     * NamedEntityGraph für das Attribut "hauptsitz".
+     */
+    public static final String HAUPTSITZ_GRAPH = "Verlag.hauptsitz";
+
+    /**
      * Konstante für die maximale Länge eines Verlagsnamens.
      */
     public static final int SIZE_MAX_NAME = 200;
@@ -139,6 +149,19 @@ public class Verlag {
     @UniqueElements
     @Transient
     private List<Buch> buecher;
+
+    /**
+     * Verlagsdaten überschreiben.
+     *
+     * @param verlag Neue Verlagsdaten.
+     */
+    public void set(final Verlag verlag) {
+        name = verlag.name;
+        fachbereiche = verlag.fachbereiche;
+        gruendungsdatum = verlag.gruendungsdatum;
+        hauptsitz = verlag.hauptsitz;
+        buecher = verlag.buecher;
+    }
 
     @PrePersist
     private void buildFachbereicheStr() {

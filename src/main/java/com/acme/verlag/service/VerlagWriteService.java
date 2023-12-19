@@ -19,6 +19,7 @@ package com.acme.verlag.service;
 
 import com.acme.verlag.entity.Verlag;
 import com.acme.verlag.repository.VerlagRepository;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Validator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -44,14 +45,19 @@ public class VerlagWriteService {
      * @return Der neu angelegte Verlag mit generierter ID.
      * @throws ConstraintViolationsException Falls mindestens ein Constraint verletzt ist.
      */
+    @Transactional
     public Verlag create(final Verlag verlag) {
-        log.debug("create: {}", verlag);
+        log.debug("create: verlag={}", verlag);
+        log.debug("create: hauptsitz={}", verlag.getHauptsitz());
+        log.debug("create: buecher={}", verlag.getBuecher());
+
         final var violations = validator.validate(verlag);
         if (!violations.isEmpty()) {
             log.debug("create: violations={}", violations);
             throw new ConstraintViolationsException(violations);
         }
-        final var verlagDB = repository.create(verlag);
+        final var verlagDB = repository.save(verlag);
+        log.trace("create: Thread-ID={}", Thread.currentThread().threadId());
         log.debug("create: {}", verlagDB);
         return verlagDB;
     }
@@ -61,22 +67,28 @@ public class VerlagWriteService {
      *
      * @param verlag Das Objekt mit den neuen Daten. Ohne ID.
      * @param id     Die ID des zu aktualisierenden Verlags.
+     * @return Der aktualisierte Verlag.
      * @throws ConstraintViolationsException Falls mindestens ein Constraint verletzt ist.
      * @throws NotFoundException             Kein Verlag zu gegebener ID vorhanden.
      */
-    public void update(final Verlag verlag, final UUID id) {
-        log.debug("update: {}", verlag);
+    public Verlag update(final Verlag verlag, final UUID id) {
+        log.debug("update: verlag={}", verlag);
         log.debug("update: id={}", id);
         final var violations = validator.validate(verlag);
         if (!violations.isEmpty()) {
             log.debug("update: violations={}", violations);
             throw new ConstraintViolationsException(violations);
         }
+        log.trace("update: Keine Constraints verletzt");
         final var verlagDBOptional = repository.findById(id);
         if (verlagDBOptional.isEmpty()) {
             throw new NotFoundException(id);
         }
-        verlag.setId(id);
-        repository.update(verlag);
+        var verlagDb = verlagDBOptional.get();
+        log.trace("update: verlagDb={}", verlagDb);
+        verlagDb.set(verlag);
+        verlagDb = repository.save(verlag);
+        log.debug("update: {}", verlagDb);
+        return verlagDb;
     }
 }
