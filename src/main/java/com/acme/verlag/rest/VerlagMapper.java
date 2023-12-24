@@ -42,7 +42,23 @@ interface VerlagMapper {
     @Mapping(target = "erzeugt", ignore = true)
     @Mapping(target = "aktualisiert", ignore = true)
     @Mapping(target = "fachbereicheStr", ignore = true)
+    @Mapping(target = "version", ignore = true)
     Verlag toVerlag(VerlagDTO dto);
+
+    /**
+     * Ein DTO-Objekt von VerlagUpdateDTO in ein Objekt für ein zu änderndes Verlag-Objekt konvertieren.
+     *
+     * @param dto DTO-Objekt für VerlagUpdateDTO ohne ID, version, erzeugt, aktualisiert, hauptsitz, buecher
+     * @return Konvertiertes Verlag-Objekt mit null als ID, hauptsitz und buecher
+     */
+    @Mapping(target = "version", ignore = true)
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "hauptsitz", ignore = true)
+    @Mapping(target = "fachbereicheStr", ignore = true)
+    @Mapping(target = "erzeugt", ignore = true)
+    @Mapping(target = "buecher", ignore = true)
+    @Mapping(target = "aktualisiert", ignore = true)
+    Verlag toVerlag(VerlagUpdateDTO dto);
 
     /**
      * Ein DTO-Objekt von BuchDTO in ein Objekt für Buch konvertieren.
@@ -53,6 +69,10 @@ interface VerlagMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "erzeugt", ignore = true)
     @Mapping(target = "aktualisiert", ignore = true)
+    @Mapping(target = "version", ignore = true)
+    @Mapping(target = "autorVorname", ignore = true)
+    @Mapping(target = "autorNachname", ignore = true)
+//    @Mapping(target = "autorVersion", ignore = true)
     Buch toBuch(BuchDTO dto);
 
     /**

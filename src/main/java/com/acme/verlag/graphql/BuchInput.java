@@ -19,6 +19,8 @@ package com.acme.verlag.graphql;
 
 import com.acme.verlag.entity.KategorieType;
 
+import java.util.UUID;
+
 /**
  * Eine Value-Klasse für Eingabedaten passend zu BuchInput aus dem GraphQL-Schema.
  *
@@ -30,6 +32,9 @@ import com.acme.verlag.entity.KategorieType;
  * @param preis             Preis
  * @param kategorie         Kategorie
  * @param seitenzahl        Seitenzahl
+ * @param autorVorname      Vorname des Autors
+ * @param autorNachname     Nachname des Autors
+ * @param autorId           ID des Autors
  */
 record BuchInput(String isbn13,
                  String haupttitel,
@@ -38,7 +43,9 @@ record BuchInput(String isbn13,
                  int auflage,
                  PreisInput preis,
                  KategorieType kategorie,
-                 int seitenzahl
-) {
+                 int seitenzahl,
+                 String autorNachname,
+                 String autorVorname,
+                 UUID autorId) {
 
 }

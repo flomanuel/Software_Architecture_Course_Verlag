@@ -19,6 +19,7 @@ package com.acme.verlag.rest;
 
 import com.acme.verlag.entity.Adresse;
 import com.acme.verlag.entity.Buch;
+import com.acme.verlag.entity.FachbereichType;
 import com.acme.verlag.entity.Verlag;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -44,11 +45,13 @@ public class VerlagModel extends RepresentationModel<VerlagModel> {
     private final LocalDate gruendungsdatum;
     private final Adresse hauptsitz;
     private List<Buch> buecher;
+    private List<FachbereichType> fachbereiche;
 
     VerlagModel(final Verlag verlag) {
         name = verlag.getName();
         gruendungsdatum = verlag.getGruendungsdatum();
         hauptsitz = verlag.getHauptsitz();
         buecher = verlag.getBuecher();
+        fachbereiche = verlag.getFachbereiche();
     }
 }

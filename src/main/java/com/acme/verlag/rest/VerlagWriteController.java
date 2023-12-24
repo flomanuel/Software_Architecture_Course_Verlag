@@ -32,17 +32,23 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.net.URI;
+import java.util.Optional;
 import java.util.UUID;
 
 import static com.acme.verlag.rest.VerlagGetController.*;
+import static org.springframework.http.HttpStatus.PRECONDITION_REQUIRED;
 import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
+import static org.springframework.http.HttpStatus.PRECONDITION_FAILED;
 import static org.springframework.http.ResponseEntity.created;
+import static org.springframework.http.ResponseEntity.noContent;
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
+
 
 @Controller
 @RequiredArgsConstructor
@@ -51,7 +57,8 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
 @SuppressWarnings({"ClassFanOutComplexity", "java:S1075"})
 public class VerlagWriteController {
 
-    private static final String PROBLEM_PATH = "/problem/";
+    static final String PROBLEM_PATH = "/problem/";
+    private static final String VERSIONSNUMMER_FEHLT = "Versionsnummer fehlt";
     private final VerlagMapper mapper;
     private final UriHelper uriHelper;
 
@@ -89,7 +96,7 @@ public class VerlagWriteController {
      * Einen vorhandenen Verlag-Datensatz überschreiben.
      *
      * @param id        Die ID des zu aktualisierenden Verlags.
-     * @param verlagDTO Das Verlagsobjekt aus dem eingegangenen Request-Body.
+     * @param verlagUpdateDTO Das Verlagsobjekt aus dem eingegangenen Request-Body.
      */
     @PutMapping(path = "{id:" + ID_PATTERN + "}", consumes = APPLICATION_JSON_VALUE)
     @ResponseStatus(NO_CONTENT)
@@ -98,12 +105,50 @@ public class VerlagWriteController {
     @ApiResponse(responseCode = "400", description = "Syntaktische Fehler im Request-Body")
     @ApiResponse(responseCode = "404", description = "Verlag nicht vorhanden")
     @ApiResponse(responseCode = "422", description = "Ungültige Werte")
-    void put(@PathVariable final UUID id,
-             @RequestBody final VerlagDTO verlagDTO
+    ResponseEntity<Void> put(@PathVariable final UUID id,
+                             @RequestBody final VerlagUpdateDTO verlagUpdateDTO,
+                             @RequestHeader("If-Match") final Optional<String> version,
+                             final HttpServletRequest request
     ) {
-        log.debug("put: id={}, {}", id, verlagDTO);
-        final var verlagInput = mapper.toVerlag(verlagDTO);
-        service.update(verlagInput, id);
+        log.debug("put: id={}, verlagUpdateDTO={}", id, verlagUpdateDTO);
+        final int versionInt = getVersion(version, request);
+        final var verlagInput = mapper.toVerlag(verlagUpdateDTO);
+        final var verlag = service.update(verlagInput, id, versionInt);
+        log.debug("put: {}", verlag);
+        return noContent().eTag(STR."\"\{verlag.getVersion()}\"").build();
+    }
+
+    private int getVersion(final Optional<String> versionOpt, final HttpServletRequest request) {
+        log.trace("getVersion: {}", versionOpt);
+        if (versionOpt.isEmpty()) {
+            throw new VersionInvalidException(
+                PRECONDITION_REQUIRED,
+                VERSIONSNUMMER_FEHLT,
+                URI.create(request.getRequestURL().toString()));
+        }
+        final var versionStr = versionOpt.get();
+        if (versionStr.length() < 3 ||
+            versionStr.charAt(0) != '"' ||
+            versionStr.charAt(versionStr.length() - 1) != '"') {
+            throw new VersionInvalidException(
+                PRECONDITION_FAILED,
+                STR."Ungueltiges ETag \{versionStr}",
+                URI.create(request.getRequestURL().toString())
+            );
+        }
+        final int version;
+        try {
+            version = Integer.parseInt(versionStr.substring(1, versionStr.length() - 1));
+        } catch (final NumberFormatException ex) {
+            throw new VersionInvalidException(
+                PRECONDITION_FAILED,
+                STR."Ungueltiges ETag \{versionStr}",
+                URI.create(request.getRequestURL().toString()),
+                ex
+            );
+        }
+        log.trace("getVersion: version={}", version);
+        return version;
     }
 
     @ExceptionHandler

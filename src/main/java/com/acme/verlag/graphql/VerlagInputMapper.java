@@ -38,6 +38,10 @@ interface VerlagInputMapper {
      * @param input VerlagInput ohne ID.
      * @return Konvertiertes Verlag-Objekt.
      */
+    @Mapping(target = "version", ignore = true)
+    @Mapping(target = "fachbereicheStr", ignore = true)
+    @Mapping(target = "erzeugt", ignore = true)
+    @Mapping(target = "aktualisiert", ignore = true)
     @Mapping(target = "id", ignore = true)
     Verlag toVerlag(VerlagInput input);
 
@@ -47,7 +51,12 @@ interface VerlagInputMapper {
      * @param input BuchInput ohne ID.
      * @return Konvertiertes Buch-Objekt.
      */
+    @Mapping(target = "version", ignore = true)
+    @Mapping(target = "erzeugt", ignore = true)
+    @Mapping(target = "aktualisiert", ignore = true)
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "autorVorname", ignore = true)
+    @Mapping(target = "autorNachname", ignore = true)
     Buch toBuch(BuchInput input);
 
     /**
@@ -56,6 +65,7 @@ interface VerlagInputMapper {
      * @param input AdresseInput ohne ID.
      * @return Konvertiertes Adresse-Objekt.
      */
+    @Mapping(target = "id", ignore = true)
     Adresse toAdresse(AdresseInput input);
 
     /**
@@ -64,5 +74,6 @@ interface VerlagInputMapper {
      * @param input PreisInput ohne ID.
      * @return Konvertiertes Preis-Objekt.
      */
+    @Mapping(target = "id", ignore = true)
     Preis toPreis(PreisInput input);
 }

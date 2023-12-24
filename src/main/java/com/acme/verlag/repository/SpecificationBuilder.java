@@ -25,6 +25,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -37,7 +40,7 @@ import java.util.Optional;
 @Slf4j
 public class SpecificationBuilder {
 
-    public Optional<Specification<Verlag>> build(Map<String, List<String>> queryParams) {
+    public Optional<Specification<Verlag>> build(final Map<String, ? extends List<String>> queryParams) {
         log.debug("build: queryParams={}", queryParams);
         if (queryParams.isEmpty()) {
             return Optional.empty();
@@ -51,28 +54,52 @@ public class SpecificationBuilder {
         return Optional.of(Specification.allOf(specs));
     }
 
-    private Specification<Verlag> toSpecification(Map.Entry<String, List<String>> entry) {
+    private Specification<Verlag> toSpecification(Map.Entry<String, ? extends List<String>> entry) {
         log.trace("toSpec: entry={}", entry);
         final var key = entry.getKey();
         final var values = entry.getValue();
+        if ("fachbereiche".contentEquals(key)) {
+            return toSpecificationFachbereiche(values);
+        }
         if (values == null || values.size() != 1) {
             return null;
         }
         final var value = values.getFirst();
         return switch (key) {
             case "name" -> name(value);
-            case "fachbereich" -> fachbereich(value);
             case "ort" -> ort(value);
             case "plz" -> plz(value);
             case "land" -> land(value);
+            case "gruendungsdatum" -> gruendungsdatum(value);
             default -> null;
         };
+    }
+
+    private Specification<Verlag> toSpecificationFachbereiche(final Collection<String> fachbereiche) {
+        log.trace("build: fachbereiche={}", fachbereiche);
+        if (fachbereiche == null || fachbereiche.isEmpty()) {
+            return null;
+        }
+        final var specsImmutable = fachbereiche.stream()
+            .map(this::fachbereich)
+            .toList();
+        if (specsImmutable.isEmpty() || specsImmutable.contains(null)) {
+            return null;
+        }
+        final List<Specification<Verlag>> specs = new ArrayList<>(specsImmutable);
+        final var first = specs.removeFirst();
+        return specs.stream().reduce(first, Specification::and);
     }
 
     private Specification<Verlag> name(final String name) {
         return (root, query, builder) ->
             builder.like(builder.lower(root.get(Verlag_.name)),
                 builder.lower(builder.literal(STR."%\{name}%")));
+    }
+
+    private Specification<Verlag> gruendungsdatum(final String gruendungsdatum) {
+        return (root, query, builder) ->
+            builder.equal(root.get(Verlag_.gruendungsdatum), LocalDate.parse(gruendungsdatum));
     }
 
     private Specification<Verlag> fachbereich(final String fachbereich) {

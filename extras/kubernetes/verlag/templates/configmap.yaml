@@ -34,3 +34,4 @@ data:
   SPRING_DATASOURCE_USERNAME: {{ .Values.datasource.username }}
   SPRING_H2_CONSOLE_ENABLED: {{ quote .Values.h2.console.enabled }}
   APP_LOGFILE: {{ .Values.logfile }}
+  AUTOR_SERVICE_SCHEMA: {{.Values.deployment.autorSchema}}

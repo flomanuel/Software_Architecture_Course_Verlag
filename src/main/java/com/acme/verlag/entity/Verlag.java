@@ -22,6 +22,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.NamedAttributeNode;
+import jakarta.persistence.NamedEntityGraph;
+import jakarta.persistence.NamedSubgraph;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.OrderColumn;
@@ -29,6 +32,7 @@ import jakarta.persistence.PostLoad;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import jakarta.persistence.Version;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -52,6 +56,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import static com.acme.verlag.entity.Verlag.BUCH_SUBGRAPH;
+import static com.acme.verlag.entity.Verlag.HAUPTSITZ_BUECHER_GRAPH;
 import static jakarta.persistence.CascadeType.*;
 import static jakarta.persistence.FetchType.*;
 import static java.util.Collections.emptyList;
@@ -61,6 +67,14 @@ import static java.util.Collections.emptyList;
  */
 @Entity
 @Table(name = "verlag")
+@NamedEntityGraph(
+    name = HAUPTSITZ_BUECHER_GRAPH,
+    attributeNodes = {@NamedAttributeNode("hauptsitz"), @NamedAttributeNode(value = "buecher", subgraph = BUCH_SUBGRAPH)},
+    subgraphs = @NamedSubgraph(
+        name = BUCH_SUBGRAPH,
+        attributeNodes = @NamedAttributeNode(value = "preis")
+    )
+)
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -68,18 +82,18 @@ import static java.util.Collections.emptyList;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 @ToString
-@SuppressWarnings({"ClassFanOutComplexity", "RequireEmptyLineBeforeBlockTagGroup"})
+@SuppressWarnings({
+    "ClassFanOutComplexity",
+    "RequireEmptyLineBeforeBlockTagGroup",
+    "DeclarationOrder",
+    "JavadocDeclaration",
+    "MissingSummary",
+    "RedundantSuppression"})
 public class Verlag {
 
-    /**
-     * NamedEntityGraph für das Attribut "fachbereiche".
-     */
-    public static final String FACHBEREICHE_GRAPH = "Verlag.fachbereiche";
+    public interface NeuValidation {
 
-    /**
-     * NamedEntityGraph für das Attribut "hauptsitz".
-     */
-    public static final String HAUPTSITZ_GRAPH = "Verlag.hauptsitz";
+    }
 
     /**
      * Konstante für die maximale Länge eines Verlagsnamens.
@@ -92,12 +106,28 @@ public class Verlag {
     public static final int SIZE_MIN_NAME = 1;
 
     /**
+     * NamedEntityGraph für die Attribute "hauptsitz", "buecher", und "preis".
+     */
+    public static final String HAUPTSITZ_BUECHER_GRAPH = "Verlag.hauptsitzBuecher";
+
+    /**
+     * NamedSubgraph für das Attribut "preis".
+     */
+    public static final String BUCH_SUBGRAPH = "Buch.preis";
+
+    /**
      * Die UUID des Verlags.
      */
     @Id
     @GeneratedValue
     @EqualsAndHashCode.Include
     private UUID id;
+
+    /**
+     * Versionsnummer für optimistische Synchronisation.
+     */
+    @Version
+    private int version;
 
     @CreationTimestamp
     private LocalDateTime erzeugt;
@@ -135,19 +165,18 @@ public class Verlag {
     @OneToOne(optional = false, cascade = {PERSIST, REMOVE}, fetch = LAZY, orphanRemoval = true)
     @ToString.Exclude
     @Valid
-    @NotNull
+    @NotNull(groups = Verlag.NeuValidation.class)
     private Adresse hauptsitz;
 
     /**
      * Die in diesem Verlag erschienen Bücher.
      */
     @OneToMany(cascade = {PERSIST, REMOVE}, orphanRemoval = true)
-    @JoinColumn(name = "buch_id")
-    @OrderColumn(name = "idx")
+    @JoinColumn(name = "verlag_id")
+    @OrderColumn(name = "idx", nullable = false)
     @ToString.Exclude
     @Valid
     @UniqueElements
-    @Transient
     private List<Buch> buecher;
 
     /**
@@ -159,8 +188,8 @@ public class Verlag {
         name = verlag.name;
         fachbereiche = verlag.fachbereiche;
         gruendungsdatum = verlag.gruendungsdatum;
-        hauptsitz = verlag.hauptsitz;
-        buecher = verlag.buecher;
+        //hauptsitz = verlag.hauptsitz;
+        //buecher = verlag.buecher;
     }
 
     @PrePersist

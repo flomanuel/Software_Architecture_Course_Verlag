@@ -19,11 +19,12 @@ package com.acme.verlag.service;
 
 import com.acme.verlag.entity.Verlag;
 import com.acme.verlag.repository.VerlagRepository;
-import jakarta.transaction.Transactional;
 import jakarta.validation.Validator;
+import jakarta.validation.groups.Default;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -33,6 +34,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional(readOnly = true)
 public class VerlagWriteService {
 
     private final VerlagRepository repository;
@@ -51,7 +53,7 @@ public class VerlagWriteService {
         log.debug("create: hauptsitz={}", verlag.getHauptsitz());
         log.debug("create: buecher={}", verlag.getBuecher());
 
-        final var violations = validator.validate(verlag);
+        final var violations = validator.validate(verlag, Default.class, Verlag.NeuValidation.class);
         if (!violations.isEmpty()) {
             log.debug("create: violations={}", violations);
             throw new ConstraintViolationsException(violations);
@@ -65,15 +67,18 @@ public class VerlagWriteService {
     /**
      * Einen vorhandenen Verlag aktualisieren.
      *
-     * @param verlag Das Objekt mit den neuen Daten. Ohne ID.
-     * @param id     Die ID des zu aktualisierenden Verlags.
+     * @param verlag  Das Objekt mit den neuen Daten. Ohne ID.
+     * @param id      Die ID des zu aktualisierenden Verlags.
+     * @param version Die erforderliche Version.
      * @return Der aktualisierte Verlag.
      * @throws ConstraintViolationsException Falls mindestens ein Constraint verletzt ist.
      * @throws NotFoundException             Kein Verlag zu gegebener ID vorhanden.
      */
-    public Verlag update(final Verlag verlag, final UUID id) {
+    @Transactional
+    public Verlag update(final Verlag verlag, final UUID id, final int version) {
         log.debug("update: verlag={}", verlag);
-        log.debug("update: id={}", id);
+        log.debug("update: id={}, version={}", id, version);
+
         final var violations = validator.validate(verlag);
         if (!violations.isEmpty()) {
             log.debug("update: violations={}", violations);
@@ -85,9 +90,12 @@ public class VerlagWriteService {
             throw new NotFoundException(id);
         }
         var verlagDb = verlagDBOptional.get();
-        log.trace("update: verlagDb={}", verlagDb);
+        log.trace("update: version={}, verlagDb={}", version, verlagDb);
+        if (version != verlagDb.getVersion()) {
+            throw new VersionOutdatedException(version);
+        }
         verlagDb.set(verlag);
-        verlagDb = repository.save(verlag);
+        verlagDb = repository.save(verlagDb);
         log.debug("update: {}", verlagDb);
         return verlagDb;
     }

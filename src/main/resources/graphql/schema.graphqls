@@ -67,6 +67,12 @@ type Buch {
   kategorie: String!
   "Seitenzahl des Buches."
   seitenzahl: Int!
+  "Vorname des Autors."
+  autorVorname: String!
+  "Nachname des Autors."
+  autorNachname: String!
+  "ID des Autors."
+  autorId: ID!
 }
 
 "Daten zu einer Adresse."
@@ -137,6 +143,12 @@ input BuchInput {
   kategorie: Kategorie!
   "Seitenzahl des Buches."
   seitenzahl: Int!
+  "Vorname des Autors."
+  autorVorname: String!
+  "Nachname des Autors."
+  autorNachname: String!
+  "ID des Autors."
+  autorId: ID!
 }
 
 "Aufzählungstyp für die Kategorien eines Buches."

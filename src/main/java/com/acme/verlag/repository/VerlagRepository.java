@@ -23,9 +23,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -35,31 +34,37 @@ import static com.acme.verlag.entity.Verlag.*;
 /**
  * Repository für den DB-Zugriff bei Verlagen.
  */
+@Repository
 public interface VerlagRepository extends JpaRepository<Verlag, UUID>, JpaSpecificationExecutor<Verlag> {
 
-    @EntityGraph(attributePaths = {FACHBEREICHE_GRAPH, HAUPTSITZ_GRAPH})
+    @EntityGraph(HAUPTSITZ_BUECHER_GRAPH)
     @NonNull
     @Override
-    List<Verlag> findAll(@NonNull Specification spec);
+    List<Verlag> findAll();
 
-    @EntityGraph(attributePaths = {FACHBEREICHE_GRAPH, HAUPTSITZ_GRAPH})
+    @EntityGraph(HAUPTSITZ_BUECHER_GRAPH)
+    @NonNull
+    @Override
+    List<Verlag> findAll(@NonNull Specification<Verlag> spec);
+
+    @EntityGraph(HAUPTSITZ_BUECHER_GRAPH)
     @NonNull
     @Override
     Optional<Verlag> findById(@NonNull UUID id);
 
-    @Query("""
-        SELECT v
-        from Verlag v
-        where lower(v.name) LIKE concat('%', lower(:name), '%')
-        """)
-    @EntityGraph(attributePaths = {FACHBEREICHE_GRAPH, HAUPTSITZ_GRAPH})
-    List<Verlag> findByName(String name);
-
-    @Query("""
-        SELECT v
-        from Verlag v
-        where v.gruendungsdatum = :gruendungsdatum
-        """)
-    @EntityGraph(attributePaths = {FACHBEREICHE_GRAPH, HAUPTSITZ_GRAPH})
-    List<Verlag> findByGruendungsdatum(LocalDate gruendungsdatum);
+//    @Query("""
+//        SELECT v
+//        from Verlag v
+//        where lower(v.name) LIKE concat('%', lower(:name), '%')
+//        """)
+//    @EntityGraph(attributePaths = HAUPTSITZ_GRAPH)
+//    List<Verlag> findByName(String name);
+//
+//    @Query("""
+//        SELECT v
+//        from Verlag v
+//        where v.gruendungsdatum = :gruendungsdatum
+//        """)
+//    @EntityGraph(attributePaths = HAUPTSITZ_GRAPH)
+//    List<Verlag> findByGruendungsdatum(LocalDate gruendungsdatum);
 }

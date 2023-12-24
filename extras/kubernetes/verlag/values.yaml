@@ -62,6 +62,7 @@ image:
 deployment:
   # -- Port innerhalb des Containers
   containerPort: 8080
+  autorSchema: https
 
 # -- ID des Linux-Users
 uid: 1002

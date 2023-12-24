@@ -17,12 +17,15 @@
 
 package com.acme.verlag.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+import jakarta.persistence.Version;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -87,11 +90,25 @@ public class Buch {
     @EqualsAndHashCode.Include
     private UUID id;
 
+    /**
+     * Versionsnummer für optimistische Synchronisation.
+     */
+    @Version
+    private int version;
+
     @CreationTimestamp
     private LocalDateTime erzeugt;
 
     @UpdateTimestamp
     private LocalDateTime aktualisiert;
+
+    /**
+     * Die ID des Autors, der dieses Buch verfasst hat.
+     */
+    @NotNull
+    // Der Spaltenwert referenziert einen Wert aus einer anderen DB.
+    @Column(name = "autor_id")
+    private UUID autorId;
 
     /**
      * Die ISBN-13 des Buches.
@@ -139,6 +156,18 @@ public class Buch {
     @Enumerated(STRING)
     @NotNull
     private KategorieType kategorie;
+
+    /**
+     * Der Vorname des Autors, der dieses Buch verfasst hat.
+     */
+    @Transient
+    private String autorVorname;
+
+    /**
+     * Der Nachname des Autors, der dieses Buch verfasst hat.
+     */
+    @Transient
+    private String autorNachname;
 
     /**
      * Der Preis des Buches.
