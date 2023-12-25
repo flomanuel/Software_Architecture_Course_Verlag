@@ -54,6 +54,8 @@ import static jakarta.persistence.FetchType.LAZY;
 
 /**
  * Daten eines Buches für die Anwendungslogik und zum Abspeichern in der Datenbank.
+ * <p/>
+ * <img src="../../../../../asciidoc/Verlag.svg" alt="Klassendiagramm">
  */
 @Entity
 @Table(name = "buch")

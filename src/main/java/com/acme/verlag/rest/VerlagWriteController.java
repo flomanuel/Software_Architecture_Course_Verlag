@@ -50,7 +50,12 @@ import static org.springframework.http.ResponseEntity.noContent;
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
 
-
+/**
+ * Eine Controller-Klasse bildet die REST-Schnittstelle, wobei die HTTP-Methoden, Pfade und MIME-Typen auf die
+ * Methoden der Klasse abgebildet werden.
+ * <p/>
+ * <img src="../../../../../asciidoc/VerlagWriteController.svg" alt="Klassendiagramm">
+ */
 @Controller
 @RequiredArgsConstructor
 @RequestMapping(REST_PATH)

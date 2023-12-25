@@ -64,6 +64,8 @@ import static java.util.Collections.emptyList;
 
 /**
  * Daten eines Verlages.
+ * <p/>
+ * <img src="../../../../../asciidoc/Verlag.svg" alt="Klassendiagramm">
  */
 @Entity
 @Table(name = "verlag")

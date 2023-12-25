@@ -36,6 +36,8 @@ import java.util.UUID;
 
 /**
  * Adressdaten für die Anwendungslogik und zum Abspeichern in der Datenbank.
+ * <p/>
+ * <img src="../../../../../asciidoc/Verlag.svg" alt="Klassendiagramm">
  */
 @Entity
 @Table(name = "adresse")

@@ -48,8 +48,10 @@ import static org.springframework.http.ResponseEntity.ok;
 import static org.springframework.http.ResponseEntity.status;
 
 /**
- * Controller-Klasse, bildet die REST-Schnittstelle.
- * Die HTTP-Methoden, Pfade und MIME-Typen werden auf die Methoden der Klasse abgebildet.
+ * Eine Controller-Klasse bildet die REST-Schnittstelle, wobei die HTTP-Methoden, Pfade und MIME-Typen auf die
+ * Methoden der Klasse abgebildet werden.
+ * <p/>
+ * <img src="../../../../../asciidoc/VerlagGetController.svg" alt="Klassendiagramm">
  */
 @RestController
 @RequestMapping(REST_PATH)

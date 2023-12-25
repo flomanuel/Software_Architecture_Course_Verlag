@@ -37,6 +37,8 @@ import java.util.UUID;
 
 /**
  * Anwendungslogik für Verlage.
+ * <p/>
+ * <img src="../../../../../asciidoc/VerlagReadService.svg" alt="Klassendiagramm">
  */
 @Service
 @RequiredArgsConstructor

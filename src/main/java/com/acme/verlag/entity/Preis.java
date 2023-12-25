@@ -36,6 +36,8 @@ import java.util.UUID;
 
 /**
  * Währung und Bruttobetrag für den Buchpreis.
+ * <p/>
+ * <img src="../../../../../asciidoc/Verlag.svg" alt="Klassendiagramm">
  */
 @Entity
 @Table(name = "preis")
