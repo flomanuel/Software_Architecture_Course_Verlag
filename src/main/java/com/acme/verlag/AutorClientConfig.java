@@ -29,7 +29,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 public interface AutorClientConfig {
 
-    int AUTOR_DEFAULT_PORT = 8081;
+    int AUTOR_DEFAULT_PORT = 8080;
     Logger LOGGER = LoggerFactory.getLogger(AutorClientConfig.class);
 
     @Bean
