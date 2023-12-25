@@ -39,6 +39,9 @@ spec:
       {{- include "verlag.selectorLabels" . | nindent 6 }}
   # Anzahl laufender Pods fuer das Template zu diesem Deployment (s.u.) -> ReplicaSet
   replicas: {{ .Values.replicaCount }}
+  # max. Wartezeit in Severlagn, bis "failed progressing" eintritt
+  # https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#progress-deadline-seconds
+  progressDeadlineSeconds: {{ .Values.progressDeadlineSeconds }}
   # https://kubernetes.io/docs/concepts/workloads/pods/#pod-templates
   # Template (Schablone, Beschreibung) fuer die zu startenden Pods
   template:
@@ -51,7 +54,6 @@ spec:
       containers: # die container die in einem pod laufen (bei uns einer) soll als vorlage das image nutzen
         # https://kubernetes.io/docs/concepts/containers/images
         - image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          # default
           imagePullPolicy: {{ .Values.image.pullPolicy }} #immer das aktuellste pullen
           name: {{ .Chart.Name }}
           # https://kubernetes.io/docs/tasks/inject-data-application/define-interdependent-environment-variables

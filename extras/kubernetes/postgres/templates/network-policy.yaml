@@ -13,48 +13,41 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-# https://kubernetes.io/docs/concepts/services-networking/network-policies
-# https://hub.armosec.io/docs/c-0054
-# https://hub.armosec.io/docs/c-0049
-# Kein "NetworkPolicy controller" durch Docker Desktop, z.B. Calico, Cilium, Antrea
-
 apiVersion: networking.k8s.io/v1
+# https://kubernetes.io/docs/concepts/services-networking/network-policies
 kind: NetworkPolicy
 metadata:
-  name: {{ include "verlag.fullname" . }}
+  name: {{ include "postgres.fullname" . }}
   namespace: {{ .Values.namespace }}
 spec:
-  # Spezifikation, auf welche Pods die NetworkPolicy angewendet wird
   podSelector:
     matchLabels:
-      {{- include "verlag.selectorLabels" . | nindent 6 }}
+      {{- include "postgres.selectorLabels" . | nindent 6 }}
   policyTypes: [Ingress, Egress]
+  egress: []
   ingress:
     - from:
         - podSelector:
             matchLabels:
-              app: autor
-              app.kubernetes.io/name: autor
-              app.kubernetes.io/instance: autor
+              app: verlag
+              app.kubernetes.io/name: verlag
+              app.kubernetes.io/instance: verlag
       ports:
-        - port: 8080
+        - port: {{ .Chart.Name }}
           protocol: TCP
-  egress:
-    - to:
+    - from:
         - podSelector:
             matchLabels:
-              app: postgres
-              app.kubernetes.io/name: postgres
-              app.kubernetes.io/instance: postgres
+              app: bestellung
+              app.kubernetes.io/name: bestellung
+              app.kubernetes.io/instance: bestellung
       ports:
-        - port: 5432
+        - port: {{ .Chart.Name }}
           protocol: TCP
-    - to:
+    - from:
         - podSelector:
             matchLabels:
-              app: mysql
-              app.kubernetes.io/name: mysql
-              app.kubernetes.io/instance: mysql
+              {{- include "pgadmin.selectorLabels" . | nindent 14 }}
       ports:
-        - port: 3306
+        - port: {{ .Chart.Name }}
           protocol: TCP

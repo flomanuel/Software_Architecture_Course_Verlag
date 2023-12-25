@@ -21,9 +21,10 @@ releases:
   - name: verlag
     namespace: acme
     chart: extras/kubernetes/verlag
-    #values: [extras/kubernetes/verlag/dev.yaml]
+    values: [extras/kubernetes/verlag/dev.yaml]
+    cleanupOnFail: true
     #values: [extras/kubernetes/verlag/dev.yaml, extras/kubernetes/verlag/dev-mysql.yaml]
-    values: [extras/kubernetes/verlag/dev.yaml, extras/kubernetes/verlag/dev-h2.yaml]
+    #values: [extras/kubernetes/verlag/dev.yaml, extras/kubernetes/verlag/dev-h2.yaml]
     # Fortio:
     #values: [extras/kubernetes/verlag/dev.yaml, extras/kubernetes/verlag/dev-fortio.yaml]
     #values: [extras/kubernetes/verlag/dev.yaml, extras/kubernetes/verlag/dev-mysql.yaml, extras/kubernetes/verlag/dev-fortio.yaml]

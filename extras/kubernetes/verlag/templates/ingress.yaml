@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-# https://kubernetes.io/docs/concepts/services-networking/ingress
+# https://kubernetes.io/docs/concepts/services-networking/ingress/
 # https://github.com/kubernetes/ingress-nginx
 # https://kubernetes.io/docs/concepts/services-networking/ingress-controllers
 # https://github.com/kubernetes/ingress-nginx/blob/main/README.md#changelog Versionen von nginx
@@ -47,8 +47,15 @@ spec:
                 port:
                   name: http-svc
                   #number: 8080
+          - path: /autoren(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: autor
+                port:
+                  name: http-svc
   # https://kubernetes.github.io/ingress-nginx/user-guide/tls
   # https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/#ssl-ciphers
   tls:
-    - hosts: [kubernetes.docker.internal]
+    - hosts: [ kubernetes.docker.internal ]
       secretName: {{ .Values.namespace }}-tls

@@ -1,4 +1,4 @@
-# Copyright (C) 2020 - present Juergen Zimmermann, Hochschule Karlsruhe
+# Copyright (C) 2022 - present Juergen Zimmermann, Hochschule Karlsruhe
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -13,11 +13,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-# Default values for verlag.
+# Default values for postgres.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-
-# https://helm.sh/docs/chart_best_practices/values
 
 # -- Namespace in NOTES.txt
 namespace: acme
@@ -28,114 +26,70 @@ nameOverride: ""
 # -- _Fully Qualified Name (FQN)_ ist defaultmäßig im Chart bei `name` und kann überschrieben werden.
 fullnameOverride: ""
 
-# -- Port des Kubernetes-Service
-servicePort: 8080
-
-# -- Profile für Spring als Umgebungsvariable
-profile: default
-
-# -- Flag, ob TLS genutzt wird
-ssl: "true"
-
-# -- Flag, ob HTTP2 genutzt wird
-http2: "true"
-
-# -- Logdatei
-logfile: /tmp/application.log
-
-datasource:
-  # URL für den DB-Zugriff
-  url: jdbc:postgresql://postgres/verlag?sslmode=verify-ca&sslrootcert=/workspace/BOOT-INF/classes/certificate.crt
-  # Benutzername für die DB
-  username: verlag
-  # Passwort für die DB (Base64)
-  password: Q2hhbmdlIE1lIQ==
-
-# -- Rechnername des Mailservers als Umgebungsvariable
-mailhost: smtp
-
-# -- Version als Suffix in deployment.yaml für Volumes
-versionSuffix: -v0
-
-# -- Anzahl Replica im Pod von Kubernetes
-replicaCount: 2
-
-# -- max. Wartezeit in Sekunden, bis "failed progressing" eintritt
-progressDeadlineSeconds: 10
-
 image:
-  # -- Repository als Präfix beim Image-Namen
-  repository: floriansauer
-  # -- Name des Image
-  name: verlag
-  # -- Pull-Policy für das Image
-  pullPolicy: Always
-  # -- Defaultwert ist im Chart bei `appVersion` und kann überschrieben werden.
+  # -- Name für das PostgreSQL-Image
+  name: postgres
+  # -- Tag für das PostgreSQL-Image
   tag: ""
+  pullPolicy: Always
 
-deployment:
-  # -- Name der Secret-Ressource beim DB-System
-  secretNameDB: postgres
-
-  # -- Port innerhalb des Containers
-  containerPort: 8080
-
-# -- ID des Linux-Users
-uid: 1002
-# -- ID der Linux-Gruppe
-gid: 1000
+# https://www.base64decode.org
+# -- Mit base64 codiertes DB-Passwort in secret.yaml
+password: Q2hhbmdlIE1lIQ==
 
 resourcesRequests:
   # -- (Mindest-) Anforderung an CPU-Ressourcen in _millicores_, z.B. `500m` oder `1`
-  cpu: 1
+  cpu: 500m
   # -- (Mindest-) Anforderung an Memory-Resourcen als _mebibyte_ Wert
-  memory: 1024Mi
+  memory: 512Mi
   # -- (Mindest-) Anforderung an flüchtigen Speicher für z.B. Caching und Logs
-  ephemeral: 128Mi
+  ephemeral: 64Mi
 
 resourcesLimits:
   # -- Maximalanforderung an CPU-Ressourcen in _millicores_, z.B. `500m` oder `1`
-  cpu: 1.5
+  cpu: 500m
   # -- Maximalanforderung an Memory-Resourcen als _mebibyte_ Wert
-  memory: 2048Mi
+  memory: 512Mi
   # -- Maximalanforderung an flüchtigen Speicher für z.B. Caching und Logs
-  ephemeral: 256Mi
+  ephemeral: 64Mi
 
-livenessProbe:
+# https://kubernetes:io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes
+liveness:
   # -- Anzahl Sekunden, bis die Probe für Liveness abgesetzt wird
   initialDelay: 0
   # -- Timeout für Liveness-Probe in Sekunden
-  timeout: 1
+  timeout: 10
   # -- periodischer Abstand zwischen den Liveness-Proben in Sekunden
-  period: 10
+  period: 1
   # -- Max. Anzahl an Fehlversuchen bei den Liveness-Proben
   failureThreshold: 3
 
-readinessProbe:
+readiness:
   # -- Anzahl Sekunden, bis die Probe für Readiness abgesetzt wird
   initialDelay: 0
   # -- Timeout für Readiness-Probe in Sekunden
-  timeout: 1
+  timeout: 10
   # -- periodischer Abstand zwischen den Readiness-Proben in Sekunden
-  period: 10
+  period: 1
   # -- Max. Anzahl an Fehlversuchen bei den Readiness-Proben
   failureThreshold: 3
-
-zipkin:
-  # -- Endpunkt für Zipkin beim Tracing
-  endpoint: http://zipkin:9411/api/v2/spans
 
 autoscaling:
   # -- Mininmale Anzahl an Replicas
   minReplicas: 1
   # -- Maximale Anzahl an Replicas
-  maxReplicas: 100
+  maxReplicas: 1
   # -- Maximale CPU-Auslastung
   cpuUtilizationPercentage: 80
   # -- Maximale RAM-Auslastung
   memoryUtilizationPercentage: 80
 
-h2:
-  console:
-    # -- Aktivierung des DB-Browsers für H2
-    enabled: "false"
+pgadmin:
+  # -- Name in den Manifest-Dateien für pgAdmin
+  name: pgadmin
+  # -- Name des Image für pgAdmin
+  imageName: dpage/pgadmin4
+  # -- Versionsnummer bzw. Tag von pgAdmin
+  version: "8.0"
+  # -- Default-Emailadresse für das Login bei pgAdmin
+  email: pgadmin@acme.com
