@@ -29,6 +29,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpStatusCodeException;
+import org.springframework.web.client.ResourceAccessException;
 
 import java.util.Collection;
 import java.util.List;
@@ -120,7 +121,11 @@ public class VerlagReadService {
             log.debug("findAutorById: HttpClientErrorException.NotFound");
             return new Autor("N/A", "N/A");
         } catch (final HttpStatusCodeException ex) {
-            // 4xx oer 5xx
+            // 4xx oder 5xx
+            log.debug("findAutorById", ex);
+            return new Autor("Exception", "Exception");
+        } catch (final ResourceAccessException ex) {
+            // Falls der zweite Server gar nicht gestartet ist.
             log.debug("findAutorById", ex);
             return new Autor("Exception", "Exception");
         }
