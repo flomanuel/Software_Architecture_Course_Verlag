@@ -73,8 +73,7 @@ CREATE TABLE IF NOT EXISTS buch
     verlag_id         uuid REFERENCES verlag,
     erzeugt           TIMESTAMP    NOT NULL,
     aktualisiert      TIMESTAMP    NOT NULL,
-    autor_id          uuid         NOT NULL,
-    autor_version     integer      NOT NULL DEFAULT 0
+    autor_id          uuid         NOT NULL
 );
 
 CREATE INDEX IF NOT EXISTS preis_id_idx ON buch (id) TABLESPACE verlagspace;
