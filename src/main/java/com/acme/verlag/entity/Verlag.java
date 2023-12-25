@@ -188,8 +188,6 @@ public class Verlag {
         name = verlag.name;
         fachbereiche = verlag.fachbereiche;
         gruendungsdatum = verlag.gruendungsdatum;
-        //hauptsitz = verlag.hauptsitz;
-        //buecher = verlag.buecher;
     }
 
     @PrePersist

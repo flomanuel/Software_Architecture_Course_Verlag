@@ -1,4 +1,4 @@
-' Copyright (C) 2019 - present Juergen Zimmermann, Hochschule Karlsruhe
+' Copyright (c) 2023 - present Florian Sauer
 '
 ' This program is free software: you can redistribute it and/or modify
 ' it under the terms of the GNU General Public License as published by
@@ -12,6 +12,10 @@
 '
 ' You should have received a copy of the GNU General Public License
 ' along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+' https://c4model.com
+' https://www.infoq.com/articles/C4-architecture-model
+' https://github.com/plantuml-stdlib/C4-PlantUML
 @startuml VerlagHandler
 
 skinparam classAttributeIconSize 0
@@ -39,28 +43,15 @@ package org.springframework {
         class ResponseEntity<T>
         class ProblemDetail
 
-        package converter {
-            class HttpMessageNotReadableException
-        }
-
         ResponseEntity .[hidden].> ProblemDetail
         ResponseEntity .left[hidden].> Controller
-        ProblemDetail .[hidden].> HttpMessageNotReadableException
-    }
-
-    package security.core {
-        class Authentication
-
-        ProblemDetail .right[hidden].> Authentication
     }
 }
 
 package java.util {
-    interface Collection<T>
     class UUID
     class Optional<T>
 
-    Collection .[hidden].> Optional
     Optional .[hidden].> UUID
     HttpServletRequest .up[hidden].> UUID
 }
@@ -70,61 +61,38 @@ package com.acme.verlag {
         class VerlagWriteService << control >> << @Service >>
 
         class ConstraintViolationsException
-        class EmailExistsException
         class VersionOutdatedException
     }
 
-    package security {
-        class UsernameExistsException
-        class PasswordInvalidException
-    }
-
     package rest #DDDDDD {
-        package patch #FFFFFF {
-            class PatchOperation <<entity>>
-        }
 
         class VerlagDTO <<entity>>
-        class CustomUserDTO <<entity>>
-        class VerlagUserDTO <<entity>>
-        VerlagUserDTO o--> VerlagDTO
-        VerlagUserDTO o--> CustomUserDTO
+        class verlagUpdateDTO <<entity>>
+
         VerlagDTO .[hidden].> UUID
         VerlagDTO .[hidden].> VerlagWriteService
 
         class VersionInvalidException
 
         class VerlagWriteController << boundary >> << @Controller >> << @RequestMapping >> {
-            + @PostMapping post(@RequestBody verlagUserDTO: VerlagUserDTO, request: HttpServletRequest): ResponseEntity<ProblemDetail>
-            + @PutMapping put(@PathVariable id: UUID, @RequestBody verlagDTO: VerlagDTO, @RequestHeader("If-Match") version: Optional<String>, request: HttpServletRequest): ResponseEntity<Void>
-            + @PatchMapping patch(@PathVariable id: UUID, @RequestBody patchOps: Collection<PatchOperation>, @RequestHeader("If-Match") version: Optional<String>, authentication: Authentication, request: HttpServletRequest): ResponseEntity<Void>
-            + @DeleteMapping deleteById(@PathVariable id: UUID)
-            + @ExceptionHandler onConstraintViolations(ex: ConstraintViolationsException, req: HttpServletRequest): ResponseEntity<ProblemDetail>
-            + @ExceptionHandler onEmailExists(ex: EmailExistsException, req: HttpServletRequest): ResponseEntity<ProblemDetail>
-            + @ExceptionHandler onVersionOutdated(ex: VersionOutdatedException, req: HttpServletRequest): ResponseEntity<ProblemDetail>
-            + @ExceptionHandler onUsernameExists(ex: UsernameExistsException, req: HttpServletRequest): ResponseEntity<ProblemDetail>
-            + @ExceptionHandler onPasswordInvalid(ex: PasswordInvalidException, req: HttpServletRequest): ResponseEntity<ProblemDetail>
-            + @ExceptionHandler onMessageNotReadable(ex: HttpMessageNotReadableException, req: HttpServletRequest): ResponseEntity<ProblemDetail>
+            + @PostMapping post(@RequestBody verlagDTO: VerlagDTO, request: HttpServletRequest): ResponseEntity<Void>
+            + @PutMapping put(@PathVariable id: UUID, @RequestBody verlagUpdateDTO: VerlagUpdateDTO, @RequestHeader("If-Match") version: Optional<String>, request: HttpServletRequest): ResponseEntity<Void>
+            + @ExceptionHandler onConstraintViolations(ex: ConstraintViolationsException, request: HttpServletRequest): ProblemDetail
+            + @ExceptionHandler onVersionOutdated(ex: VersionOutdatedException, request: HttpServletRequest): ProblemDetail
+            + @ExceptionHandler onVersionInvalid(ex: VersionInvalidException, request: HttpServletRequest): ProblemDetail
         }
 
         VerlagWriteController o-right-> "1" VerlagWriteService : service
-        VerlagWriteController ..> VerlagUserDTO
+        VerlagWriteController ..> verlagUpdateDTO
         VerlagWriteController ..> VerlagDTO
         VerlagWriteController .up.> UUID
         VerlagWriteController .up.> Optional
-        VerlagWriteController .up.> Collection
         VerlagWriteController ..> ConstraintViolationsException
-        VerlagWriteController ..> EmailExistsException
-        VerlagWriteController ..> VersionOutdatedException
-        VerlagWriteController ..> UsernameExistsException
-        VerlagWriteController ..> PasswordInvalidException
-        VerlagWriteController .up.> HttpMessageNotReadableException
         VerlagWriteController ..> VersionInvalidException
-        VerlagWriteController ..> PatchOperation
+        VerlagWriteController ..> VersionOutdatedException
 
         VerlagWriteController .up.> HttpServletRequest
         VerlagWriteController .up.> ResponseEntity
-        VerlagWriteController .up.> Authentication
         VerlagWriteController .up.> ProblemDetail
 
         VerlagWriteController .up.> Controller
@@ -133,12 +101,11 @@ package com.acme.verlag {
         VerlagWriteController .up.> RequestBody
         VerlagWriteController .up.> ExceptionHandler
 
-        VerlagDTO .[hidden].> UsernameExistsException
     }
 }
 
 hide empty members
 
-footer (c) Juergen Zimmermann
+footer (c) Florian Sauer
 
 @enduml

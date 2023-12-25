@@ -19,6 +19,7 @@ package com.acme.verlag.rest;
 
 import com.acme.verlag.service.ConstraintViolationsException;
 import com.acme.verlag.service.VerlagWriteService;
+import com.acme.verlag.service.VersionOutdatedException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.servlet.http.HttpServletRequest;
@@ -173,6 +174,30 @@ public class VerlagWriteController {
         }
         final var problemDetail = ProblemDetail.forStatusAndDetail(UNPROCESSABLE_ENTITY, detail);
         problemDetail.setType(URI.create(STR."\{PROBLEM_PATH}\{ProblemType.CONSTRAINTS.getValue()}"));
+        problemDetail.setInstance(URI.create(request.getRequestURL().toString()));
+        return problemDetail;
+    }
+
+    @ExceptionHandler
+    ProblemDetail onVersionOutdated(
+        final VersionOutdatedException ex,
+        final HttpServletRequest request
+    ) {
+        log.debug("onVersionOutdated: {}", ex.getMessage());
+        final var problemDetail = ProblemDetail.forStatusAndDetail(PRECONDITION_FAILED, ex.getMessage());
+        problemDetail.setType(URI.create(STR."\{PROBLEM_PATH}\{ProblemType.PRECONDITION.getValue()}"));
+        problemDetail.setInstance(URI.create(request.getRequestURL().toString()));
+        return problemDetail;
+    }
+
+    @ExceptionHandler
+    ProblemDetail onVersionInvalid(
+        final VersionInvalidException ex,
+        final HttpServletRequest request
+    ) {
+        log.debug("onVersionInvalid: {}", ex.getMessage());
+        final var problemDetail = ProblemDetail.forStatusAndDetail(PRECONDITION_FAILED, ex.getMessage());
+        problemDetail.setType(URI.create(STR."\{PROBLEM_PATH}\{ProblemType.PRECONDITION.getValue()}"));
         problemDetail.setInstance(URI.create(request.getRequestURL().toString()));
         return problemDetail;
     }

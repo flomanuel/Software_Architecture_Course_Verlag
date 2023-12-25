@@ -1,4 +1,4 @@
-' Copyright (C) 2019 - present Juergen Zimmermann, Hochschule Karlsruhe
+' Copyright (c) 2023 - present Florian Sauer
 '
 ' This program is free software: you can redistribute it and/or modify
 ' it under the terms of the GNU General Public License as published by
@@ -12,6 +12,10 @@
 '
 ' You should have received a copy of the GNU General Public License
 ' along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+' https://c4model.com
+' https://www.infoq.com/articles/C4-architecture-model
+' https://github.com/plantuml-stdlib/C4-PlantUML
 @startuml ER Diagramm
 
 ' hide the spot
@@ -69,6 +73,6 @@ Verlag ||.left.|| Adresse
 Verlag ||.right.o{ Buch
 Buch ||.right.|| Preis
 
-footer © Florian Sauer
+footer (c)) Florian Sauer
 
 @enduml

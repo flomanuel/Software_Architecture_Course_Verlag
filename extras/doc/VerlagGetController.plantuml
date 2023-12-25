@@ -1,4 +1,4 @@
-' Copyright (C) 2019 - present Juergen Zimmermann, Hochschule Karlsruhe
+' Copyright (c) 2023 - present Florian Sauer
 '
 ' This program is free software: you can redistribute it and/or modify
 ' it under the terms of the GNU General Public License as published by
@@ -12,6 +12,10 @@
 '
 ' You should have received a copy of the GNU General Public License
 ' along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+' https://c4model.com
+' https://www.infoq.com/articles/C4-architecture-model
+' https://github.com/plantuml-stdlib/C4-PlantUML
 @startuml VerlagHandler
 
 skinparam classAttributeIconSize 0
@@ -38,14 +42,10 @@ package org.springframework {
     package hateoas {
         class CollectionModel<E>
     }
-    package security.core {
-        class Authentication
-    }
     package util {
         class MultiValueMap<K,V>
     }
 
-    CollectionModel .up[hidden].> Authentication
     ResponseEntity .up[hidden].> CollectionModel
 }
 
@@ -63,23 +63,20 @@ package com.acme.verlag {
     package service {
         class VerlagReadService << control >> << @Service >>
         class NotFoundException
-        class AccessForbiddenException
 
         VerlagReadService .right[hidden].> NotFoundException
-        NotFoundException .right[hidden].> AccessForbiddenException
     }
 
     package rest #DDDDDD {
         class VerlagModel <<entity>>
 
         class VerlagGetController << boundary >> << @RestController >> << @RequestMapping >> {
-            + @GetMapping getById(@PathVariable id: UUID, @RequestHeader("If-None-Match") version: String, request: HttpServletRequest, authentication: Authentication): ResponseEntity<VerlagModel>
-            + @GetMapping get(@RequestParam queryParams: MultiValueMap<String, String>, request: HttpServletRequest)
+            + @GetMapping getById(@PathVariable id: UUID, request: HttpServletRequest, @RequestHeader("If-None-Match") version: String): ResponseEntity<VerlagModel>
+            + @GetMapping get(@RequestParam suchkriterien: MultiValueMap<String, String>, request: HttpServletRequest)
         }
 
         class CommonExceptionHandler << @ControllerAdvice >> {
             + @ExceptionHandler @ResponseStatus onNotFound(ex: NotFoundException)
-            + @ExceptionHandler @ResponseStatus onAccessForbidden(ex: AccessForbiddenException)
         }
 
         VerlagGetController o-right-> "1" VerlagReadService : service
@@ -89,7 +86,6 @@ package com.acme.verlag {
         VerlagGetController .up.> CollectionModel
         VerlagGetController .right.> HttpServletRequest
         VerlagGetController .up.> MultiValueMap
-        VerlagGetController .up.> Authentication
         VerlagGetController .up.> ResponseEntity
 
         VerlagGetController .up.> RestController
@@ -100,7 +96,6 @@ package com.acme.verlag {
         CommonExceptionHandler .up.> ExceptionHandler
         CommonExceptionHandler .up.> ResponseStatus
         CommonExceptionHandler ..> NotFoundException
-        CommonExceptionHandler ..> AccessForbiddenException
         CommonExceptionHandler .up[hidden].> VerlagModel
         CommonExceptionHandler .[hidden].> Verlag
 
@@ -113,6 +108,6 @@ package com.acme.verlag {
 
 hide empty members
 
-footer (c) Juergen Zimmermann
+footer (c) Florian Sauer
 
 @enduml
