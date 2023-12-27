@@ -19,26 +19,14 @@ package com.acme.verlag.repository;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.service.annotation.GetExchange;
 import org.springframework.web.service.annotation.HttpExchange;
-import org.springframework.web.service.annotation.PostExchange;
-import org.springframework.web.service.annotation.PutExchange;
 
 import java.util.UUID;
-
-import static org.springframework.http.HttpHeaders.IF_MATCH;
 
 @HttpExchange("/rest")
 public interface AutorRepository {
 
     @GetExchange("/{id}")
     ResponseEntity<Autor> getById(@PathVariable UUID id);
-
-    @PostExchange()
-    ResponseEntity<Void> post(@RequestBody Autor obj);
-
-    @PutExchange("/{id}")
-    ResponseEntity<Void> put(@RequestBody Autor obj, @RequestHeader(IF_MATCH) String version);
 }
