@@ -1,0 +1,58 @@
+{
+	"info": {
+		"_postman_id": "3f722a8b-18df-44b7-970f-8f526e925ec2",
+		"name": "DEV",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30196505"
+	},
+	"item": [
+		{
+			"name": "populate_db",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{dev_url}}/db_populate",
+					"host": [
+						"{{dev_url}}"
+					],
+					"path": [
+						"db_populate"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "dev_url",
+			"value": "{{base_url}}/dev",
+			"type": "string"
+		}
+	]
+}
