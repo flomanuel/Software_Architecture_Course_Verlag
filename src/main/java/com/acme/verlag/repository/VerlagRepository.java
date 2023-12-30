@@ -51,20 +51,4 @@ public interface VerlagRepository extends JpaRepository<Verlag, UUID>, JpaSpecif
     @NonNull
     @Override
     Optional<Verlag> findById(@NonNull UUID id);
-
-//    @Query("""
-//        SELECT v
-//        from Verlag v
-//        where lower(v.name) LIKE concat('%', lower(:name), '%')
-//        """)
-//    @EntityGraph(attributePaths = HAUPTSITZ_GRAPH)
-//    List<Verlag> findByName(String name);
-//
-//    @Query("""
-//        SELECT v
-//        from Verlag v
-//        where v.gruendungsdatum = :gruendungsdatum
-//        """)
-//    @EntityGraph(attributePaths = HAUPTSITZ_GRAPH)
-//    List<Verlag> findByGruendungsdatum(LocalDate gruendungsdatum);
 }
