@@ -75,6 +75,7 @@ public class VerlagWriteService {
      * @return Der aktualisierte Verlag.
      * @throws ConstraintViolationsException Falls mindestens ein Constraint verletzt ist.
      * @throws NotFoundException             Kein Verlag zu gegebener ID vorhanden.
+     * @throws VersionOutdatedException      Die Versionsnummer ist veraltet und nicht aktuell.
      */
     @Transactional
     public Verlag update(final Verlag verlag, final UUID id, final int version) {

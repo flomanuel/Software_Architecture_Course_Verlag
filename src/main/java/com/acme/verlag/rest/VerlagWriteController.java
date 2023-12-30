@@ -76,8 +76,8 @@ public class VerlagWriteController {
      *
      * @param verlagDTO Das Verlagsobjekt aus dem eingegangenen Request-Body.
      * @param request   Das Request-Objekt, um Location im Response-Header zu erstellen.
-     * @return Response mit Statuscode 201 einschließlich Location-Header oder Statuscode 422, falls mindestens ein
-     * Constraint verletzt ist oder Statuscode 400, falls syntaktische Fehler im Request-Body vorliegen.
+     * @return Response mit Statuscode 201 einschließlich Location-Header oder Statuscode 422, falls Constraints
+     * verletzt sind oder Statuscode 400, falls syntaktische Fehler im Request-Body vorliegen.
      */
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
     @Operation(summary = "Einen neuen Verlag anlegen", tags = "Neuanlegen")
@@ -99,8 +99,11 @@ public class VerlagWriteController {
     /**
      * Einen vorhandenen Verlag-Datensatz überschreiben.
      *
-     * @param id        Die ID des zu aktualisierenden Verlags.
+     * @param id              Die ID des zu aktualisierenden Verlags.
      * @param verlagUpdateDTO Das Verlagsobjekt aus dem eingegangenen Request-Body.
+     * @return Response mit Statuscode 204 oder Statuscode 400, falls der JSON-Datensatz syntaktisch nicht korrekt ist
+     * oder 422, falls Constraints verletzt sind
+     * oder 412, falls die Versionsnummer nicht ok ist oder 428, falls die Versionsnummer fehlt.
      */
     @PutMapping(path = "{id:" + ID_PATTERN + "}", consumes = APPLICATION_JSON_VALUE)
     @Operation(summary = "Einen Verlag mit neuen Werten aktualisieren", tags = "Aktualisieren")
