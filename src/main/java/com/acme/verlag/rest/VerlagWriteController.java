@@ -35,7 +35,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.net.URI;
 import java.util.Optional;
@@ -48,7 +47,6 @@ import static org.springframework.http.HttpStatus.PRECONDITION_FAILED;
 import static org.springframework.http.ResponseEntity.created;
 import static org.springframework.http.ResponseEntity.noContent;
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
-import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 /**
  * Eine Controller-Klasse bildet die REST-Schnittstelle, wobei die HTTP-Methoden, Pfade und MIME-Typen auf die
@@ -105,7 +103,6 @@ public class VerlagWriteController {
      * @param verlagUpdateDTO Das Verlagsobjekt aus dem eingegangenen Request-Body.
      */
     @PutMapping(path = "{id:" + ID_PATTERN + "}", consumes = APPLICATION_JSON_VALUE)
-    @ResponseStatus(NO_CONTENT)
     @Operation(summary = "Einen Verlag mit neuen Werten aktualisieren", tags = "Aktualisieren")
     @ApiResponse(responseCode = "204", description = "Aktualisiert")
     @ApiResponse(responseCode = "400", description = "Syntaktische Fehler im Request-Body")
