@@ -107,6 +107,7 @@ public class VerlagWriteController {
     @ApiResponse(responseCode = "204", description = "Aktualisiert")
     @ApiResponse(responseCode = "400", description = "Syntaktische Fehler im Request-Body")
     @ApiResponse(responseCode = "404", description = "Verlag nicht vorhanden")
+    @ApiResponse(responseCode = "412", description = "Versionsnummer falsch")
     @ApiResponse(responseCode = "422", description = "Ungültige Werte")
     ResponseEntity<Void> put(@PathVariable final UUID id,
                              @RequestBody final VerlagUpdateDTO verlagUpdateDTO,
