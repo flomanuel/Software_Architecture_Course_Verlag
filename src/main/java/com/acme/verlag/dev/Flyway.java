@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 - present Florian Sauer
+ * Copyright (c) 2023 - present Florian Sauer
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
