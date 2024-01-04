@@ -103,7 +103,7 @@ public class VerlagGetController {
         // HATEOAS
         final var model = new VerlagModel(verlag);
         final var baseUri = uriHelper.getBaseUri(request).toString();
-        final var idUri = STR."\{baseUri}/\{verlag.getId()}}";
+        final var idUri = STR."\{baseUri}/\{verlag.getId()}";
         final var selfLink = Link.of(idUri);
         final var listLink = Link.of(baseUri, LinkRelation.of("list"));
         final var addLink = Link.of(baseUri, LinkRelation.of("add"));
