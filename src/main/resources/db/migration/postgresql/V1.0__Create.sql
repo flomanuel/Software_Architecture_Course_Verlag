@@ -40,9 +40,10 @@ CREATE TABLE IF NOT EXISTS verlag
     id              uuid PRIMARY KEY USING INDEX TABLESPACE verlagspace,
     version         integer      NOT NULL DEFAULT 0,
     name            varchar(200) NOT NULL,
-    gruendungsdatum date CHECK (verlag.gruendungsdatum <= current_date),
-    hauptsitz_id    uuid REFERENCES adresse,
-    fachbereiche    varchar(32),
+    gruendungsdatum date         NOT NULL CHECK (verlag.gruendungsdatum <= current_date),
+    hauptsitz_id    uuid         NOT NULL UNIQUE USING INDEX TABLESPACE verlagspace REFERENCES adresse,
+    fachbereiche    varchar(32)  NOT NULL CHECK (verlag.fachbereiche ~
+                                                 'GESCHICHTSWISSENSCHAFT|PHYSIK|CHEMIE|WIRTSCHAFT|INFORMATIK|FANTASY'),
     erzeugt         timestamp    NOT NULL,
     aktualisiert    timestamp    NOT NULL
 ) TABLESPACE verlagspace;
@@ -63,19 +64,16 @@ CREATE TABLE IF NOT EXISTS buch
     isbn13            char(13)     not null,
     haupttitel        varchar(100) not null,
     nebentitel        varchar(100) not null,
-    erscheinungsdatum date CHECK (buch.erscheinungsdatum <= current_date),
-    auflage           int check (buch.auflage > 0),
-    -- nicht NOT NULL wegen gerichteter Beziehung und UPDATE durch Hibernate
-    preis_id          uuid REFERENCES preis,
-    kategorie         varchar(40) check (buch.kategorie ~ 'SACHBUCH'),
-    seitenzahl        int check (buch.seitenzahl > 0),
+    erscheinungsdatum date         NOT NULL CHECK (buch.erscheinungsdatum <= current_date),
+    auflage           int          not null check (buch.auflage > 0),
+    preis_id          uuid         NOT NULL REFERENCES preis,
+    kategorie         varchar(40)  NOT NULL check (buch.kategorie ~ 'SACHBUCH'),
+    seitenzahl        int          NOT NULL check (buch.seitenzahl > 0),
     idx               integer      NOT NULL DEFAULT 0,
     verlag_id         uuid REFERENCES verlag,
     erzeugt           TIMESTAMP    NOT NULL,
     aktualisiert      TIMESTAMP    NOT NULL,
     autor_id          uuid         NOT NULL
 );
-
-CREATE INDEX IF NOT EXISTS preis_id_idx ON buch (id) TABLESPACE verlagspace;
 
 CREATE INDEX IF NOT EXISTS buch_verlag_id_idx ON buch (verlag_id) TABLESPACE verlagspace;
