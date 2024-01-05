@@ -72,7 +72,6 @@ interface VerlagMapper {
     @Mapping(target = "version", ignore = true)
     @Mapping(target = "autorVorname", ignore = true)
     @Mapping(target = "autorNachname", ignore = true)
-//    @Mapping(target = "autorVersion", ignore = true)
     Buch toBuch(BuchDTO dto);
 
     /**

@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS buch
     auflage           int check (buch.auflage > 0),
     -- nicht NOT NULL wegen gerichteter Beziehung und UPDATE durch Hibernate
     preis_id          uuid REFERENCES preis,
-    kategorie         varchar(9) check (buch.kategorie ~ 'SACHBUCH'),
+    kategorie         varchar(40) check (buch.kategorie ~ 'SACHBUCH'),
     seitenzahl        int check (buch.seitenzahl > 0),
     idx               integer      NOT NULL DEFAULT 0,
     verlag_id         uuid REFERENCES verlag,
@@ -79,5 +79,3 @@ CREATE TABLE IF NOT EXISTS buch
 CREATE INDEX IF NOT EXISTS preis_id_idx ON buch (id) TABLESPACE verlagspace;
 
 CREATE INDEX IF NOT EXISTS buch_verlag_id_idx ON buch (verlag_id) TABLESPACE verlagspace;
-
--- todo: wie index einbauen, nutzen?

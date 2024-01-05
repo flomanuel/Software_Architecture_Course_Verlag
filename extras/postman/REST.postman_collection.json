@@ -44,7 +44,7 @@
 					"response": []
 				},
 				{
-					"name": "Suche vorhandener ID 00000000-0000-0000-0000-000000000004 und korrektem ETag",
+					"name": "Suche vorhandener ID 00000000-0000-0000-0000-000000000004 und aktuellem ETag",
 					"request": {
 						"method": "GET",
 						"header": [

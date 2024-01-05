@@ -143,10 +143,6 @@ input BuchInput {
   kategorie: Kategorie!
   "Seitenzahl des Buches."
   seitenzahl: Int!
-  "Vorname des Autors."
-  autorVorname: String!
-  "Nachname des Autors."
-  autorNachname: String!
   "ID des Autors."
   autorId: ID!
 }
