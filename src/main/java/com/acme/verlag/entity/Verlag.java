@@ -208,6 +208,7 @@ public class Verlag {
     }
 
     @PostLoad
+    @SuppressWarnings("java:S6204")
     private void loadFachbereiche() {
         if (fachbereicheStr == null) {
             // NULL in der DB-Spalte

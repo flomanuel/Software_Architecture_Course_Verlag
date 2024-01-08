@@ -66,7 +66,7 @@ import static jakarta.persistence.FetchType.LAZY;
 @Setter
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
-@SuppressWarnings({"RequireEmptyLineBeforeBlockTagGroup", "ClassFanOutComplexity"})
+@SuppressWarnings({"JavadocDeclaration", "RequireEmptyLineBeforeBlockTagGroup", "MissingSummary"})
 public class Buch {
 
     /**
@@ -96,6 +96,7 @@ public class Buch {
      * Versionsnummer für optimistische Synchronisation.
      */
     @Version
+    @SuppressWarnings("common-java:DuplicatedBlocks")
     private int version;
 
     @CreationTimestamp
