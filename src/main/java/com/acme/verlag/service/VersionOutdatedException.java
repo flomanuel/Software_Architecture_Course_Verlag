@@ -17,9 +17,12 @@
 
 package com.acme.verlag.service;
 
+import lombok.Getter;
+
 /**
  * Exception, falls die Versionsnummer nicht aktuell ist.
  */
+@Getter
 public class VersionOutdatedException extends RuntimeException {
 
     private final int version;
