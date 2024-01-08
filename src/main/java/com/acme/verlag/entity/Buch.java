@@ -25,7 +25,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
-import jakarta.persistence.Version;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -39,12 +38,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.ISBN;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 import static jakarta.persistence.CascadeType.PERSIST;
@@ -91,19 +87,6 @@ public class Buch {
     @GeneratedValue
     @EqualsAndHashCode.Include
     private UUID id;
-
-    /**
-     * Versionsnummer für optimistische Synchronisation.
-     */
-    @Version
-    @SuppressWarnings("common-java:DuplicatedBlocks")
-    private int version;
-
-    @CreationTimestamp
-    private LocalDateTime erzeugt;
-
-    @UpdateTimestamp
-    private LocalDateTime aktualisiert;
 
     /**
      * Die ID des Autors, der dieses Buch verfasst hat.

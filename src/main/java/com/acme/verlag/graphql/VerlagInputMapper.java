@@ -51,9 +51,6 @@ interface VerlagInputMapper {
      * @param input BuchInput ohne ID.
      * @return Konvertiertes Buch-Objekt.
      */
-    @Mapping(target = "version", ignore = true)
-    @Mapping(target = "erzeugt", ignore = true)
-    @Mapping(target = "aktualisiert", ignore = true)
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "autorVorname", ignore = true)
     @Mapping(target = "autorNachname", ignore = true)

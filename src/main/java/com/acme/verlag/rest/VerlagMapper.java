@@ -67,9 +67,6 @@ interface VerlagMapper {
      * @return Konvertiertes Buch-Objekt mit null als ID.
      */
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "erzeugt", ignore = true)
-    @Mapping(target = "aktualisiert", ignore = true)
-    @Mapping(target = "version", ignore = true)
     @Mapping(target = "autorVorname", ignore = true)
     @Mapping(target = "autorNachname", ignore = true)
     Buch toBuch(BuchDTO dto);

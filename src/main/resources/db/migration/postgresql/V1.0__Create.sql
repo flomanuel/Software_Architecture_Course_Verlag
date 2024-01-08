@@ -60,7 +60,6 @@ CREATE TABLE IF NOT EXISTS preis
 CREATE TABLE IF NOT EXISTS buch
 (
     id                uuid PRIMARY KEY USING INDEX TABLESPACE verlagspace,
-    version           integer      NOT NULL DEFAULT 0,
     isbn13            char(13)     not null,
     haupttitel        varchar(100) not null,
     nebentitel        varchar(100) not null,
@@ -71,8 +70,6 @@ CREATE TABLE IF NOT EXISTS buch
     seitenzahl        int          NOT NULL check (buch.seitenzahl > 0),
     idx               integer      NOT NULL DEFAULT 0,
     verlag_id         uuid REFERENCES verlag,
-    erzeugt           TIMESTAMP    NOT NULL,
-    aktualisiert      TIMESTAMP    NOT NULL,
     autor_id          uuid         NOT NULL
 );
 
