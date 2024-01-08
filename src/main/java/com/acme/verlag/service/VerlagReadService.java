@@ -124,10 +124,6 @@ public class VerlagReadService {
             // 4xx oder 5xx
             log.debug("findAutorById", ex);
             return new Autor("Exception", "Exception");
-        } catch (final ResourceAccessException ex) {
-            // Falls der zweite Server gar nicht gestartet ist.
-            log.debug("findAutorById", ex);
-            return new Autor("Exception", "Exception");
         }
         final var autor = autorResponse.getBody();
         log.debug("findAutorById: {}", autor);
