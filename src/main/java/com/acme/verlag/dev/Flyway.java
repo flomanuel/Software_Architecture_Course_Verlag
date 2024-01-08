@@ -31,7 +31,8 @@ interface Flyway { //zum aufräumen, etc. der db
      * @return FlywayMigrationStrategy
      */
     @Bean //@Bean: Factory Methode
-    default FlywayMigrationStrategy cleanMigrateStrategy() { //FlywayMigrationStrategy: funktionales interface. Funkt. Interface: Interface mit einer Methode
+    default FlywayMigrationStrategy cleanMigrateStrategy() { //FlywayMigrationStrategy: funktionales interface.
+                                                            // Funkt. Interface: Interface mit einer Methode
         return flyway -> {
             // Loeschen aller DB-Objekte im Schema: Tabellen, Indexe, Stored Procedures, Trigger, Views, ...
             // insbesondere die Tabelle flyway_schema_history

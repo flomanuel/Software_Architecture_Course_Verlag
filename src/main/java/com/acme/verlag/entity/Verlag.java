@@ -71,7 +71,9 @@ import static java.util.Collections.emptyList;
 @Table(name = "verlag")
 @NamedEntityGraph(
     name = HAUPTSITZ_BUECHER_GRAPH,
-    attributeNodes = {@NamedAttributeNode("hauptsitz"), @NamedAttributeNode(value = "buecher", subgraph = BUCH_SUBGRAPH)},
+    attributeNodes = {
+        @NamedAttributeNode("hauptsitz"), @NamedAttributeNode(value = "buecher", subgraph = BUCH_SUBGRAPH)
+    },
     subgraphs = @NamedSubgraph(
         name = BUCH_SUBGRAPH,
         attributeNodes = @NamedAttributeNode(value = "preis")

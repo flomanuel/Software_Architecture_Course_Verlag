@@ -26,7 +26,8 @@ import static com.acme.verlag.dev.DevConfig.DEV;
  *
  * @author <a href="mailto:Juergen.Zimmermann@h-ka.de">Jürgen Zimmermann</a>
  */
-@Profile(DEV) // alles nur ausführen wenn DEV Config aktiv -> build.gradle.kts: "activeProfiles" -> DEV -> daher DEV-Profil in Gradle aktiviert. Daher wird DecConfig ausgeführt.
+@Profile(DEV) // alles nur ausführen wenn DEV Config aktiv -> build.gradle.kts: "activeProfiles" ->
+                // DEV -> daher DEV-Profil in Gradle aktiviert. Daher wird DecConfig ausgeführt.
 @SuppressWarnings({"ClassNamePrefixedWithPackageName", "HideUtilityClassConstructor"})
 public class DevConfig implements LogRequestHeaders, K8s, Flyway {
 

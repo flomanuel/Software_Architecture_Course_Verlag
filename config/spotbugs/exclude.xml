@@ -9,4 +9,16 @@
     <Match>
         <Bug pattern="UPM_UNCALLED_PRIVATE_METHOD"/>
     </Match>
+    <Match>
+        <Class name="com.acme.verlag.entity.Verlag_"/>
+    </Match>
+    <Match>
+        <Class name="com.acme.verlag.entity.Adresse_"/>
+    </Match>
+    <Match>
+        <Class name="com.acme.verlag.entity.Preis_"/>
+    </Match>
+    <Match>
+        <Class name="com.acme.verlag.entity.Buch_"/>
+    </Match>
 </FindBugsFilter>
