@@ -41,11 +41,11 @@ version: 2023.10.0 #version vom chart
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
-appVersion: 2023.10.0-buildpacks # version von der anwendung. tag vom docker image als versionsnummer
-#appVersion: 2023.10.0-eclipse
-#appVersion: 2023.10.0-azul
-#appVersion: 2023.10.0-buildpacks-eclipse
-#appVersion: 2023.10.0-buildpacks-azul
+appVersion: 2023.10.1-buildpacks # version von der anwendung. tag vom docker image als versionsnummer
+#appVersion: 2023.10.1-eclipse
+#appVersion: 2023.10.1-azul
+#appVersion: 2023.10.1-buildpacks-eclipse
+#appVersion: 2023.10.1-buildpacks-azul
 
 # https://helm.sh/docs/topics/version_skew
 # https://helm.sh/docs/helm/helm_version

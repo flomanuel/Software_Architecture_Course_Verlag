@@ -38,7 +38,7 @@ $host.ui.RawUI.WindowTitle = 'dive'
 $diveVersion = 'v0.11.0'
 $imagePrefix = 'floriansauer/'
 $imageBase = 'verlag'
-$imageTag = "2023.10.0-$base"
+$imageTag = "2023.10.1-$base"
 $image = "$imagePrefix${imageBase}:$imageTag"
 
 # https://github.com/wagoodman/dive#installation

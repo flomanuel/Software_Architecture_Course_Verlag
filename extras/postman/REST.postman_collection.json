@@ -318,7 +318,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Carl Hanser Verlag - Neuer Name\",\r\n    \"gruendungsdatum\": \"1928-04-10\",\r\n    \"hauptsitz\": {\r\n        \"plz\": \"81631\",\r\n        \"ort\": \"München\",\r\n        \"land\": \"Deutschland\"\r\n    },\r\n    \"buecher\": [\r\n        {\r\n            \"id\": \"10000000-0000-0000-0000-000000000000\",\r\n            \"isbn13\": \"9783446430570\",\r\n            \"haupttitel\": \"UML 2 glasklar\",\r\n            \"nebentitel\": \"Praxiswissen für die UML-Modellierung\",\r\n            \"erscheinungsdatum\": \"2012-05-25\",\r\n            \"auflage\": 4,\r\n            \"preis\": {\r\n                \"bruttobetrag\": 34.9,\r\n                \"waehrung\": \"EUR\"\r\n            },\r\n            \"kategorie\": \"S\",\r\n            \"seitenzahl\": 560,\r\n            \"autorId\": \"00000000-0000-0000-0000-000000000001\"\r\n        }\r\n    ],\r\n    \"fachbereiche\": [\r\n        \"W\"\r\n    ] \r\n}"
+							"raw": "{\r\n    \"name\": \"Carl Hanser Verlag - Neuer Name\",\r\n    \"gruendungsdatum\": \"1928-04-10\",\r\n    \"fachbereiche\": [\r\n        \"W\"\r\n    ] \r\n}"
 						},
 						"url": {
 							"raw": "{{rest_url}}/:id",
@@ -356,7 +356,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Carl Hanser Verlag - Neuer Name\",\r\n    \"gruendungsdatum\": \"1928-04-10\",\r\n    \"hauptsitz\": {\r\n        \"plz\": \"81631\",\r\n        \"ort\": \"München\",\r\n        \"land\": \"Deutschland\"\r\n    },\r\n    \"buecher\": [\r\n        {\r\n            \"id\": \"10000000-0000-0000-0000-000000000000\",\r\n            \"isbn13\": \"9783446430570\",\r\n            \"haupttitel\": \"UML 2 glasklar\",\r\n            \"nebentitel\": \"Praxiswissen für die UML-Modellierung\",\r\n            \"erscheinungsdatum\": \"2012-05-25\",\r\n            \"auflage\": 4,\r\n            \"preis\": {\r\n                \"bruttobetrag\": 34.9,\r\n                \"waehrung\": \"EUR\"\r\n            },\r\n            \"kategorie\": \"S\",\r\n            \"seitenzahl\": 560,\r\n            \"autorId\": \"00000000-0000-0000-0000-000000000001\"\r\n        }\r\n    ],\r\n    \"fachbereiche\": [\r\n        \"W\"\r\n    ] \r\n}"
+							"raw": "{\r\n    \"name\": \"Carl Hanser Verlag - Neuer Name\",\r\n    \"gruendungsdatum\": \"1928-04-10\",\r\n    \"fachbereiche\": [\r\n        \"W\"\r\n    ] \r\n}"
 						},
 						"url": {
 							"raw": "{{rest_url}}/:id",
@@ -394,7 +394,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Carl Hanser Verlag\",\r\n    \"gruendungsdatum\": \"1928-04-10\",\r\n    \"hauptsitz\": {\r\n        \"plz\": \"81631\",\r\n        \"ort\": \"München\",\r\n        \"land\": \"Deutschland\"\r\n    },\r\n    \"buecher\": [\r\n        {\r\n            \"id\": \"10000000-0000-0000-0000-000000000000\",\r\n            \"isbn13\": \"9783446430570\",\r\n            \"haupttitel\": \"UML 2 glasklar\",\r\n            \"nebentitel\": \"Praxiswissen für die UML-Modellierung\",\r\n            \"erscheinungsdatum\": \"2012-05-25\",\r\n            \"auflage\": 4,\r\n            \"preis\": {\r\n                \"bruttobetrag\": 34.9,\r\n                \"waehrung\": \"EUR\"\r\n            },\r\n            \"kategorie\": \"S\",\r\n            \"seitenzahl\": 560\r\n        }\r\n    ],\r\n    \"fachbereiche\": [\r\n        \"W\"\r\n    ] \r\n}"
+							"raw": "{\r\n    \"name\": \"Carl Hanser Verlag\",\r\n    \"gruendungsdatum\": \"1928-04-10\",\r\n    \"fachbereiche\": [\r\n        \"W\"\r\n    ]\r\n}\r\n"
 						},
 						"url": {
 							"raw": "{{rest_url}}/:id",
