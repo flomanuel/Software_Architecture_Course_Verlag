@@ -72,7 +72,7 @@ package com.acme.verlag {
             autorVorname : String
             @Transient
             autorNachname : String
-            preis : Preis - todo: entität einbauen
+            preis : Preis
         }
 
         class Preis << entity >> <<@Entity>> <<@Table>> {
