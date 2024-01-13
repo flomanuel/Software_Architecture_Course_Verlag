@@ -339,7 +339,7 @@
 					"response": []
 				},
 				{
-					"name": "Verlag 1 (Carl Hanser) ändern, mit korrektem ETag",
+					"name": "Verlag 1 (Carl Hanser) ändern, mit aktuellemETag",
 					"request": {
 						"method": "PUT",
 						"header": [
