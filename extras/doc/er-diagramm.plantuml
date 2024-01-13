@@ -47,9 +47,6 @@ entity "Verlag" {
 entity "Buch" {
   * id : UUID <<generated>>
   --
-  * version: integer
-  * erzeugt: timestamp
-  * aktualisiert: timestamp
   * isbn13 : text
   * haupttitel : text
   * nebentitel : text
