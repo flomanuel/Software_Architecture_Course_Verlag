@@ -89,10 +89,7 @@ public class VerlagWriteService {
         }
         log.trace("update: Keine Constraints verletzt");
         final var verlagDBOptional = repository.findById(id);
-        if (verlagDBOptional.isEmpty()) {
-            throw new NotFoundException(id);
-        }
-        var verlagDb = verlagDBOptional.get();
+        var verlagDb = verlagDBOptional.orElseThrow(() -> new NotFoundException(id));
         log.trace("update: version={}, verlagDb={}", version, verlagDb);
         if (version != verlagDb.getVersion()) {
             throw new VersionOutdatedException(version);

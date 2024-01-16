@@ -127,13 +127,12 @@ public class VerlagWriteController {
 
     private int getVersion(final Optional<String> versionOpt, final HttpServletRequest request) {
         log.trace("getVersion: {}", versionOpt);
-        if (versionOpt.isEmpty()) {
-            throw new VersionInvalidException(
+        final var versionStr = versionOpt.orElseThrow(() -> new VersionInvalidException(
                 PRECONDITION_REQUIRED,
                 VERSIONSNUMMER_FEHLT,
-                URI.create(request.getRequestURL().toString()));
-        }
-        final var versionStr = versionOpt.get();
+                URI.create(request.getRequestURL().toString())
+            )
+        );
         if (versionStr.length() < 3 ||
             versionStr.charAt(0) != '"' ||
             versionStr.charAt(versionStr.length() - 1) != '"') {
