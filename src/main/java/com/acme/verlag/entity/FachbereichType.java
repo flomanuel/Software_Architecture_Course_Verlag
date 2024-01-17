@@ -22,6 +22,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.util.stream.Stream;
 
+/**
+ * Enum für den Fachbereich.
+ */
 public enum FachbereichType {
     /**
      * _Geschichtswissenschaft_ mit dem internen Wert `S`.
