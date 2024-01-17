@@ -35,7 +35,6 @@ import java.util.Optional;
 /**
  * Singleton-Klasse, um Specifications für Queries in Spring Data JPA zu bauen.
  */
-
 @Component
 @Slf4j
 public class SpecificationBuilder {
