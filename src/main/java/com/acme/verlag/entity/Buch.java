@@ -17,15 +17,25 @@
 
 package com.acme.verlag.entity;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.validator.constraints.ISBN;
@@ -33,15 +43,26 @@ import org.hibernate.validator.constraints.ISBN;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import static jakarta.persistence.CascadeType.PERSIST;
+import static jakarta.persistence.CascadeType.REMOVE;
+import static jakarta.persistence.EnumType.STRING;
+import static jakarta.persistence.FetchType.LAZY;
+
 /**
  * Daten eines Buches für die Anwendungslogik und zum Abspeichern in der Datenbank.
+ * <p/>
+ * <img src="../../../../../asciidoc/Verlag.svg" alt="Klassendiagramm">
  */
+@Entity
+@Table(name = "buch")
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Getter
 @Setter
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
-@SuppressWarnings({"RequireEmptyLineBeforeBlockTagGroup", "ClassFanOutComplexity"})
+@SuppressWarnings({"JavadocDeclaration", "RequireEmptyLineBeforeBlockTagGroup", "MissingSummary"})
 public class Buch {
 
     /**
@@ -62,8 +83,18 @@ public class Buch {
     /**
      * Die UUID des Buches.
      */
+    @Id
+    @GeneratedValue
     @EqualsAndHashCode.Include
     private UUID id;
+
+    /**
+     * Die ID des Autors, der dieses Buch verfasst hat.
+     */
+    @NotNull
+    // Der Spaltenwert referenziert einen Wert aus einer anderen DB.
+    @Column(name = "autor_id")
+    private UUID autorId;
 
     /**
      * Die ISBN-13 des Buches.
@@ -87,6 +118,18 @@ public class Buch {
     private String nebentitel;
 
     /**
+     * Die Auflage des Buches.
+     */
+    @Positive
+    private int auflage;
+
+    /**
+     * Die Seitenzahl des Buches.
+     */
+    @Positive
+    private int seitenzahl;
+
+    /**
      * Das Erscheinungsdatum des Buches.
      */
     @PastOrPresent
@@ -94,27 +137,29 @@ public class Buch {
     private LocalDate erscheinungsdatum;
 
     /**
-     * Die Auflage des Buches.
-     */
-    @Positive
-    private int auflage;
-
-    /**
-     * Der Preis des Buches.
-     */
-    @Valid
-    @NotNull
-    private Preis preis;
-
-    /**
      * Die thematische Kategorie des Buches.
      */
+    @Enumerated(STRING)
     @NotNull
     private KategorieType kategorie;
 
     /**
-     * Die Seitenzahl des Buches.
+     * Der Vorname des Autors, der dieses Buch verfasst hat.
      */
-    @Positive
-    private int seitenzahl;
+    @Transient
+    private String autorVorname;
+
+    /**
+     * Der Nachname des Autors, der dieses Buch verfasst hat.
+     */
+    @Transient
+    private String autorNachname;
+
+    /**
+     * Der Preis des Buches.
+     */
+    @OneToOne(optional = false, cascade = {PERSIST, REMOVE}, fetch = LAZY, orphanRemoval = true)
+    @Valid
+    @NotNull
+    private Preis preis;
 }

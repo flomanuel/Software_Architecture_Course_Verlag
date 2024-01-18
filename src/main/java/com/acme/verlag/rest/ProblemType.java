@@ -7,7 +7,11 @@ enum ProblemType {
     /**
      * Constraints als Fehlerursache.
      */
-    CONSTRAINTS("constraints");
+    CONSTRAINTS("constraints"),
+    /**
+     * Fehler beim Header If-Match.
+     */
+    PRECONDITION("precondition");
 
     private final String value;
 

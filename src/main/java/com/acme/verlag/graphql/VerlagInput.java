@@ -17,6 +17,8 @@
 
 package com.acme.verlag.graphql;
 
+import com.acme.verlag.entity.FachbereichType;
+
 import java.util.List;
 
 /**
@@ -26,11 +28,13 @@ import java.util.List;
  * @param gruendungsdatum Gründungsdatum
  * @param hauptsitz       Hauptsitz
  * @param buecher         Bücher
+ * @param fachbereiche    Die Fachbereiche des Verlags.
  */
 record VerlagInput(String name,
                    String gruendungsdatum,
                    AdresseInput hauptsitz,
-                   List<BuchInput> buecher
+                   List<BuchInput> buecher,
+                   List<FachbereichType> fachbereiche
 ) {
 
 }

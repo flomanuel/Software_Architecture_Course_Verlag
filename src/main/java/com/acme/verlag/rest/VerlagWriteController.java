@@ -19,6 +19,7 @@ package com.acme.verlag.rest;
 
 import com.acme.verlag.service.ConstraintViolationsException;
 import com.acme.verlag.service.VerlagWriteService;
+import com.acme.verlag.service.VersionOutdatedException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.servlet.http.HttpServletRequest;
@@ -32,18 +33,27 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.net.URI;
+import java.util.Optional;
 import java.util.UUID;
 
 import static com.acme.verlag.rest.VerlagGetController.*;
+import static org.springframework.http.HttpStatus.PRECONDITION_REQUIRED;
 import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
+import static org.springframework.http.HttpStatus.PRECONDITION_FAILED;
 import static org.springframework.http.ResponseEntity.created;
+import static org.springframework.http.ResponseEntity.noContent;
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
-import static org.springframework.http.HttpStatus.NO_CONTENT;
 
+/**
+ * Eine Controller-Klasse bildet die REST-Schnittstelle, wobei die HTTP-Methoden, Pfade und MIME-Typen auf die
+ * Methoden der Klasse abgebildet werden.
+ * <p/>
+ * <img src="../../../../../asciidoc/VerlagWriteController.svg" alt="Klassendiagramm">
+ */
 @Controller
 @RequiredArgsConstructor
 @RequestMapping(REST_PATH)
@@ -51,7 +61,8 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
 @SuppressWarnings({"ClassFanOutComplexity", "java:S1075"})
 public class VerlagWriteController {
 
-    private static final String PROBLEM_PATH = "/problem/";
+    static final String PROBLEM_PATH = "/problem/";
+    private static final String VERSIONSNUMMER_FEHLT = "Versionsnummer fehlt";
     private final VerlagMapper mapper;
     private final UriHelper uriHelper;
 
@@ -65,8 +76,8 @@ public class VerlagWriteController {
      *
      * @param verlagDTO Das Verlagsobjekt aus dem eingegangenen Request-Body.
      * @param request   Das Request-Objekt, um Location im Response-Header zu erstellen.
-     * @return Response mit Statuscode 201 einschließlich Location-Header oder Statuscode 422, falls mindestens ein
-     * Constraint verletzt ist oder Statuscode 400, falls syntaktische Fehler im Request-Body vorliegen.
+     * @return Response mit Statuscode 201 einschließlich Location-Header oder Statuscode 422, falls Constraints
+     * verletzt sind oder Statuscode 400, falls syntaktische Fehler im Request-Body vorliegen.
      */
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
     @Operation(summary = "Einen neuen Verlag anlegen", tags = "Neuanlegen")
@@ -88,22 +99,62 @@ public class VerlagWriteController {
     /**
      * Einen vorhandenen Verlag-Datensatz überschreiben.
      *
-     * @param id        Die ID des zu aktualisierenden Verlags.
-     * @param verlagDTO Das Verlagsobjekt aus dem eingegangenen Request-Body.
+     * @param id              Die ID des zu aktualisierenden Verlags.
+     * @param verlagUpdateDTO Das Verlagsobjekt aus dem eingegangenen Request-Body.
+     * @return Response mit Statuscode 204 oder Statuscode 400, falls der JSON-Datensatz syntaktisch nicht korrekt ist
+     * oder 422, falls Constraints verletzt sind
+     * oder 412, falls die Versionsnummer nicht ok ist oder 428, falls die Versionsnummer fehlt.
      */
     @PutMapping(path = "{id:" + ID_PATTERN + "}", consumes = APPLICATION_JSON_VALUE)
-    @ResponseStatus(NO_CONTENT)
     @Operation(summary = "Einen Verlag mit neuen Werten aktualisieren", tags = "Aktualisieren")
     @ApiResponse(responseCode = "204", description = "Aktualisiert")
     @ApiResponse(responseCode = "400", description = "Syntaktische Fehler im Request-Body")
     @ApiResponse(responseCode = "404", description = "Verlag nicht vorhanden")
+    @ApiResponse(responseCode = "412", description = "Versionsnummer falsch")
     @ApiResponse(responseCode = "422", description = "Ungültige Werte")
-    void put(@PathVariable final UUID id,
-             @RequestBody final VerlagDTO verlagDTO
+    ResponseEntity<Void> put(@PathVariable final UUID id,
+                             @RequestBody final VerlagUpdateDTO verlagUpdateDTO,
+                             @RequestHeader("If-Match") final Optional<String> version,
+                             final HttpServletRequest request
     ) {
-        log.debug("put: id={}, {}", id, verlagDTO);
-        final var verlagInput = mapper.toVerlag(verlagDTO);
-        service.update(verlagInput, id);
+        log.debug("put: id={}, verlagUpdateDTO={}", id, verlagUpdateDTO);
+        final int versionInt = getVersion(version, request);
+        final var verlagInput = mapper.toVerlag(verlagUpdateDTO);
+        final var verlag = service.update(verlagInput, id, versionInt);
+        log.debug("put: {}", verlag);
+        return noContent().eTag(STR."\"\{verlag.getVersion()}\"").build();
+    }
+
+    private int getVersion(final Optional<String> versionOpt, final HttpServletRequest request) {
+        log.trace("getVersion: {}", versionOpt);
+        final var versionStr = versionOpt.orElseThrow(() -> new VersionInvalidException(
+                PRECONDITION_REQUIRED,
+                VERSIONSNUMMER_FEHLT,
+                URI.create(request.getRequestURL().toString())
+            )
+        );
+        if (versionStr.length() < 3 ||
+            versionStr.charAt(0) != '"' ||
+            versionStr.charAt(versionStr.length() - 1) != '"') {
+            throw new VersionInvalidException(
+                PRECONDITION_FAILED,
+                STR."Ungueltiges ETag \{versionStr}",
+                URI.create(request.getRequestURL().toString())
+            );
+        }
+        final int version;
+        try {
+            version = Integer.parseInt(versionStr.substring(1, versionStr.length() - 1));
+        } catch (final NumberFormatException ex) {
+            throw new VersionInvalidException(
+                PRECONDITION_FAILED,
+                STR."Ungueltiges ETag \{versionStr}",
+                URI.create(request.getRequestURL().toString()),
+                ex
+            );
+        }
+        log.trace("getVersion: version={}", version);
+        return version;
     }
 
     @ExceptionHandler
@@ -128,6 +179,30 @@ public class VerlagWriteController {
         }
         final var problemDetail = ProblemDetail.forStatusAndDetail(UNPROCESSABLE_ENTITY, detail);
         problemDetail.setType(URI.create(STR."\{PROBLEM_PATH}\{ProblemType.CONSTRAINTS.getValue()}"));
+        problemDetail.setInstance(URI.create(request.getRequestURL().toString()));
+        return problemDetail;
+    }
+
+    @ExceptionHandler
+    ProblemDetail onVersionOutdated(
+        final VersionOutdatedException ex,
+        final HttpServletRequest request
+    ) {
+        log.debug("onVersionOutdated: {}", ex.getMessage());
+        final var problemDetail = ProblemDetail.forStatusAndDetail(PRECONDITION_FAILED, ex.getMessage());
+        problemDetail.setType(URI.create(STR."\{PROBLEM_PATH}\{ProblemType.PRECONDITION.getValue()}"));
+        problemDetail.setInstance(URI.create(request.getRequestURL().toString()));
+        return problemDetail;
+    }
+
+    @ExceptionHandler
+    ProblemDetail onVersionInvalid(
+        final VersionInvalidException ex,
+        final HttpServletRequest request
+    ) {
+        log.debug("onVersionInvalid: {}", ex.getMessage());
+        final var problemDetail = ProblemDetail.forStatusAndDetail(PRECONDITION_FAILED, ex.getMessage());
+        problemDetail.setType(URI.create(STR."\{PROBLEM_PATH}\{ProblemType.PRECONDITION.getValue()}"));
         problemDetail.setInstance(URI.create(request.getRequestURL().toString()));
         return problemDetail;
     }

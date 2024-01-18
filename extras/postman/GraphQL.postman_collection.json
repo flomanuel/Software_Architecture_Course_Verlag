@@ -23,12 +23,17 @@
 								"key": "User-Agent",
 								"value": "JS GraphQL",
 								"type": "text"
+							},
+							{
+								"key": "If-None-Match",
+								"value": "\"0\"",
+								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query ($id: ID! = \"00000000-0000-0000-0000-000000000004\", $first: Int! = 2) {\r\n  verlag(id: $id) {\r\n      name\r\n      gruendungsdatum\r\n      hauptsitz {\r\n          plz\r\n          ort\r\n          land\r\n      }\r\n  buecher(first: $first) {\r\n      id\r\n      isbn13\r\n      haupttitel  \r\n      nebentitel\r\n      erscheinungsdatum\r\n      auflage\r\n      preis {\r\n          bruttobetrag\r\n          waehrung\r\n      }\r\n      kategorie\r\n      seitenzahl\r\n  }\r\n  }\r\n}",
+								"query": "query ($id: ID! = \"00000000-0000-0000-0000-000000000004\", $first: Int! = 2) {\r\n  verlag(id: $id) {\r\n      name\r\n      gruendungsdatum\r\n      hauptsitz {\r\n          plz\r\n          ort\r\n          land\r\n      }\r\n  buecher(first: $first) {\r\n      id\r\n      isbn13\r\n      haupttitel  \r\n      nebentitel\r\n      erscheinungsdatum\r\n      auflage\r\n      preis {\r\n          bruttobetrag\r\n          waehrung\r\n      }\r\n      kategorie\r\n      seitenzahl,\r\n      autorVorname,\r\n      autorNachname\r\n  },\r\n  fachbereiche\r\n  }\r\n}",
 								"variables": "{\r\n  \"id\": \"00000000-0000-0000-0000-000000000004\",\r\n  \"first\": 2\r\n}"
 							}
 						},
@@ -60,7 +65,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query ($id: ID! = \"00000000-0000-0000-0000-000000000001\", $first: Int! = 2) {\r\n  verlag(id: $id) {\r\n      name\r\n      gruendungsdatum\r\n      hauptsitz {\r\n          plz\r\n          ort\r\n          land\r\n  }\r\n  buecher(first: $first) {\r\n      id\r\n      isbn13\r\n      haupttitel  \r\n      nebentitel\r\n      erscheinungsdatum\r\n      auflage\r\n      preis {\r\n          bruttobetrag\r\n          waehrung\r\n      }\r\n      kategorie\r\n      seitenzahl\r\n  }\r\n  }\r\n}",
+								"query": "query ($id: ID! = \"00000000-0000-0000-0000-000000000001\", $first: Int! = 2) {\r\n  verlag(id: $id) {\r\n      name\r\n      gruendungsdatum\r\n      hauptsitz {\r\n          plz\r\n          ort\r\n          land\r\n  }\r\n  buecher(first: $first) {\r\n      id\r\n      isbn13\r\n      haupttitel  \r\n      nebentitel\r\n      erscheinungsdatum\r\n      auflage\r\n      preis {\r\n          bruttobetrag\r\n          waehrung\r\n      }\r\n      kategorie\r\n      seitenzahl,\r\n      autorVorname,\r\n      autorNachname\r\n  },\r\n  fachbereiche\r\n  }\r\n}",
 								"variables": "{\r\n  \"id\": \"00000000-0000-0000-0000-000000ffffff\",\r\n  \"first\": 2\r\n}"
 							}
 						},
@@ -92,7 +97,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query ($gruendungsdatum: String! = \"1960-11-11\", $first: Int! = 2) {\r\n  verlage(input: {gruendungsdatum: $gruendungsdatum})  {\r\n      name\r\n      gruendungsdatum\r\n      hauptsitz {\r\n          plz\r\n          ort\r\n          land\r\n  }\r\n  buecher(first: $first) {\r\n      id\r\n      isbn13\r\n      haupttitel  \r\n      nebentitel\r\n      erscheinungsdatum\r\n      auflage\r\n      preis {\r\n          bruttobetrag\r\n          waehrung\r\n      }\r\n      kategorie\r\n      seitenzahl\r\n  }\r\n  }\r\n}",
+								"query": "query ($gruendungsdatum: String! = \"1960-11-11\", $first: Int! = 2) {\r\n  verlage(input: {gruendungsdatum: $gruendungsdatum})  {\r\n      name\r\n      gruendungsdatum\r\n      hauptsitz {\r\n          plz\r\n          ort\r\n          land\r\n  }\r\n  buecher(first: $first) {\r\n      id\r\n      isbn13\r\n      haupttitel  \r\n      nebentitel\r\n      erscheinungsdatum\r\n      auflage\r\n      preis {\r\n          bruttobetrag\r\n          waehrung\r\n      }\r\n      kategorie\r\n      seitenzahl,\r\n      autorVorname,\r\n      autorNachname\r\n  },\r\n  fachbereiche\r\n  }\r\n}",
 								"variables": "{\r\n  \"gruendungsdatum\": \"1960-11-11\",\r\n  \"first\": 2\r\n}"
 							}
 						},
@@ -124,7 +129,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "mutation {\r\n    create(\r\n        input: {\r\n            name: \"Springer Fachmedien Wiesbaden GmbH\"\r\n            gruendungsdatum: \"2010-01-19\"\r\n            hauptsitz: {\r\n                plz: \"65189\"\r\n                ort: \"Wiesbaden\"\r\n                land: \"Deutschland\"\r\n            }\r\n            buecher: [{\r\n                id: \"99000000-0000-0000-0000-000000000000\"\r\n                isbn13: \"9783658270018\"\r\n                haupttitel: \"Kosten- und Leistungsrechnung\"\r\n                nebentitel: \"Ein Überblick mit Fragen, Beispielen, Übungen und Lösungen\"\r\n                erscheinungsdatum: \"2019-01-01\"\r\n                auflage: 1\r\n                preis: {\r\n                    bruttobetrag: \"39.99\"\r\n                    waehrung: \"EUR\"\r\n                }\r\n                kategorie: SACHBUCH\r\n                seitenzahl: 190\r\n            }]\r\n        }\r\n    ){\r\n        id\r\n    }\r\n}",
+								"query": "mutation {\r\n    create(\r\n        input: {\r\n            name: \"Springer Fachmedien Wiesbaden GmbH\"\r\n            gruendungsdatum: \"2010-01-19\"\r\n            hauptsitz: {\r\n                plz: \"65189\"\r\n                ort: \"Wiesbaden\"\r\n                land: \"Deutschland\"\r\n            }\r\n            buecher: [{\r\n                id: \"99000000-0000-0000-0000-000000000000\"\r\n                isbn13: \"9783658270018\"\r\n                haupttitel: \"Kosten- und Leistungsrechnung\"\r\n                nebentitel: \"Ein Überblick mit Fragen, Beispielen, Übungen und Lösungen\"\r\n                erscheinungsdatum: \"2019-01-01\"\r\n                auflage: 1\r\n                preis: {\r\n                    bruttobetrag: \"39.99\"\r\n                    waehrung: \"EUR\"\r\n                }\r\n                kategorie: SACHBUCH\r\n                seitenzahl: 190,\r\n                autorId: \"00000000-0000-0000-0000-000000000001\"\r\n            }]\r\n            fachbereiche: [\r\n                WIRTSCHAFT\r\n            ]\r\n        }\r\n    ){\r\n        id\r\n    }\r\n}",
 								"variables": ""
 							}
 						},
@@ -151,7 +156,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "mutation {\r\n    create(\r\n        input: {\r\n            name: \"Springer Fachmedien Wiesbaden GmbHH\"\r\n            gruendungsdatum: \"3000-10-10\"\r\n            hauptsitz: {\r\n                plz: \"6518\"\r\n                ort: \"WiesbadenWiesbadenWiesbadenWiesbadenWiesbadenWiesbadenWiesbadenWiesbadenWiesbadenWiesbadenWiesbaden\"\r\n                land: \"Deutschland\"\r\n            }\r\n            buecher: [{\r\n                id: \"99000000-0000-0000-0000-000000000000\"\r\n                isbn13: \"9783658270018-ABC\"\r\n                haupttitel: \"Kosten- und Leistungsrechnung\"\r\n                nebentitel: \"Ein Überblick mit Fragen, Beispielen, Übungen und Lösungen\"\r\n                erscheinungsdatum: \"3000-10-10\"\r\n                auflage: 1\r\n                preis: {\r\n                    bruttobetrag: \"39.99\"\r\n                    waehrung: \"EUR\"\r\n                }\r\n                kategorie: SACHBUCH\r\n                seitenzahl: 190\r\n            }]\r\n        }\r\n    ){\r\n        id\r\n    }\r\n}",
+								"query": "mutation {\r\n    create(\r\n        input: {\r\n            name: \"Springer Fachmedien Wiesbaden GmbHH\"\r\n            gruendungsdatum: \"3000-10-10\"\r\n            hauptsitz: {\r\n                plz: \"6518\"\r\n                ort: \"WiesbadenWiesbadenWiesbadenWiesbadenWiesbadenWiesbadenWiesbadenWiesbadenWiesbadenWiesbadenWiesbaden\"\r\n                land: \"Deutschland\"\r\n            }\r\n            buecher: [{\r\n                id: \"99000000-0000-0000-0000-000000000000\"\r\n                isbn13: \"9783658270018-ABC\"\r\n                haupttitel: \"Kosten- und Leistungsrechnung\"\r\n                nebentitel: \"Ein Überblick mit Fragen, Beispielen, Übungen und Lösungen\"\r\n                erscheinungsdatum: \"3000-10-10\"\r\n                auflage: 1\r\n                preis: {\r\n                    bruttobetrag: \"39.99\"\r\n                    waehrung: \"EUR\"\r\n                }\r\n                kategorie: SACHBUCH\r\n                seitenzahl: 190,\r\n                autorId: \"00000000-0000-0000-0000-000000000001\"\r\n            }]\r\n            fachbereiche: [\r\n                WIRTSCHAFT\r\n            ]\r\n        }\r\n    ){\r\n        id\r\n    }\r\n}",
 								"variables": ""
 							}
 						},

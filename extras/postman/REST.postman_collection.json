@@ -10,13 +10,52 @@
 			"name": "Suche mit ID",
 			"item": [
 				{
-					"name": "Suche vorhandener ID 00000000-0000-0000-0000-000000000004",
+					"name": "Suche vorhandener ID 00000000-0000-0000-0000-000000000004 und zu hohem ETag",
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "Accept",
 								"value": "application/hal+json",
+								"type": "text"
+							},
+							{
+								"key": "If-None-Match",
+								"value": "\"2\"",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{rest_url}}/:id",
+							"host": [
+								"{{rest_url}}"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "00000000-0000-0000-0000-000000000004"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Suche vorhandener ID 00000000-0000-0000-0000-000000000004 und aktuellem ETag",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/hal+json",
+								"type": "text"
+							},
+							{
+								"key": "If-None-Match",
+								"value": "\"0\"",
 								"type": "text"
 							}
 						],
@@ -196,7 +235,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Springer Fachmedien Wiesbaden GmbH\",\r\n    \"gruendungsdatum\": \"2010-10-10\",\r\n    \"hauptsitz\": {\r\n        \"plz\": \"65189\",\r\n        \"ort\": \"Wiesbaden\",\r\n        \"land\": \"Deutschland\"\r\n    },\r\n    \"buecher\": [\r\n        {\r\n            \"id\": \"99000000-0000-0000-0000-000000000000\",\r\n            \"isbn13\": \"9783658270018\",\r\n            \"haupttitel\": \"Kosten- und Leistungsrechnung\",\r\n            \"nebentitel\": \"Ein Überblick mit Fragen, Beispielen, Übungen und Lösungen\",\r\n            \"erscheinungsdatum\": \"2019-12-12\",\r\n            \"auflage\": 1,\r\n            \"preis\": {\r\n                \"bruttobetrag\": 39.99,\r\n                \"waehrung\": \"EUR\"\r\n            },\r\n            \"kategorie\": \"S\",\r\n            \"seitenzahl\": 190\r\n        }\r\n    ]\r\n}"
+							"raw": "{\r\n    \"name\": \"Springer Fachmedien Wiesbaden GmbH\",\r\n    \"gruendungsdatum\": \"2010-10-10\",\r\n    \"hauptsitz\": {\r\n        \"plz\": \"65189\",\r\n        \"ort\": \"Wiesbaden\",\r\n        \"land\": \"Deutschland\"\r\n    },\r\n    \"buecher\": [\r\n        {\r\n            \"id\": \"99000000-0000-0000-0000-000000000000\",\r\n            \"isbn13\": \"9783658270018\",\r\n            \"haupttitel\": \"Kosten- und Leistungsrechnung\",\r\n            \"nebentitel\": \"Ein Überblick mit Fragen, Beispielen, Übungen und Lösungen\",\r\n            \"erscheinungsdatum\": \"2019-12-12\",\r\n            \"auflage\": 1,\r\n            \"preis\": {\r\n                \"bruttobetrag\": 39.99,\r\n                \"waehrung\": \"EUR\"\r\n            },\r\n            \"kategorie\": \"S\",\r\n            \"seitenzahl\": 190,\r\n            \"autorId\": \"00000000-0000-0000-0000-000000000001\"\r\n        }\r\n    ],\r\n    \"fachbereiche\": [\r\n        \"W\"\r\n    ] \r\n}"
 						},
 						"url": {
 							"raw": "{{rest_url}}",
@@ -220,7 +259,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"\",\r\n    \"gruendungsdatum\": \"2100-01-01\",\r\n    \"hauptsitz\": {\r\n        \"plz\": \"6518\",\r\n        \"ort\": \"IchBinEinVielZuLangerOrtsname_IchBinEinVielZuLangerOrtsname_IchBinEinVielZuLangerOrtsname_IchBinEinVielZuLangerOrtsname\",\r\n        \"land\": \"Deutschland\"\r\n    },\r\n    \"buecher\": [\r\n        {\r\n            \"id\": \"99000000-0000-0000-0000-000000000000\",\r\n            \"isbn13\": \"IchBinKeineISBN\",\r\n            \"haupttitel\": \"Kosten- und Leistungsrechnung\",\r\n            \"nebentitel\": \"Ein Überblick mit Fragen, Beispielen, Übungen und Lösungen\",\r\n            \"erscheinungsdatum\": \"2019-02-02\",\r\n            \"auflage\": 1,\r\n            \"preis\": {\r\n                \"bruttobetrag\": 39.99,\r\n                \"waehrung\": \"EUR\"\r\n            },\r\n            \"kategorie\": \"S\",\r\n            \"seitenzahl\": -10\r\n        }\r\n    ]\r\n}"
+							"raw": "{\r\n    \"name\": \"\",\r\n    \"gruendungsdatum\": \"2100-01-01\",\r\n    \"hauptsitz\": {\r\n        \"plz\": \"6518\",\r\n        \"ort\": \"IchBinEinVielZuLangerOrtsname_IchBinEinVielZuLangerOrtsname_IchBinEinVielZuLangerOrtsname_IchBinEinVielZuLangerOrtsname\",\r\n        \"land\": \"Deutschland\"\r\n    },\r\n    \"buecher\": [\r\n        {\r\n            \"id\": \"99000000-0000-0000-0000-000000000000\",\r\n            \"isbn13\": \"IchBinKeineISBN\",\r\n            \"haupttitel\": \"Kosten- und Leistungsrechnung\",\r\n            \"nebentitel\": \"Ein Überblick mit Fragen, Beispielen, Übungen und Lösungen\",\r\n            \"erscheinungsdatum\": \"2019-02-02\",\r\n            \"auflage\": 1,\r\n            \"preis\": {\r\n                \"bruttobetrag\": 39.99,\r\n                \"waehrung\": \"EUR\"\r\n            },\r\n            \"kategorie\": \"S\",\r\n            \"seitenzahl\": -10,\r\n            \"autorId\": \"00000000-0000-0000-0000-000000000001\"\r\n        }\r\n    ],\r\n    \"fachbereiche\": [\r\n        \"W\"\r\n    ] \r\n}"
 						},
 						"url": {
 							"raw": "{{rest_url}}",
@@ -244,7 +283,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Springer Fachmedien Wiesbaden GmbH\",\r\n    \"gruendungsdatum\": \"2010-01-01\",\r\n    \"hauptsitz\": {\r\n        \"plz\": \"65189\",\r\n        \"ort\": \"Wiesbaden\",\r\n        \"land\": \"Deutschland\"\r\n    },\r\n    \"buecher\": [\r\n        {\r\n            \"id\": \"99000000-0000-0000-0000-000000000000\",\r\n            \"isbn13\": \"9783658270018\",\r\n            \"haupttitel\": \"Kosten- und Leistungsrechnung\",\r\n            \"nebentitel\": \"Ein Überblick mit Fragen, Beispielen, Übungen und Lösungen\",\r\n            \"erscheinungsdatum\": \"2019-02-02\",\r\n            \"auflage\": 1,\r\n            \"preis\": {\r\n                \"bruttobetrag\": \"GanzVielGeld\",\r\n                \"waehrung\": \"EUR\"\r\n            },\r\n            \"kategorie\": \"S\",\r\n            \"seitenzahl\": 190\r\n        }\r\n    ]\r\n}"
+							"raw": "{\r\n    \"name\": \"Springer Fachmedien Wiesbaden GmbH\",\r\n    \"gruendungsdatum\": \"2010-01-01\",\r\n    \"hauptsitz\": {\r\n        \"plz\": \"65189\",\r\n        \"ort\": \"Wiesbaden\",\r\n        \"land\": \"Deutschland\"\r\n    },\r\n    \"buecher\": [\r\n        {\r\n            \"id\": \"99000000-0000-0000-0000-000000000000\",\r\n            \"isbn13\": \"9783658270018\",\r\n            \"haupttitel\": \"Kosten- und Leistungsrechnung\",\r\n            \"nebentitel\": \"Ein Überblick mit Fragen, Beispielen, Übungen und Lösungen\",\r\n            \"erscheinungsdatum\": \"2019-02-02\",\r\n            \"auflage\": 1,\r\n            \"preis\": {\r\n                \"bruttobetrag\": \"GanzVielGeld\",\r\n                \"waehrung\": \"EUR\"\r\n            },\r\n            \"kategorie\": \"S\",\r\n            \"seitenzahl\": 190,\r\n            \"autorId\": \"00000000-0000-0000-0000-000000000001\"\r\n        }\r\n    ],\r\n    \"fachbereiche\": [\r\n        \"W\"\r\n    ] \r\n}"
 						},
 						"url": {
 							"raw": "{{rest_url}}",
@@ -262,7 +301,7 @@
 			"name": "Ändern durch PUT",
 			"item": [
 				{
-					"name": "Verlag 1 (Carl Hanser) ändern",
+					"name": "Verlag 1 (Carl Hanser) ändern, mit falschem ETag",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -270,11 +309,54 @@
 								"key": "Content-Type",
 								"value": "application/json",
 								"type": "text"
+							},
+							{
+								"key": "If-Match",
+								"value": "\"100\"",
+								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Carl Hanser Verlag - Neuer Name\",\r\n    \"gruendungsdatum\": \"1928-04-10\",\r\n    \"hauptsitz\": {\r\n        \"plz\": \"81631\",\r\n        \"ort\": \"München\",\r\n        \"land\": \"Deutschland\"\r\n    },\r\n    \"buecher\": [\r\n        {\r\n            \"id\" : \"10000000-0000-0000-0000-000000000000\",\r\n            \"isbn13\": \"9783446430570\",\r\n            \"haupttitel\": \"UML 2 glasklar\",\r\n            \"nebentitel\": \"Praxiswissen für die UML-Modellierung\",\r\n            \"erscheinungsdatum\": \"2012-05-25\",\r\n            \"auflage\": 4,\r\n            \"preis\": {\r\n                \"bruttobetrag\": 34.9,\r\n                \"waehrung\": \"EUR\"\r\n            },\r\n            \"kategorie\": \"S\",\r\n            \"seitenzahl\": 560\r\n        }\r\n    ]\r\n}"
+							"raw": "{\r\n    \"name\": \"Carl Hanser Verlag - Neuer Name\",\r\n    \"gruendungsdatum\": \"1928-04-10\",\r\n    \"fachbereiche\": [\r\n        \"W\"\r\n    ] \r\n}"
+						},
+						"url": {
+							"raw": "{{rest_url}}/:id",
+							"host": [
+								"{{rest_url}}"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "00000000-0000-0000-0000-000000000001"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verlag 1 (Carl Hanser) ändern, mit aktuellemETag",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "If-Match",
+								"value": "\"0\"",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Carl Hanser Verlag - Neuer Name\",\r\n    \"gruendungsdatum\": \"1928-04-10\",\r\n    \"fachbereiche\": [\r\n        \"W\"\r\n    ] \r\n}"
 						},
 						"url": {
 							"raw": "{{rest_url}}/:id",
@@ -303,11 +385,16 @@
 								"key": "Content-Type",
 								"value": "application/json",
 								"type": "text"
+							},
+							{
+								"key": "If-Match",
+								"value": "\"0\"",
+								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Carl Hanser Verlag\",\r\n    \"gruendungsdatum\": \"1928-04-10\",\r\n    \"hauptsitz\": {\r\n        \"plz\": \"81631\",\r\n        \"ort\": \"München\",\r\n        \"land\": \"Deutschland\"\r\n    },\r\n    \"buecher\": [\r\n        {\r\n            \"id\": \"10000000-0000-0000-0000-000000000000\",\r\n            \"isbn13\": \"9783446430570\",\r\n            \"haupttitel\": \"UML 2 glasklar\",\r\n            \"nebentitel\": \"Praxiswissen für die UML-Modellierung\",\r\n            \"erscheinungsdatum\": \"2012-05-25\",\r\n            \"auflage\": 4,\r\n            \"preis\": {\r\n                \"bruttobetrag\": 34.9,\r\n                \"waehrung\": \"EUR\"\r\n            },\r\n            \"kategorie\": \"S\",\r\n            \"seitenzahl\": 560\r\n        }\r\n    ]\r\n}"
+							"raw": "{\r\n    \"name\": \"Carl Hanser Verlag\",\r\n    \"gruendungsdatum\": \"1928-04-10\",\r\n    \"fachbereiche\": [\r\n        \"W\"\r\n    ]\r\n}\r\n"
 						},
 						"url": {
 							"raw": "{{rest_url}}/:id",

@@ -1,0 +1,75 @@
+' Copyright (c) 2023 - present Florian Sauer
+'
+' This program is free software: you can redistribute it and/or modify
+' it under the terms of the GNU General Public License as published by
+' the Free Software Foundation, either version 3 of the License, or
+' (at your option) any later version.
+'
+' This program is distributed in the hope that it will be useful,
+' but WITHOUT ANY WARRANTY; without even the implied warranty of
+' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+' GNU General Public License for more details.
+'
+' You should have received a copy of the GNU General Public License
+' along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+' https://c4model.com
+' https://www.infoq.com/articles/C4-architecture-model
+' https://github.com/plantuml-stdlib/C4-PlantUML
+@startuml ER Diagramm
+
+' hide the spot
+hide circle
+
+' evtl. Prbleme mit Kraehenfuessen vermeiden
+skinparam linetype ortho
+
+entity "Adresse" {
+  * id : UUID <<generated>>
+  --
+  * plz : text
+  * ort : text
+  * land : text
+}
+
+entity "Verlag" {
+  * id : UUID <<generated>>
+  --
+  * version: integer
+  * erzeugt: timestamp
+  * aktualisiert: timestamp
+  * name : text
+  * fachbereiche: text
+  * gruendungsdatum: date
+  * **hauptsitz_id**: UUID <<FK>>
+}
+
+entity "Buch" {
+  * id : UUID <<generated>>
+  --
+  * isbn13 : text
+  * haupttitel : text
+  * nebentitel : text
+  * erscheinungsdatum : date
+  * auflage : integer
+  * kategorie : text
+  * seitenzahl : integer
+  * **preis_id** : UUID <<FK>>
+  * **verlag_id** : UUID <<FK>>
+  * **autor_id** : UUID <<FK>>
+}
+
+entity "Preis" {
+  * id : UID <<generated>>
+  --
+  * bruttobetrag : decimal
+  * waehrung : text
+}
+
+Verlag ||.left.|| Adresse
+Verlag ||.right.o{ Buch
+Buch ||.right.|| Preis
+
+footer (c)) Florian Sauer
+
+@enduml

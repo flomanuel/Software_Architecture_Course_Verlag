@@ -25,6 +25,7 @@ data:
   # Key-Value-Paare (hier: fuer die Umgebungsvariable)
   TZ: Europe/Berlin
   LANG: de_DE.utf8
+  SPRING_MAIL_HOST: {{ .Values.mailhost }}
   SPRING_PROFILES_DEFAULT: {{ .Values.profile }}
   SPRING_PROFILES_ACTIVE: {{ .Values.profile }}
   SERVER_SSL_ENABLED: {{ quote .Values.ssl }}
@@ -33,4 +34,6 @@ data:
   SPRING_DATASOURCE_URL: {{ .Values.datasource.url }}
   SPRING_DATASOURCE_USERNAME: {{ .Values.datasource.username }}
   SPRING_H2_CONSOLE_ENABLED: {{ quote .Values.h2.console.enabled }}
+  MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: {{ .Values.zipkin.endpoint }}
   APP_LOGFILE: {{ .Values.logfile }}
+  AUTOR_SERVICE_SCHEMA: {{ .Values.deployment.autorSchema }}

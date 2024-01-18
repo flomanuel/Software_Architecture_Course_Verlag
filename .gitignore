@@ -16,3 +16,4 @@ src/main/resources/keystore.p12
 src/main/resources/certificate.crt
 src/main/resources/private-key.pem
 /gradle.properties
+/gradle.properties.backup

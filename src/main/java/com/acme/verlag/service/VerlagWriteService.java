@@ -20,18 +20,23 @@ package com.acme.verlag.service;
 import com.acme.verlag.entity.Verlag;
 import com.acme.verlag.repository.VerlagRepository;
 import jakarta.validation.Validator;
+import jakarta.validation.groups.Default;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
 /**
  * Anwendungslogik für Verlage.
+ * <p/>
+ * <img src="../../../../../asciidoc/VerlagWriteService.svg" alt="Klassendiagramm">
  */
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional(readOnly = true)
 public class VerlagWriteService {
 
     private final VerlagRepository repository;
@@ -44,14 +49,19 @@ public class VerlagWriteService {
      * @return Der neu angelegte Verlag mit generierter ID.
      * @throws ConstraintViolationsException Falls mindestens ein Constraint verletzt ist.
      */
+    @Transactional
     public Verlag create(final Verlag verlag) {
-        log.debug("create: {}", verlag);
-        final var violations = validator.validate(verlag);
+        log.debug("create: verlag={}", verlag);
+        log.debug("create: hauptsitz={}", verlag.getHauptsitz());
+        log.debug("create: buecher={}", verlag.getBuecher());
+
+        final var violations = validator.validate(verlag, Default.class, Verlag.NeuValidation.class);
         if (!violations.isEmpty()) {
             log.debug("create: violations={}", violations);
             throw new ConstraintViolationsException(violations);
         }
-        final var verlagDB = repository.create(verlag);
+        final var verlagDB = repository.save(verlag);
+        log.trace("create: Thread-ID={}", Thread.currentThread().threadId());
         log.debug("create: {}", verlagDB);
         return verlagDB;
     }
@@ -59,24 +69,34 @@ public class VerlagWriteService {
     /**
      * Einen vorhandenen Verlag aktualisieren.
      *
-     * @param verlag Das Objekt mit den neuen Daten. Ohne ID.
-     * @param id     Die ID des zu aktualisierenden Verlags.
+     * @param verlag  Das Objekt mit den neuen Daten. Ohne ID.
+     * @param id      Die ID des zu aktualisierenden Verlags.
+     * @param version Die erforderliche Version.
+     * @return Der aktualisierte Verlag.
      * @throws ConstraintViolationsException Falls mindestens ein Constraint verletzt ist.
      * @throws NotFoundException             Kein Verlag zu gegebener ID vorhanden.
+     * @throws VersionOutdatedException      Die Versionsnummer ist veraltet und nicht aktuell.
      */
-    public void update(final Verlag verlag, final UUID id) {
-        log.debug("update: {}", verlag);
-        log.debug("update: id={}", id);
+    @Transactional
+    public Verlag update(final Verlag verlag, final UUID id, final int version) {
+        log.debug("update: verlag={}", verlag);
+        log.debug("update: id={}, version={}", id, version);
+
         final var violations = validator.validate(verlag);
         if (!violations.isEmpty()) {
             log.debug("update: violations={}", violations);
             throw new ConstraintViolationsException(violations);
         }
+        log.trace("update: Keine Constraints verletzt");
         final var verlagDBOptional = repository.findById(id);
-        if (verlagDBOptional.isEmpty()) {
-            throw new NotFoundException(id);
+        var verlagDb = verlagDBOptional.orElseThrow(() -> new NotFoundException(id));
+        log.trace("update: version={}, verlagDb={}", version, verlagDb);
+        if (version != verlagDb.getVersion()) {
+            throw new VersionOutdatedException(version);
         }
-        verlag.setId(id);
-        repository.update(verlag);
+        verlagDb.set(verlag);
+        verlagDb = repository.save(verlagDb);
+        log.debug("update: {}", verlagDb);
+        return verlagDb;
     }
 }

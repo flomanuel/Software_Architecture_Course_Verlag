@@ -42,13 +42,13 @@ import org.springframework.security.core.SpringSecurityCoreVersion;
 @SuppressFBWarnings("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE")
 final class Banner {
 
-    // http://patorjk.com/software/taag/#p=display&f=Slant&t=verlag2023.10.0
+    // http://patorjk.com/software/taag/#p=display&f=Slant&t=verlag2023.10.1
     private static final String FIGLET = """
-                          __           ___   ____ ___  _____  _______   ____
-         _   _____  _____/ /___ _____ |__ \\ / __ \\__ \\|__  / <  / __ \\ / __
-        | | / / _ \\/ ___/ / __ `/ __ `/_/ // / / /_/ / /_ <  / / / / // / / /
-        | |/ /  __/ /  / / /_/ / /_/ / __// /_/ / __/___/ / / / /_/ // /_/ /
-        |___/\\___/_/  /_/\\__,_/\\__, /____/\\____/____/____(_)_/\\____(_)____/
+                          __           ___   ____ ___  _____  _______   ___
+         _   _____  _____/ /___ _____ |__ \\ / __ \\__ \\|__  / <  / __ \\ <  /
+        | | / / _ \\/ ___/ / __ `/ __ `/_/ // / / /_/ / /_ <  / / / / / / /
+        | |/ /  __/ /  / / /_/ / /_/ / __// /_/ / __/___/ / / / /_/ / / /
+        |___/\\___/_/  /_/\\__,_/\\__, /____/\\____/____/____(_)_/\\____(_)_/
                               /____/
         """;
     private static final String JAVA = STR."\{Runtime.version()} - \{System.getProperty("java.vendor")}";
@@ -70,7 +70,7 @@ final class Banner {
 
         $figlet
         (C) Juergen Zimmermann, Hochschule Karlsruhe
-        Version             2023.10.0
+        Version             2023.10.1
         Spring Boot         $springBoot
         Spring Security     $springSecurity
         Spring Framework    $spring

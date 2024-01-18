@@ -1,0 +1,75 @@
+' Copyright (c) 2023 - present Florian Sauer
+'
+' This program is free software: you can redistribute it and/or modify
+' it under the terms of the GNU General Public License as published by
+' the Free Software Foundation, either version 3 of the License, or
+' (at your option) any later version.
+'
+' This program is distributed in the hope that it will be useful,
+' but WITHOUT ANY WARRANTY; without even the implied warranty of
+' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+' GNU General Public License for more details.
+'
+' You should have received a copy of the GNU General Public License
+' along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+' https://c4model.com
+' https://www.infoq.com/articles/C4-architecture-model
+' https://github.com/plantuml-stdlib/C4-PlantUML
+@startuml VerlagService
+
+skinparam classAttributeIconSize 0
+
+package java.util {
+    interface List<T>
+    interface Map<K, V>
+    class UUID
+}
+
+package org.springframework {
+    package stereotype {
+        interface Service
+    }
+
+    package transaction.annotation {
+        interface Transactional
+    }
+}
+
+
+package com.acme.verlag {
+    package entity {
+        class Verlag << entity >>
+
+        Verlag .up[hidden].> UUID
+        Verlag .up[hidden].> Service
+        Verlag .up[hidden].> Transactional
+    }
+
+    package repository {
+        interface VerlagRepository << control >>
+        interface AutorRepository << control >>
+    }
+
+    package service #DDDDDD {
+        class VerlagReadService << control >> << @Service >> {
+            + findById(id: UUID): Verlag
+            + find(suchkriterien: Map<String, List<String>>): Collection<Verlag>
+        }
+
+        VerlagReadService o--> "1" VerlagRepository : repo
+        VerlagReadService o--> "1" AutorRepository : repo
+        VerlagReadService .up.> Verlag
+        VerlagReadService .up.> UUID
+        VerlagReadService .up.> List
+        VerlagReadService .up.> Map
+        VerlagReadService .up.> Service
+        VerlagReadService ..> Transactional
+    }
+}
+
+hide empty members
+
+footer (c) Florian Sauer
+
+@enduml

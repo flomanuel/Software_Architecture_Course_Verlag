@@ -1,0 +1,156 @@
+' Copyright (c) 2023 - present Florian Sauer
+'
+' This program is free software: you can redistribute it and/or modify
+' it under the terms of the GNU General Public License as published by
+' the Free Software Foundation, either version 3 of the License, or
+' (at your option) any later version.
+'
+' This program is distributed in the hope that it will be useful,
+' but WITHOUT ANY WARRANTY; without even the implied warranty of
+' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+' GNU General Public License for more details.
+'
+' You should have received a copy of the GNU General Public License
+' along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+' https://c4model.com
+' https://www.infoq.com/articles/C4-architecture-model
+' https://github.com/plantuml-stdlib/C4-PlantUML
+@startuml Verlag
+
+skinparam classAttributeIconSize 0
+' skinparam monochrome true
+
+package java {
+    package util {
+        class UUID
+        interface List<T>
+        class BigDecimal
+        class Currency
+
+        BigDecimal -[hidden]up-> List
+        BigDecimal -[hidden]up-> Currency
+        BigDecimal -[hidden]down-> UUID
+        List -[hidden]down-> Currency
+    }
+
+    package time {
+        class LocalDate
+        class LocalDateTime
+
+        LocalDate -[hidden]down-> LocalDateTime
+    }
+
+    time -[hidden]down-> util
+}
+
+com.acme.verlag -[hidden]right-> java
+
+package jakarta.persistence {
+    interface "@Entity" as Entity
+    interface "@Table" as Table
+
+    Entity -[hidden]down-> Table
+}
+
+package com.acme.verlag {
+    package entity #DDDDDD {
+        class Buch << entity >> <<@Entity>> <<@Table>> {
+            @Id
+            @GeneratedValue
+            id : UUID
+            @Column
+            autorId : UUID
+            isbn13 : String
+            haupttitel : String
+            nebentitel : String
+            auflage : int
+            seitenzahl : int
+            erscheinungsdatum : LocalDate
+            kategorie : KategorieType
+            @Transient
+            autorVorname : String
+            @Transient
+            autorNachname : String
+            preis : Preis
+        }
+
+        class Preis << entity >> <<@Entity>> <<@Table>> {
+            @Id
+            @GeneratedValue
+            id : UUID
+            bruttobetrag : BigDecimal
+            waehrung : Currency
+        }
+
+        Buch ..> UUID
+
+        class Adresse << entity >> {
+            @Id
+            @GeneratedValue
+            id : UUID
+            plz: String
+            ort: String
+            land: String
+        }
+        Adresse ..> UUID
+
+        enum FachbereichType {
+            GESCHICHTSWISSENSCHAFTEN
+            PHYSIK
+            CHEMIE
+            WIRTSCHAFT
+            INFORMATIK
+            FANTASY
+        }
+
+        enum KategorieType {
+            SACHBUCH
+        }
+
+        class Verlag << entity >>  << @Entity >>  << @Table >> {
+            @Id
+            @GeneratedValue
+            id : UUID
+            @Version
+            version : int
+            @CreationTimestamp
+            erzeugt: LocalDateTime
+            @UpdateTimestamp
+            aktualisiert: LocalDateTime
+            name : String
+            @Transient
+            fachbereiche : List<FachbereichType>
+            @Column
+            fachbereicheStr : String
+            gruendungsdatum : LocalDate
+            hauptsitz : Adresse
+            buecher : List<Buch>
+        }
+
+        Verlag *--> "0..*" Buch : @OneToMany(cascade = [...]) \n@JoinColumn(...) \n@OrderColumn(...)\nbuch
+        Verlag *--> "1" Adresse : @OneToOne(cascade = [...]) \nadresse
+        Buch *--> "1" Preis : @OneToOne(cascade = [...]) \npreis
+
+        Verlag .up.> FachbereichType
+
+        Verlag .right.> UUID
+        Verlag .right.> LocalDate
+        Verlag .right.> LocalDateTime
+
+        Verlag .right.> List
+        Verlag .right.> Entity
+        Verlag .right.> Table
+
+        Buch .down.> KategorieType
+
+        Preis ..> Currency
+        Preis ..> BigDecimal
+    }
+}
+
+hide empty members
+
+footer (c) Florian Sauer
+
+@enduml

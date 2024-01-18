@@ -18,10 +18,17 @@
 package com.acme.verlag.service;
 
 import com.acme.verlag.entity.Verlag;
+import com.acme.verlag.repository.Autor;
+import com.acme.verlag.repository.AutorRepository;
+import com.acme.verlag.repository.SpecificationBuilder;
 import com.acme.verlag.repository.VerlagRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpStatusCodeException;
 
 import java.util.Collection;
 import java.util.List;
@@ -30,13 +37,18 @@ import java.util.UUID;
 
 /**
  * Anwendungslogik für Verlage.
+ * <p/>
+ * <img src="../../../../../asciidoc/VerlagReadService.svg" alt="Klassendiagramm">
  */
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional(readOnly = true)
 public class VerlagReadService {
 
-    private final VerlagRepository repository;
+    private final VerlagRepository verlagRepository;
+    private final AutorRepository autorRepository;
+    private final SpecificationBuilder specificationBuilder;
 
     /**
      * Einen Verlag anhand seiner ID suchen.
@@ -47,8 +59,9 @@ public class VerlagReadService {
      */
     public Verlag findById(final UUID id) {
         log.debug("findById: id={}", id);
-        final var verlag = repository.findById(id).orElseThrow(() -> new NotFoundException(id));
+        final var verlag = verlagRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
         log.debug("findById: {}", verlag);
+        this.addAuthorInfo(verlag);
         return verlag;
     }
 
@@ -63,13 +76,56 @@ public class VerlagReadService {
     public Collection<Verlag> find(final Map<String, List<String>> suchkriterien) {
         log.debug("find: suchkriterien={}", suchkriterien);
         if (suchkriterien.isEmpty()) {
-            return repository.findAll();
+            final var verlage = verlagRepository.findAll();
+            verlage.forEach(this::addAuthorInfo);
+            log.debug("find: {}", verlage);
+            return verlage;
         }
-        final var verlage = repository.find(suchkriterien);
+        final var spec = specificationBuilder
+            .build(suchkriterien)
+            .orElseThrow(() -> new NotFoundException(suchkriterien));
+        final var verlage = verlagRepository.findAll(spec);
         if (verlage.isEmpty()) {
             throw new NotFoundException(suchkriterien);
         }
+        verlage.forEach(this::addAuthorInfo);
         log.debug("find: {}", verlage);
         return verlage;
+    }
+
+    private void addAuthorInfo(Verlag verlag) {
+        verlag.getBuecher().forEach(
+            buch -> {
+                final var autor = findAutorById(buch.getAutorId());
+                var vorname = autor.vorname();
+                buch.setAutorVorname(vorname);
+                var nachname = autor.nachname();
+                buch.setAutorNachname(nachname);
+            });
+    }
+
+    /**
+     * Autor zur Autor-ID suchen.
+     *
+     * @param autorId Die ID des gegebenen Autors.
+     * @return Der gefundene Autor.
+     */
+    public Autor findAutorById(final UUID autorId) {
+        log.debug("findAutorById: autorId={}", autorId);
+        final ResponseEntity<Autor> autorResponse;
+        try {
+            autorResponse = autorRepository.getById(autorId);
+        } catch (final HttpClientErrorException.NotFound ex) {
+            // 404
+            log.debug("findAutorById: HttpClientErrorException.NotFound");
+            return new Autor("N/A", "N/A");
+        } catch (final HttpStatusCodeException ex) {
+            // 4xx oder 5xx
+            log.debug("findAutorById", ex);
+            return new Autor("Exception", "Exception");
+        }
+        final var autor = autorResponse.getBody();
+        log.debug("findAutorById: {}", autor);
+        return autor;
     }
 }

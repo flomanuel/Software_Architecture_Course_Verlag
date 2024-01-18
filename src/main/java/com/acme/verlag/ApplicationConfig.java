@@ -24,17 +24,20 @@ import org.springframework.aot.hint.RuntimeHintsRegistrar;
  *
  * @author <a href="mailto:Juergen.Zimmermann@h-ka.de">Jürgen Zimmermann</a>
  */
-final class ApplicationConfig implements SecurityConfig {
+final class ApplicationConfig implements SecurityConfig, AutorClientConfig {
+
     ApplicationConfig() { //package private; spring kann objekt erzeugen
     }
 
     // https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#native-image.advanced.custom-hints
     // https://stackoverflow.com/questions/76287163/...
     // ...how-to-specify-the-location-of-a-keystore-file-with-spring-aot-processing
+
     /**
      * Keystores f&uuml;r TLS und SQL-Skripte f&uuml;r GraalVM registrieren.
      */
     static class CertificateResourcesRegistrar implements RuntimeHintsRegistrar {
+
         @Override
         public void registerHints(final RuntimeHints hints, final ClassLoader classLoader) {
             hints.resources().registerPattern("*.p12");

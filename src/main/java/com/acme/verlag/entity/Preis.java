@@ -17,19 +17,32 @@
 
 package com.acme.verlag.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.util.Currency;
+import java.util.UUID;
 
 /**
  * Währung und Bruttobetrag für den Buchpreis.
+ * <p/>
+ * <img src="../../../../../asciidoc/Verlag.svg" alt="Klassendiagramm">
  */
+@Entity
+@Table(name = "preis")
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Getter
 @Setter
@@ -41,6 +54,10 @@ public class Preis {
      * Konstante für die minimale Größe eines Bruttobetrags.
      */
     public static final String DECIMAL_MIN_BRUTTOBETRAG = "0.0";
+
+    @Id
+    @GeneratedValue
+    private UUID id;
 
     /**
      * Der Bruttobetrag des Preises.

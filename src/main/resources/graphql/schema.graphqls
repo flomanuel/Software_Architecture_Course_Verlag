@@ -44,6 +44,7 @@ type Verlag {
   hauptsitz: Adresse!
   "Die in diesem Verlag veröffentlichten Bücher."
   buecher(first: Int!): [Buch!]
+  fachbereiche: [String!]
 }
 
 "Eigenschaften eines Buch-Datensatzes."
@@ -63,9 +64,15 @@ type Buch {
   "Preis des Buches."
   preis: Preis!
   "Kategorie des Buches."
-  kategorie: Kategorie!
+  kategorie: String!
   "Seitenzahl des Buches."
   seitenzahl: Int!
+  "Vorname des Autors."
+  autorVorname: String!
+  "Nachname des Autors."
+  autorNachname: String!
+  "ID des Autors."
+  autorId: ID!
 }
 
 "Daten zu einer Adresse."
@@ -96,6 +103,17 @@ input VerlagInput {
   hauptsitz: AdresseInput!
   "Die in diesem Verlag veröffentlichten Bücher."
   buecher: [BuchInput!]
+  "Die Fachbereiche des Verlags."
+  fachbereiche: [Fachbereich]
+}
+
+"Aufzählungstyp für die Fachbereiche eines Verlags."
+enum Fachbereich {
+  GESCHICHTSWISSENSCHAFTEN,
+  PHYSIK,
+  CHEMIE,
+  WIRTSCHAFT,
+  INFORMATIK
 }
 
 "Neue Adresse."
@@ -125,6 +143,8 @@ input BuchInput {
   kategorie: Kategorie!
   "Seitenzahl des Buches."
   seitenzahl: Int!
+  "ID des Autors."
+  autorId: ID!
 }
 
 "Aufzählungstyp für die Kategorien eines Buches."

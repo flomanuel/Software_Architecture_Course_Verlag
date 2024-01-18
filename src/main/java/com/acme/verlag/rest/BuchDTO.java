@@ -20,6 +20,7 @@ package com.acme.verlag.rest;
 import com.acme.verlag.entity.KategorieType;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 /**
  * ValueObject für das Neuanlegen und Ändern eines Buches.
@@ -32,6 +33,9 @@ import java.time.LocalDate;
  * @param kategorie         Die Kategorie eines Buches.
  * @param isbn13            Die ISBN13 eines Buches.
  * @param seitenzahl        Die Seitenzahl eines Buches.
+ * @param autorVorname      Der Vorname des Autors.
+ * @param autorNachname     Der Nachname des Autors.
+ * @param autorId           Die ID des Autors.
  */
 record BuchDTO(
     String haupttitel,
@@ -41,7 +45,9 @@ record BuchDTO(
     PreisDTO preis,
     KategorieType kategorie,
     String isbn13,
-    int seitenzahl
-) {
+    int seitenzahl,
+    String autorVorname,
+    String autorNachname,
+    UUID autorId) {
 
 }

@@ -13,10 +13,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+datasource:
+  # Passwort für die DB (Base64)
+  password: Q2hhbmdlIE1lIQ==
+  url: jdbc:postgresql://postgres/verlag
+
 autoscaling:
   maxReplicas: 1
 
 replicaCount: 1
+
+progressDeadlineSeconds: 45
 
 image:
   pullPolicy: IfNotPresent
@@ -24,6 +31,8 @@ image:
 profile: dev
 ssl: "false"
 http2: "false"
+
+mailhost: fakesmtp
 
 resourcesRequests:
   #cpu: 1000m
@@ -51,7 +60,3 @@ readinessProbe:
   period: 180
   #failureThreshold: 1
   failureThreshold: 2
-
-h2:
-  console:
-    enabled: "false"

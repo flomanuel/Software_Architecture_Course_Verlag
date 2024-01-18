@@ -17,6 +17,8 @@
 
 package com.acme.verlag.rest;
 
+import com.acme.verlag.entity.FachbereichType;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -27,12 +29,14 @@ import java.util.List;
  * @param gruendungsdatum Das Gründungsdatum des Verlags.
  * @param hauptsitz       Der Hauptsitz des Verlags.
  * @param buecher         Die Bücher, die in einem Verlag erschienen sind.
+ * @param fachbereiche    Die Fachbereiche des Verlags.
  */
 record VerlagDTO(
     String name,
     LocalDate gruendungsdatum,
     AdresseDTO hauptsitz,
-    List<BuchDTO> buecher
+    List<BuchDTO> buecher,
+    List<FachbereichType> fachbereiche
 ) {
 
 }

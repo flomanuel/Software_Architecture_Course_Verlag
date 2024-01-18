@@ -24,7 +24,7 @@ import java.util.Currency;
  * ValueObject für das Neuanlegen und Ändern eines Buches.
  *
  * @param bruttobetrag Der Bruttobetrag des Buchpreises.
- * @param waehrung Die Währung des Buchpreises.
+ * @param waehrung     Die Währung des Buchpreises.
  */
 record PreisDTO(
     BigDecimal bruttobetrag,
